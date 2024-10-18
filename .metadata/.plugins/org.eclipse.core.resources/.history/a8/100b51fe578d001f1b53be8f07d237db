@@ -1,0 +1,27 @@
+/* Header file includes. */
+#include "cyhal.h"
+#include "cybsp.h"
+#include "cy_retarget_io.h"
+#include <inttypes.h>
+
+/* FreeRTOS header file. */
+#include <FreeRTOS.h>
+#include <task.h>
+#include <queue.h>
+
+/* Declare the queue handle */
+extern QueueHandle_t motor_pins_queue;
+
+void task_send_motor_pins(void *arg)
+{
+    uint8_t motorPinsValue = 0b01010101;  // De binaire waarde 01010101
+
+    for (;;)
+    {
+        /* Stuur de waarde naar de motor_pins_queue */
+        xQueueSend(motor_pins_queue, &motorPinsValue, portMAX_DELAY);
+
+        /* Wacht een tijdje voordat je de waarde opnieuw verstuurt */
+        vTaskDelay(pdMS_TO_TICKS(250));  // 250 ms delay
+    }
+}
