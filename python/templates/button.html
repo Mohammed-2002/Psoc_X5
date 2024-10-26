@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MQTT Status Display</title>
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .container { max-width: 500px; margin: 0 auto; padding: 20px; }
+        h2, h3 { text-align: center; }
+        ul { list-style-type: none; padding: 0; }
+        li { background: #f3f3f3; padding: 10px; margin: 5px 0; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>MQTT Topics</h2>
+
+        <h3>Topic States</h3>
+
+        <p id="ledState">LED: Unknown</p>
+        <p id="motorState">MOTORPINS: Unknown</p>
+
+        <h3>Publish to Topic</h3>
+
+        <p>LED</p>
+        <button id="ledButton" onclick="toggleAndPublish('ledstate', this)">TURN ON</button>
+        <p>MOTOR</p>
+        <button id="motorButton" onclick="toggleAndPublish('motorstate', this)">TURN ON</button>
+
+        <!-- <ul id="messages"></ul> -->
+    </div>
+
+    <script>
+        const socket = io();
+        
+        const topics = ["ledstate", "motorstate"]; // Add the topics you want to subscribe to here
+
+        // subscribe on page load
+        window.onload = () => {
+            topics.forEach(topic => {
+                socket.emit('subscribe', JSON.stringify({ topic: topic }));
+                console.log(`Subscribed to topic: ${topic}`);
+            });
+        };
+
+        /*
+        // Listen for incoming MQTT messages and display them
+        socket.on('mqtt_message', function(data) {
+            const messageElement = document.createElement("li");
+            messageElement.textContent = `Topic: ${data.topic}, Message: ${data.payload}`;
+            document.getElementById("messages").appendChild(messageElement);
+        });
+        */
+        //on incoming message
+        socket.on('mqtt_message', function(data) {
+            if (data.topic === "ledstate") {
+                document.getElementById("ledState").textContent = `LED: ${data.payload}`;
+            } else if (data.topic === "motorstate") {
+                document.getElementById("motorState").textContent = `MOTORPINS: ${data.payload}`;
+            }
+        });
+
+        //publish to topic
+        function publishToTopic(topic, message) {
+            if (message) {
+                socket.emit('publish', JSON.stringify({ topic: topic, message: message }));
+                console.log(`Published message: '${message}' to topic: ${topic}`);
+            }
+        }
+
+        function toggleAndPublish(topic, button) {
+            // Get the current button text (TURN ON or TURN OFF)
+            const currentState = button.textContent;
+
+            // Publish the current state to the MQTT topic
+            socket.emit('publish', JSON.stringify({ topic: topic, message: currentState }));
+            console.log(`Published message: '${currentState}' to topic: ${topic}`);
+
+            // Toggle the button text
+            button.textContent = (currentState === "TURN ON") ? "TURN OFF" : "TURN ON";
+        }
+    </script>
+</body>
+</html>
