@@ -31,7 +31,7 @@ Release/
 .metadata/
 .settings/
 .cproject
-.project
+#.project
 .mtbLaunchConfigs/
 makefile.init
 
