@@ -297,10 +297,28 @@ void mqtt_subscription_callback(cy_mqtt_publish_info_t *received_msg_info)
 	}
 	else if (strncmp(subscriber_q_data.topic, MQTT_MOTOR_CONTROL_TOPIC, received_msg_info->topic_len) == 0)
 	{
-		/* Command for controlling motor pins */
+
 		subscriber_q_data.cmd = UPDATE_MOTOR_STATE;
+		/*
 		subscriber_q_data.data = (strncmp(MQTT_MOTOR_ON_MESSAGE, received_msg, received_msg_len) == 0)
-										  ? MOTOR_ON_STATE : MOTOR_OFF_STATE; // Custom function to parse motor bits
+									  ? MOTOR_ON_STATE : MOTOR_OFF_STATE;
+		*/
+
+		if (strncmp(MQTT_MOTOR_FORWARD_MESSAGE, received_msg, received_msg_len) == 0) {
+		    subscriber_q_data.data = MOTOR_FORWARD;
+		} else if (strncmp(MQTT_MOTOR_BACKWARD_MESSAGE, received_msg, received_msg_len) == 0) {
+			subscriber_q_data.data = MOTOR_BACKWARD;
+		} else if (strncmp(MQTT_MOTOR_LEFT_MESSAGE, received_msg, received_msg_len) == 0) {
+			subscriber_q_data.data = MOTOR_LEFT;
+		} else if (strncmp(MQTT_MOTOR_RIGHT_MESSAGE, received_msg, received_msg_len) == 0) {
+			subscriber_q_data.data = MOTOR_RIGHT;
+		} else if (strncmp(MQTT_MOTOR_CLOCKWISE_MESSAGE, received_msg, received_msg_len) == 0) {
+			subscriber_q_data.data = MOTOR_CLOCKWISE;
+		} else if (strncmp(MQTT_MOTOR_COUNTERCLOCKWISE_MESSAGE, received_msg, received_msg_len) == 0) {
+			subscriber_q_data.data = MOTOR_COUNTERCLOCKWISE;
+		} else {
+		    subscriber_q_data.data = MOTOR_OFF_STATE;  // Default to off if message doesn't match any known command
+		}
 	}
 	else
 	{

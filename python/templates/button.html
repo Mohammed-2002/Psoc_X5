@@ -5,11 +5,53 @@
     <title>MQTT Status Display</title>
     <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
     <style>
-        body { font-family: Arial, sans-serif; }
-        .container { max-width: 500px; margin: 0 auto; padding: 20px; }
-        h2, h3 { text-align: center; }
-        ul { list-style-type: none; padding: 0; }
-        li { background: #f3f3f3; padding: 10px; margin: 5px 0; border-radius: 5px; }
+        body { 
+            font-family: Arial, sans-serif; 
+        }
+
+        .container { 
+            max-width: 500px; 
+            margin: 0 auto; 
+            padding: 20px; 
+        }
+
+        h2, h3 { 
+            text-align: center; 
+        }
+
+        ul { 
+            list-style-type: none;
+            padding: 0; 
+        }
+        
+        li { 
+            background: #f3f3f3; 
+            padding: 10px;
+            margin: 5px 0; 
+            border-radius: 5px; 
+        }
+        
+        .disabled-button {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-template-rows: repeat(3, 100px);
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+            margin-top: 50px;
+        }
+
+        .grid-button {
+            width: 100%;
+            height: 100%;
+            font-size: 16px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -24,9 +66,21 @@
         <h3>Publish to Topic</h3>
 
         <p>LED</p>
-        <button id="ledButton" onclick="toggleAndPublish('ledstate', this)">TURN ON</button>
+        <button id="ledButton" onclick="toggleLed('ledstate', this)">TURN ON</button>
         <p>MOTOR</p>
-        <button id="motorButton" onclick="toggleAndPublish('motorstate', this)">TURN ON</button>
+
+        <div class="grid-container">
+            <button id="clockwiseButton" class="grid-button" onclick="publishMotorCommand('motorstate', this)">&#10227;</button>
+            <button id="forwardButton" class="grid-button" onclick="publishMotorCommand('motorstate', this)">FORWARD</button>
+            <button id="counterclockwiseButton" class="grid-button" onclick="publishMotorCommand('motorstate', this)">&#10226;</button>
+            <button id="leftButton" class="grid-button" onclick="publishMotorCommand('motorstate', this)">LEFT</button>
+            <button id="turnoffButton" class="grid-button" onclick="publishMotorCommand('motorstate', this)">TURN OFF</button>
+            <button id="rightButton" class="grid-button" onclick="publishMotorCommand('motorstate', this)">RIGHT</button>
+            <button id="emptyButton" class="grid-button" onclick="publishMotorCommand('motorstate', this)"></button>
+            <button id="backwardButton" class="grid-button" onclick="publishMotorCommand('motorstate', this)">BACKWARD</button>
+            <button id="emptyButton" class="grid-button" onclick="publishMotorCommand('motorstate', this)"></button>
+            
+        </div>
 
         <!-- <ul id="messages"></ul> -->
     </div>
@@ -36,7 +90,6 @@
         
         const topics = ["ledstate", "motorstate"]; // Add the topics you want to subscribe to here
 
-        // subscribe on page load
         window.onload = () => {
             topics.forEach(topic => {
                 socket.emit('subscribe', JSON.stringify({ topic: topic }));
@@ -44,14 +97,6 @@
             });
         };
 
-        /*
-        // Listen for incoming MQTT messages and display them
-        socket.on('mqtt_message', function(data) {
-            const messageElement = document.createElement("li");
-            messageElement.textContent = `Topic: ${data.topic}, Message: ${data.payload}`;
-            document.getElementById("messages").appendChild(messageElement);
-        });
-        */
         //on incoming message
         socket.on('mqtt_message', function(data) {
             if (data.topic === "ledstate") {
@@ -68,18 +113,75 @@
                 console.log(`Published message: '${message}' to topic: ${topic}`);
             }
         }
+        
+        function enableAll() {
+            const buttons = [
+                document.getElementById("forwardButton"),
+                document.getElementById("backwardButton"),
+                document.getElementById("leftButton"),
+                document.getElementById("rightButton"),
 
-        function toggleAndPublish(topic, button) {
-            // Get the current button text (TURN ON or TURN OFF)
-            const currentState = button.textContent;
-
-            // Publish the current state to the MQTT topic
-            socket.emit('publish', JSON.stringify({ topic: topic, message: currentState }));
-            console.log(`Published message: '${currentState}' to topic: ${topic}`);
-
-            // Toggle the button text
-            button.textContent = (currentState === "TURN ON") ? "TURN OFF" : "TURN ON";
+                document.getElementById("clockwiseButton"),
+                document.getElementById("counterclockwiseButton"),
+            
+                document.getElementById("turnoffButton")
+            ];
+        
+            buttons.forEach(button => {
+                button.disabled = false;
+                button.classList.remove("disabled-button");
+            });
         }
+
+        function toggleLed(topic, button) {
+            const command = button.textContent;
+
+            socket.emit('publish', JSON.stringify({ topic: topic, message: command }));
+            console.log(`Published message: '${command}' to topic: ${topic}`);
+        
+            button.textContent = (command === "TURN ON") ? "TURN OFF" : "TURN ON";
+        }
+
+        function publishMotorCommand(topic, button) {
+            enableAll()
+
+            let command;
+            switch (button.id) {
+                case "forwardButton":
+                    command = "GO FORWARD";
+                    break;
+                case "backwardButton":
+                    command = "GO BACKWARD";
+                    break;
+                case "leftButton":
+                    command = "GO LEFT";
+                    break;
+                case "rightButton":
+                    command = "GO RIGHT";
+                    break;
+
+                case "clockwiseButton":
+                    command = "GO CLOCKWISE";
+                    break;
+                case "counterclockwiseButton":
+                    command = "GO COUNTERCLOCKWISE";
+                    break;
+
+                case "turnoffButton":
+                    command = "TURN OFF";
+                    break;
+                default:
+                    console.error("Unknown button ID");
+                    return;
+            } 
+
+            socket.emit('publish', JSON.stringify({ topic: topic, message: command }));
+            console.log(`Published message: '${command}' to topic: ${topic}`);
+
+            button.disabled = !button.disabled;
+            button.classList.toggle("disabled-button");
+        }
+
     </script>
 </body>
 </html>

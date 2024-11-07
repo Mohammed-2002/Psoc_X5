@@ -1,0 +1,28 @@
+[PIN]: vooruit draaien
+[PIN]: achteruit draaien
+
+
+[11.6]------[11.7]
+[11.5]		[11.2]
+ |				|
+ |				|
+ |				|
+ |				|
+ |				|
+[11.3]		[12.3]
+[11.4]------[ 0.5]
+
+
+motorpin messages:
+			  				 LV RV LA RA
+ - FORWARD				= 0b 10 10 10 10 
+ - BACKWARD				= 0b 01 01 01 01
+ - LEFT					= 0b 01 10 10 01
+ - RIGHT				= 0b 10 01 01 10
+
+ - CLOCKWISE 			= 0b 10 01 10 01
+ - COUNTERCLOCKWISE 	= 0b 01 10 01 10
+
+ - TURN OFF				= 0b 00 00 00 00
+
+ 

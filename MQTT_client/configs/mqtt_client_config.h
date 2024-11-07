@@ -123,6 +123,14 @@
 #define MQTT_MOTOR_ON_MESSAGE			  "TURN ON"
 #define MQTT_MOTOR_OFF_MESSAGE            "TURN OFF"
 
+#define MQTT_MOTOR_FORWARD_MESSAGE			"GO FORWARD"
+#define MQTT_MOTOR_BACKWARD_MESSAGE			"GO BACKWARD"
+#define MQTT_MOTOR_LEFT_MESSAGE				"GO LEFT"
+#define MQTT_MOTOR_RIGHT_MESSAGE			"GO RIGHT"
+
+#define MQTT_MOTOR_CLOCKWISE_MESSAGE				"GO CLOCKWISE"
+#define MQTT_MOTOR_COUNTERCLOCKWISE_MESSAGE			"GO COUNTERCLOCKWISE"
+
 /******************* OTHER MQTT CLIENT CONFIGURATION MACROS *******************/
 /* A unique client identifier to be used for every MQTT connection. */
 #define MQTT_CLIENT_IDENTIFIER            "psoc6-mqtt-client"
