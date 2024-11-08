@@ -61,10 +61,12 @@
 /* Include de custom headers voor de taken */
 #include "task_send_motor_pins.h"
 #include "task_receive_motor_pins.h"
+#include "task_receive_motor_duty_cycle.h"
+
 
 /* Queue handle declaratie */
 QueueHandle_t motor_pins_queue;
-
+QueueHandle_t motor_duty_cycle_queue;
 /******************************************************************************
  * Function Name: main
  ******************************************************************************
@@ -109,6 +111,15 @@ int main()
     /* Create motor_pins_queue voor 8-bit waarden */
 	motor_pins_queue = xQueueCreate(10, sizeof(uint8_t));  // Queue voor 10 items van 8-bit data
 
+	// In main() function
+	motor_duty_cycle_queue = xQueueCreate(10, sizeof(uint8_t));  // Queue voor 10 items van 8-bit duty cycle waarden
+
+	if (motor_duty_cycle_queue == NULL)
+	{
+		printf("Failed to create motor duty cycle queue.\n");
+		CY_ASSERT(0);
+	}
+
 	/* Create queue voor subscriber waarden */
 	//subscriber_task_q = xQueueCreate(SUBSCRIBER_TASK_QUEUE_LENGTH, sizeof(subscriber_data_t));
 
@@ -127,6 +138,10 @@ int main()
 
     /* Maak de taak die motor pin waarden ontvangt en naar GPIO schrijft */
     xTaskCreate(task_receive_motor_pins, "ReceiveMotorPinsTask", 1024, NULL, 1, NULL);
+
+
+	xTaskCreate(task_receive_motor_duty_cycle, "ReceiveMotorDutyCycleTask", 1024, NULL, 1, NULL);
+
 
     /* Start the FreeRTOS scheduler. */
     vTaskStartScheduler();

@@ -84,6 +84,7 @@ TaskHandle_t subscriber_task_handle;
 /* Handle of the queue holding the commands for the subscriber task */
 QueueHandle_t subscriber_task_q;
 extern QueueHandle_t motor_pins_queue;
+extern QueueHandle_t motor_duty_cycle_queue;
 
 /* Variable to denote the current state of the user LED that is also used by 
  * the publisher task.

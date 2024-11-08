@@ -6879,3 +6879,214 @@ This warning can be switched off on the Team > Git > Confirmations and Warnings 
 
 !ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-07 23:16:00.155
 !MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/gcc/bin/arm-none-eabi-gdb.exe --interpreter=mi2 --nx
+!SESSION 2024-11-08 09:28:05.824 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=17.0.7
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=nl_BE
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY org.eclipse.ui 2 0 2024-11-08 09:37:02.574
+!MESSAGE Warnings while parsing the commands from the 'org.eclipse.ui.commands' and 'org.eclipse.ui.actionDefinitions' extension points.
+!SUBENTRY 1 org.eclipse.ui 2 0 2024-11-08 09:37:02.574
+!MESSAGE Commands should really have a category: plug-in='com.cypress.studio.app', id='com.cypress.studio.app.commands.CyBuildAllApplicationsCommand', categoryId='com.cypress.studio.app.commands.category.CyBuildApplication'
+!SUBENTRY 1 org.eclipse.ui 2 0 2024-11-08 09:37:02.574
+!MESSAGE Commands should really have a category: plug-in='com.cypress.studio.app', id='com.cypress.studio.app.commands.CyBuildApplicationCommand', categoryId='com.cypress.studio.app.commands.category.CyBuildApplication'
+!SUBENTRY 1 org.eclipse.ui 2 0 2024-11-08 09:37:02.574
+!MESSAGE Commands should really have a category: plug-in='com.cypress.studio.app', id='com.cypress.studio.app.commands.CyCleanApplicationCommand', categoryId='com.cypress.studio.app.commands.category.CyBuildApplication'
+
+!ENTRY org.eclipse.ui 2 0 2024-11-08 09:37:03.495
+!MESSAGE Warnings while parsing the commands from the 'org.eclipse.ui.commands' and 'org.eclipse.ui.actionDefinitions' extension points.
+!SUBENTRY 1 org.eclipse.ui 2 0 2024-11-08 09:37:03.495
+!MESSAGE Commands should really have a category: plug-in='com.cypress.studio.app', id='com.cypress.studio.app.commands.CyBuildAllApplicationsCommand', categoryId='com.cypress.studio.app.commands.category.CyBuildApplication'
+!SUBENTRY 1 org.eclipse.ui 2 0 2024-11-08 09:37:03.495
+!MESSAGE Commands should really have a category: plug-in='com.cypress.studio.app', id='com.cypress.studio.app.commands.CyBuildApplicationCommand', categoryId='com.cypress.studio.app.commands.category.CyBuildApplication'
+!SUBENTRY 1 org.eclipse.ui 2 0 2024-11-08 09:37:03.495
+!MESSAGE Commands should really have a category: plug-in='com.cypress.studio.app', id='com.cypress.studio.app.commands.CyCleanApplicationCommand', categoryId='com.cypress.studio.app.commands.category.CyBuildApplication'
+
+!ENTRY org.eclipse.egit.ui 2 0 2024-11-08 09:37:10.389
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\Johannes'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.cdt.ui 4 4 2024-11-08 10:47:24.951
+!MESSAGE Error
+!STACK 1
+C Model Exception: Core Exception [code 77] 
+ is an invalid character in resource name 'task_receive_motor_duty_cycle.h
+'.
+	at org.eclipse.cdt.internal.core.model.BatchOperation.executeOperation(BatchOperation.java:47)
+	at org.eclipse.cdt.internal.core.model.CModelOperation.execute(CModelOperation.java:346)
+	at org.eclipse.cdt.internal.core.model.CModelOperation.run(CModelOperation.java:613)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2382)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2407)
+	at org.eclipse.cdt.core.model.CoreModel.run(CoreModel.java:1230)
+	at org.eclipse.cdt.internal.ui.actions.WorkbenchRunnableAdapter.run(WorkbenchRunnableAdapter.java:88)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:122)
+Caused by: org.eclipse.core.internal.resources.ResourceException: 
+ is an invalid character in resource name 'task_receive_motor_duty_cycle.h
+'.
+	at org.eclipse.core.internal.resources.Resource.checkValidPath(Resource.java:436)
+	at org.eclipse.core.internal.resources.File.create(File.java:104)
+	at org.eclipse.core.internal.resources.File.create(File.java:181)
+	at org.eclipse.cdt.internal.ui.wizards.filewizard.NewSourceFileGenerator.createFile(NewSourceFileGenerator.java:150)
+	at org.eclipse.cdt.internal.ui.wizards.filewizard.NewSourceFileGenerator.createNewFile(NewSourceFileGenerator.java:139)
+	at org.eclipse.cdt.internal.ui.wizards.filewizard.NewSourceFileGenerator.createEmptyFile(NewSourceFileGenerator.java:117)
+	at org.eclipse.cdt.internal.ui.wizards.filewizard.NewSourceFileGenerator.createHeaderFile(NewSourceFileGenerator.java:104)
+	at org.eclipse.cdt.internal.ui.wizards.filewizard.NewHeaderFileCreationWizardPage.createFile(NewHeaderFileCreationWizardPage.java:163)
+	at org.eclipse.cdt.internal.ui.wizards.filewizard.AbstractFileCreationWizard.finishPage(AbstractFileCreationWizard.java:43)
+	at org.eclipse.cdt.internal.ui.wizards.NewElementWizard.lambda$1(NewElementWizard.java:88)
+	at org.eclipse.cdt.internal.core.model.BatchOperation.executeOperation(BatchOperation.java:36)
+	... 7 more
+!SUBENTRY 1 org.eclipse.cdt.core 4 966 2024-11-08 10:47:24.952
+!MESSAGE 
+ is an invalid character in resource name 'task_receive_motor_duty_cycle.h
+'.
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: 
+ is an invalid character in resource name 'task_receive_motor_duty_cycle.h
+'.
+	at org.eclipse.core.internal.resources.Resource.checkValidPath(Resource.java:436)
+	at org.eclipse.core.internal.resources.File.create(File.java:104)
+	at org.eclipse.core.internal.resources.File.create(File.java:181)
+	at org.eclipse.cdt.internal.ui.wizards.filewizard.NewSourceFileGenerator.createFile(NewSourceFileGenerator.java:150)
+	at org.eclipse.cdt.internal.ui.wizards.filewizard.NewSourceFileGenerator.createNewFile(NewSourceFileGenerator.java:139)
+	at org.eclipse.cdt.internal.ui.wizards.filewizard.NewSourceFileGenerator.createEmptyFile(NewSourceFileGenerator.java:117)
+	at org.eclipse.cdt.internal.ui.wizards.filewizard.NewSourceFileGenerator.createHeaderFile(NewSourceFileGenerator.java:104)
+	at org.eclipse.cdt.internal.ui.wizards.filewizard.NewHeaderFileCreationWizardPage.createFile(NewHeaderFileCreationWizardPage.java:163)
+	at org.eclipse.cdt.internal.ui.wizards.filewizard.AbstractFileCreationWizard.finishPage(AbstractFileCreationWizard.java:43)
+	at org.eclipse.cdt.internal.ui.wizards.NewElementWizard.lambda$1(NewElementWizard.java:88)
+	at org.eclipse.cdt.internal.core.model.BatchOperation.executeOperation(BatchOperation.java:36)
+	at org.eclipse.cdt.internal.core.model.CModelOperation.execute(CModelOperation.java:346)
+	at org.eclipse.cdt.internal.core.model.CModelOperation.run(CModelOperation.java:613)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2382)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2407)
+	at org.eclipse.cdt.core.model.CoreModel.run(CoreModel.java:1230)
+	at org.eclipse.cdt.internal.ui.actions.WorkbenchRunnableAdapter.run(WorkbenchRunnableAdapter.java:88)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:122)
+!SUBENTRY 2 org.eclipse.core.resources 4 77 2024-11-08 10:47:24.952
+!MESSAGE 
+ is an invalid character in resource name 'task_receive_motor_duty_cycle.h
+'.
+
+!ENTRY org.eclipse.cdt.ui 4 4 2024-11-08 10:48:32.528
+!MESSAGE Error
+!STACK 1
+C Model Exception: Core Exception [code 77] 
+ is an invalid character in resource name 'task_receive_motor_duty_cycle.h
+'.
+	at org.eclipse.cdt.internal.core.model.BatchOperation.executeOperation(BatchOperation.java:47)
+	at org.eclipse.cdt.internal.core.model.CModelOperation.execute(CModelOperation.java:346)
+	at org.eclipse.cdt.internal.core.model.CModelOperation.run(CModelOperation.java:613)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2382)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2407)
+	at org.eclipse.cdt.core.model.CoreModel.run(CoreModel.java:1230)
+	at org.eclipse.cdt.internal.ui.actions.WorkbenchRunnableAdapter.run(WorkbenchRunnableAdapter.java:88)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:122)
+Caused by: org.eclipse.core.internal.resources.ResourceException: 
+ is an invalid character in resource name 'task_receive_motor_duty_cycle.h
+'.
+	at org.eclipse.core.internal.resources.Resource.checkValidPath(Resource.java:436)
+	at org.eclipse.core.internal.resources.File.create(File.java:104)
+	at org.eclipse.core.internal.resources.File.create(File.java:181)
+	at org.eclipse.cdt.internal.ui.wizards.filewizard.NewSourceFileGenerator.createFile(NewSourceFileGenerator.java:150)
+	at org.eclipse.cdt.internal.ui.wizards.filewizard.NewSourceFileGenerator.createNewFile(NewSourceFileGenerator.java:139)
+	at org.eclipse.cdt.internal.ui.wizards.filewizard.NewSourceFileGenerator.createEmptyFile(NewSourceFileGenerator.java:117)
+	at org.eclipse.cdt.internal.ui.wizards.filewizard.NewSourceFileGenerator.createHeaderFile(NewSourceFileGenerator.java:104)
+	at org.eclipse.cdt.internal.ui.wizards.filewizard.NewHeaderFileCreationWizardPage.createFile(NewHeaderFileCreationWizardPage.java:163)
+	at org.eclipse.cdt.internal.ui.wizards.filewizard.AbstractFileCreationWizard.finishPage(AbstractFileCreationWizard.java:43)
+	at org.eclipse.cdt.internal.ui.wizards.NewElementWizard.lambda$1(NewElementWizard.java:88)
+	at org.eclipse.cdt.internal.core.model.BatchOperation.executeOperation(BatchOperation.java:36)
+	... 7 more
+!SUBENTRY 1 org.eclipse.cdt.core 4 966 2024-11-08 10:48:32.528
+!MESSAGE 
+ is an invalid character in resource name 'task_receive_motor_duty_cycle.h
+'.
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: 
+ is an invalid character in resource name 'task_receive_motor_duty_cycle.h
+'.
+	at org.eclipse.core.internal.resources.Resource.checkValidPath(Resource.java:436)
+	at org.eclipse.core.internal.resources.File.create(File.java:104)
+	at org.eclipse.core.internal.resources.File.create(File.java:181)
+	at org.eclipse.cdt.internal.ui.wizards.filewizard.NewSourceFileGenerator.createFile(NewSourceFileGenerator.java:150)
+	at org.eclipse.cdt.internal.ui.wizards.filewizard.NewSourceFileGenerator.createNewFile(NewSourceFileGenerator.java:139)
+	at org.eclipse.cdt.internal.ui.wizards.filewizard.NewSourceFileGenerator.createEmptyFile(NewSourceFileGenerator.java:117)
+	at org.eclipse.cdt.internal.ui.wizards.filewizard.NewSourceFileGenerator.createHeaderFile(NewSourceFileGenerator.java:104)
+	at org.eclipse.cdt.internal.ui.wizards.filewizard.NewHeaderFileCreationWizardPage.createFile(NewHeaderFileCreationWizardPage.java:163)
+	at org.eclipse.cdt.internal.ui.wizards.filewizard.AbstractFileCreationWizard.finishPage(AbstractFileCreationWizard.java:43)
+	at org.eclipse.cdt.internal.ui.wizards.NewElementWizard.lambda$1(NewElementWizard.java:88)
+	at org.eclipse.cdt.internal.core.model.BatchOperation.executeOperation(BatchOperation.java:36)
+	at org.eclipse.cdt.internal.core.model.CModelOperation.execute(CModelOperation.java:346)
+	at org.eclipse.cdt.internal.core.model.CModelOperation.run(CModelOperation.java:613)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2382)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2407)
+	at org.eclipse.cdt.core.model.CoreModel.run(CoreModel.java:1230)
+	at org.eclipse.cdt.internal.ui.actions.WorkbenchRunnableAdapter.run(WorkbenchRunnableAdapter.java:88)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:122)
+!SUBENTRY 2 org.eclipse.core.resources 4 77 2024-11-08 10:48:32.528
+!MESSAGE 
+ is an invalid character in resource name 'task_receive_motor_duty_cycle.h
+'.
+
+!ENTRY org.eclipse.cdt.ui 4 4 2024-11-08 10:52:56.305
+!MESSAGE Error
+!STACK 1
+C Model Exception: Core Exception [code 77] 
+ is an invalid character in resource name 'task_receive_motor_duty_cycle.h
+'.
+	at org.eclipse.cdt.internal.core.model.BatchOperation.executeOperation(BatchOperation.java:47)
+	at org.eclipse.cdt.internal.core.model.CModelOperation.execute(CModelOperation.java:346)
+	at org.eclipse.cdt.internal.core.model.CModelOperation.run(CModelOperation.java:613)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2382)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2407)
+	at org.eclipse.cdt.core.model.CoreModel.run(CoreModel.java:1230)
+	at org.eclipse.cdt.internal.ui.actions.WorkbenchRunnableAdapter.run(WorkbenchRunnableAdapter.java:88)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:122)
+Caused by: org.eclipse.core.internal.resources.ResourceException: 
+ is an invalid character in resource name 'task_receive_motor_duty_cycle.h
+'.
+	at org.eclipse.core.internal.resources.Resource.checkValidPath(Resource.java:436)
+	at org.eclipse.core.internal.resources.File.create(File.java:104)
+	at org.eclipse.core.internal.resources.File.create(File.java:181)
+	at org.eclipse.cdt.internal.ui.wizards.filewizard.NewSourceFileGenerator.createFile(NewSourceFileGenerator.java:150)
+	at org.eclipse.cdt.internal.ui.wizards.filewizard.NewSourceFileGenerator.createNewFile(NewSourceFileGenerator.java:139)
+	at org.eclipse.cdt.internal.ui.wizards.filewizard.NewSourceFileGenerator.createEmptyFile(NewSourceFileGenerator.java:117)
+	at org.eclipse.cdt.internal.ui.wizards.filewizard.NewSourceFileGenerator.createHeaderFile(NewSourceFileGenerator.java:104)
+	at org.eclipse.cdt.internal.ui.wizards.filewizard.NewHeaderFileCreationWizardPage.createFile(NewHeaderFileCreationWizardPage.java:163)
+	at org.eclipse.cdt.internal.ui.wizards.filewizard.AbstractFileCreationWizard.finishPage(AbstractFileCreationWizard.java:43)
+	at org.eclipse.cdt.internal.ui.wizards.NewElementWizard.lambda$1(NewElementWizard.java:88)
+	at org.eclipse.cdt.internal.core.model.BatchOperation.executeOperation(BatchOperation.java:36)
+	... 7 more
+!SUBENTRY 1 org.eclipse.cdt.core 4 966 2024-11-08 10:52:56.305
+!MESSAGE 
+ is an invalid character in resource name 'task_receive_motor_duty_cycle.h
+'.
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: 
+ is an invalid character in resource name 'task_receive_motor_duty_cycle.h
+'.
+	at org.eclipse.core.internal.resources.Resource.checkValidPath(Resource.java:436)
+	at org.eclipse.core.internal.resources.File.create(File.java:104)
+	at org.eclipse.core.internal.resources.File.create(File.java:181)
+	at org.eclipse.cdt.internal.ui.wizards.filewizard.NewSourceFileGenerator.createFile(NewSourceFileGenerator.java:150)
+	at org.eclipse.cdt.internal.ui.wizards.filewizard.NewSourceFileGenerator.createNewFile(NewSourceFileGenerator.java:139)
+	at org.eclipse.cdt.internal.ui.wizards.filewizard.NewSourceFileGenerator.createEmptyFile(NewSourceFileGenerator.java:117)
+	at org.eclipse.cdt.internal.ui.wizards.filewizard.NewSourceFileGenerator.createHeaderFile(NewSourceFileGenerator.java:104)
+	at org.eclipse.cdt.internal.ui.wizards.filewizard.NewHeaderFileCreationWizardPage.createFile(NewHeaderFileCreationWizardPage.java:163)
+	at org.eclipse.cdt.internal.ui.wizards.filewizard.AbstractFileCreationWizard.finishPage(AbstractFileCreationWizard.java:43)
+	at org.eclipse.cdt.internal.ui.wizards.NewElementWizard.lambda$1(NewElementWizard.java:88)
+	at org.eclipse.cdt.internal.core.model.BatchOperation.executeOperation(BatchOperation.java:36)
+	at org.eclipse.cdt.internal.core.model.CModelOperation.execute(CModelOperation.java:346)
+	at org.eclipse.cdt.internal.core.model.CModelOperation.run(CModelOperation.java:613)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2382)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2407)
+	at org.eclipse.cdt.core.model.CoreModel.run(CoreModel.java:1230)
+	at org.eclipse.cdt.internal.ui.actions.WorkbenchRunnableAdapter.run(WorkbenchRunnableAdapter.java:88)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:122)
+!SUBENTRY 2 org.eclipse.core.resources 4 77 2024-11-08 10:52:56.305
+!MESSAGE 
+ is an invalid character in resource name 'task_receive_motor_duty_cycle.h
+'.
