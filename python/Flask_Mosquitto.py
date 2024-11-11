@@ -1,8 +1,10 @@
 import eventlet
 eventlet.monkey_patch()
 import json
-from flask import Flask, render_template
-from flask_socketio import SocketIO
+import socket
+import threading
+from flask import Flask, render_template, jsonify
+from flask_socketio import SocketIO, emit
 from flask_mqtt import Mqtt
 from flask_bootstrap import Bootstrap
 from flask_cors import CORS
@@ -20,7 +22,28 @@ mqtt = Mqtt(app)
 bootstrap = Bootstrap(app)
 socketio = SocketIO(app, cors_allowed_origins='*', async_mode="eventlet")
 
-led_state = 'OFF'
+UDP_IP = "192.168.57.204"
+UDP_PORT = 57345
+sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+sock.bind((UDP_IP, UDP_PORT))
+
+sensor_data = None
+
+def listen_to_udp():
+    global sensor_data
+    while True:
+        data, addr = sock.recvfrom(1024)  # Buffer size
+        sensor_data = data.decode('utf-8')
+        #print(f"Received UDP data: {sensor_data}")
+        socketio.emit('update_sensor_data', {'sensor_data': sensor_data})
+
+udp_thread = threading.Thread(target=listen_to_udp)
+udp_thread.daemon = True
+udp_thread.start()
+
+@app.route('/api/data')
+def get_data():
+    return jsonify({'sensor_data': sensor_data})
 
 @app.route('/')
 def index():

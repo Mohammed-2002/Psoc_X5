@@ -56,7 +56,9 @@
 </head>
 <body>
     <div class="container">
-        <h2>MQTT Topics</h2>
+        <h3>UDP States</h3>
+
+        <p id="sensorData">STATE: Unknown<p>
 
         <h3>Topic States</h3>
 
@@ -96,6 +98,10 @@
                 console.log(`Subscribed to topic: ${topic}`);
             });
         };
+
+        socket.on('update_sensor_data', function(data) {
+            document.getElementById('sensorData').textContent = `LED: ${data.sensor_data}`;
+        });
 
         //on incoming message
         socket.on('mqtt_message', function(data) {
