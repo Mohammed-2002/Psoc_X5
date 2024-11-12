@@ -58,9 +58,14 @@
     <div class="container">
         <h3>UDP States</h3>
 
-        <p id="sensorData">STATE: Unknown<p>
+        <!-- <p id="sensorData">STATE: Unknown<p> -->
 
-        <h3>Topic States</h3>
+        <p id="sensor1">STATE: Unknown<p>
+        <p id="sensor2">STATE: Unknown<p>
+        <p id="sensor3">STATE: Unknown<p>
+        <!-- <p id="sensor4">STATE: Unknown<p> -->
+
+        <h3>MQTT States</h3>
 
         <p id="ledState">LED: Unknown</p>
         <p id="motorState">MOTORPINS: Unknown</p>
@@ -100,7 +105,13 @@
         };
 
         socket.on('update_sensor_data', function(data) {
-            document.getElementById('sensorData').textContent = `LED: ${data.sensor_data}`;
+            //document.getElementById('sensorData').textContent = `LED: ${data.sensor_data}`;
+
+            document.getElementById('sensor1').textContent = `Distance 1: ${data.sensor_data[1]} cm`;
+            document.getElementById('sensor2').textContent = `Distance 2: ${data.sensor_data[2]} cm`;
+            document.getElementById('sensor3').textContent = `Distance 3: ${data.sensor_data[3]} cm`;
+            //document.getElementById('sensor4').textContent = `Distance 4: ${data.sensor_data[4]} cm`;
+
         });
 
         //on incoming message

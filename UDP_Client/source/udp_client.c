@@ -56,6 +56,7 @@
 
 /* UDP client task header file. */
 #include "udp_client.h"
+#include "sensor_readout.h"
 
 /*******************************************************************************
 * Macros
@@ -99,6 +100,7 @@ cy_socket_sockaddr_t peer_addr;
 extern TaskHandle_t client_task_handle;
 
 extern QueueHandle_t led_state_queue;
+extern QueueHandle_t distance_queue;
 
 /*******************************************************************************
  * Function Name: udp_client_task
@@ -275,8 +277,10 @@ void udp_client_task(void *arg)
         printf("Failed to send data to server. Error : %"PRIu32"\n", result);
     }
 
+    SensorData_t received_data;
     while(true)
     {
+    	/*
     	if (xQueueReceive(led_state_queue, &led_state, portMAX_DELAY) == pdPASS) {
     		printf("LED state: %d\n", led_state);
 
@@ -290,6 +294,24 @@ void udp_client_task(void *arg)
 			} else {
                 printf("LED state sent: %s\n", ack_message);
             }
+		}
+		*/
+    	if (xQueueReceive(distance_queue, &received_data, portMAX_DELAY) == pdPASS) {
+    		printf("UDP Task: Received Sensor %d Distance: %.2f cm\n",
+    		                   received_data.sensor_id, received_data.distance);
+
+    		char message[50];
+    		snprintf(message, sizeof(message), "{\"sensor_id\": %d, \"distance\": %.2f}",
+    		                     received_data.sensor_id, received_data.distance);
+
+			result = cy_socket_sendto(client_handle, message, strlen(message),
+									  CY_SOCKET_FLAGS_NONE, &udp_server_addr,
+									  sizeof(cy_socket_sockaddr_t), &bytes_sent);
+			if (result != CY_RSLT_SUCCESS) {
+				printf("Failed to send LED state to server. Error: %" PRIu32 "\n", result);
+			} else {
+				printf("Sensor data sent: %s\n", message);
+			}
 		}
     }
 }

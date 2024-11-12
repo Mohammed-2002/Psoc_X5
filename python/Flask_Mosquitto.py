@@ -27,22 +27,41 @@ UDP_PORT = 57345
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 sock.bind((UDP_IP, UDP_PORT))
 
-sensor_data = None
+#sensor_data = None
+
+sensor_data = {} 
 
 def listen_to_udp():
     global sensor_data
     while True:
         data, addr = sock.recvfrom(1024)  # Buffer size
-        sensor_data = data.decode('utf-8')
-        #print(f"Received UDP data: {sensor_data}")
+        message = data.decode('utf-8')
+        '''
         socketio.emit('update_sensor_data', {'sensor_data': sensor_data})
+        '''
+
+        try:
+            parsed_data = json.loads(message)
+            sensor_id = parsed_data["sensor_id"]
+            distance = parsed_data["distance"]
+
+            sensor_data[sensor_id] = distance
+
+            socketio.emit('update_sensor_data', {'sensor_data': sensor_data})
+
+        except json.JSONDecodeError:
+            print("Received malformed JSON:", message)
 
 udp_thread = threading.Thread(target=listen_to_udp)
 udp_thread.daemon = True
 udp_thread.start()
 
-@app.route('/api/data')
-def get_data():
+@app.route('/api/ledData')
+def get_ledData():
+    return jsonify({'sensor_data': sensor_data})
+
+@app.route('/api/sensorData')
+def get_sensorData():
     return jsonify({'sensor_data': sensor_data})
 
 @app.route('/')

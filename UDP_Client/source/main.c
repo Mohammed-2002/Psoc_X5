@@ -54,7 +54,7 @@
 /* UDP client task header file. */
 #include "udp_client.h"
 #include "button_led_task.h"
-#include "udp_client.h"
+#include "sensor_readout.h"
 /* Include serial flash library and QSPI memory configurations only for the
  * kits that require the Wi-Fi firmware to be loaded in external QSPI NOR flash.
  */
@@ -120,7 +120,10 @@ int main(void)
         }
     xTaskCreate(button_led_task, "Button_LED_Task", 1024, NULL, 1, NULL);
 
+    xTaskCreate(sensor_readout_task, "Sensor task", 1024, NULL, 1, NULL);
+
     /* Init QSPI and enable XIP to get the Wi-Fi firmware from the QSPI NOR flash */
+    /*
     #if defined(CY_DEVICE_PSOC6A512K)
     const uint32_t bus_frequency = 50000000lu;
     cy_serial_flash_qspi_init(smifMemConfigs[0], CYBSP_QSPI_D0, CYBSP_QSPI_D1,
@@ -129,7 +132,7 @@ int main(void)
 
     cy_serial_flash_qspi_enable_xip(true);
     #endif
-
+	*/
     /* \x1b[2J\x1b[;H - ANSI ESC sequence to clear screen. */
     printf("\x1b[2J\x1b[;H");
     printf("============================================================\n");

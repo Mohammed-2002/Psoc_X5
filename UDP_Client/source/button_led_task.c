@@ -41,7 +41,7 @@ void button_led_task(void *arg) {
             vTaskDelay(pdMS_TO_TICKS(100));  // Debounce delay
         }
 
-        if (xTaskGetTickCount() - last_send_time >= pdMS_TO_TICKS(200)) {
+        if (xTaskGetTickCount() - last_send_time >= pdMS_TO_TICKS(100)) {
         	if (xQueueSend(led_state_queue, &led_state, portMAX_DELAY) != pdPASS) {
             	printf("Failed to send LED state to queue\n");
 			}
