@@ -7,9 +7,18 @@
 #include "queue.h"
 
 // Struct to hold sensor data
+/*
 typedef struct {
     int sensor_id;
     float distance;
+} SensorData_t;
+*/
+
+typedef struct {
+    float distance0;
+    float distance1;
+    float distance2;
+    float distance3;
 } SensorData_t;
 
 // Function to initialize distance measurement resources

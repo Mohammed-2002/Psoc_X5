@@ -1,4 +1,5 @@
-#include "sensor_readout.h"
+#include "sensor_readout_task.h"
+
 #include "cyhal.h"
 #include "cybsp.h"
 #include "cy_retarget_io.h"
@@ -10,10 +11,10 @@
 #define SOUND_SPEED_CM_PER_US 0.0343
 #define TIMEOUT_THRESHOLD 50000
 
-#define SENSOR1_TRIGGER_PIN P11_7
-#define SENSOR1_ECHO_PIN    P11_2
-#define SENSOR2_TRIGGER_PIN P11_3
-#define SENSOR2_ECHO_PIN    P11_4
+#define SENSOR1_TRIGGER_PIN P11_3
+#define SENSOR1_ECHO_PIN    P11_4
+#define SENSOR2_TRIGGER_PIN P11_7
+#define SENSOR2_ECHO_PIN    P11_2
 #define SENSOR3_TRIGGER_PIN P12_3
 #define SENSOR3_ECHO_PIN    P0_5
 #define SENSOR4_TRIGGER_PIN P11_6
@@ -121,7 +122,7 @@ void sensor_readout_task(void *params) {
     int prev_states[4] = {0, 0, 0, 0};
 
     // Initialize GPIOs for distance sensors and RPM sensors
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 4; i++) {
         cyhal_gpio_init(trigger_pins[i], CYHAL_GPIO_DIR_OUTPUT, CYHAL_GPIO_DRIVE_STRONG, false);
         cyhal_gpio_init(echo_pins[i], CYHAL_GPIO_DIR_INPUT, CYHAL_GPIO_DRIVE_NONE, false);
         //init_sensor_pin(rpm_pins[i]);
@@ -132,10 +133,33 @@ void sensor_readout_task(void *params) {
 	}
 
     while (true) {
+    	float distance0 = measure_distance(trigger_pins[0], echo_pins[0]);
+    	float distance1 = measure_distance(trigger_pins[1], echo_pins[1]);
+    	float distance2 = measure_distance(trigger_pins[2], echo_pins[2]);
+    	float distance3 = measure_distance(trigger_pins[3], echo_pins[3]);
+
+    	SensorData_t data =
+			{ .distance0 = distance0,
+		   	  .distance1 = distance1,
+			  .distance2 = distance2,
+			  .distance3 = distance3
+			};
+
+    	if (xQueueSend(distance_queue, &data, pdMS_TO_TICKS(100)) != pdPASS) {
+			printf("Failed to send data to queue\n");
+    	}
+    	/*
+    	printf("Sensor 0 Distance: %.2f cm\n", data.distance0);
+    	printf("Sensor 1 Distance: %.2f cm\n", data.distance1);
+    	printf("Sensor 2 Distance: %.2f cm\n", data.distance2);
+    	printf("Sensor 3 Distance: %.2f cm\n", data.distance3);
+    	*/
+    	vTaskDelay(pdMS_TO_TICKS(20));
+    	/*
         // Measure and print distances for each sensor
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 4; i++) {
             float distance = measure_distance(trigger_pins[i], echo_pins[i]);
-            //printf("Sensor %d Distance: %f cm\r\n", i + 1, distance);
+            printf("Sensor %d Distance: %f cm\r\n", i + 1, distance);
 
             if (distance >= 0) {
 				SensorData_t data = { .sensor_id = i + 1, .distance = distance };
@@ -145,7 +169,9 @@ void sensor_readout_task(void *params) {
 				printf("Sensor %d Distance: %.2f cm\n", data.sensor_id, data.distance);
 			}
         }
+
         vTaskDelay(pdMS_TO_TICKS(50));
+        */
         /*
         // Update pulse counts for each RPM sensor
         for (int i = 0; i < 4; i++) {

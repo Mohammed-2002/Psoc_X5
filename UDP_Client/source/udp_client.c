@@ -45,6 +45,8 @@
 
 /* FreeRTOS header file. */
 #include <FreeRTOS.h>
+#include <sensor_readout_task.h>
+#include <accelerometer_task.h>
 #include <task.h>
 #include "queue.h"
 /* Cypress secure socket header file. */
@@ -56,7 +58,6 @@
 
 /* UDP client task header file. */
 #include "udp_client.h"
-#include "sensor_readout.h"
 
 /*******************************************************************************
 * Macros
@@ -277,7 +278,8 @@ void udp_client_task(void *arg)
         printf("Failed to send data to server. Error : %"PRIu32"\n", result);
     }
 
-    SensorData_t received_data;
+    SensorData_t sensor_data;
+    AcceleroData_t accelero_data;
     while(true)
     {
     	/*
@@ -296,13 +298,31 @@ void udp_client_task(void *arg)
             }
 		}
 		*/
-    	if (xQueueReceive(distance_queue, &received_data, portMAX_DELAY) == pdPASS) {
-    		printf("UDP Task: Received Sensor %d Distance: %.2f cm\n",
-    		                   received_data.sensor_id, received_data.distance);
 
-    		char message[50];
-    		snprintf(message, sizeof(message), "{\"sensor_id\": %d, \"distance\": %.2f}",
-    		                     received_data.sensor_id, received_data.distance);
+    	if (xQueueReceive(distance_queue, &sensor_data, /*portMAX_DELAY*/ pdMS_TO_TICKS(30)) == pdPASS) {
+    		char message[100];
+			snprintf(message, sizeof(message), "{\"distance0\": %.2f, \"distance1\": %.2f, \"distance2\": %.2f, \"distance3\": %.2f}",
+										sensor_data.distance0, sensor_data.distance1, sensor_data.distance2, sensor_data.distance3);
+
+			result = cy_socket_sendto(client_handle, message, strlen(message),
+									  CY_SOCKET_FLAGS_NONE, &udp_server_addr,
+									  sizeof(cy_socket_sockaddr_t), &bytes_sent);
+			if (result != CY_RSLT_SUCCESS) {
+				printf("Failed to send distance to server. Error: %" PRIu32 "\n", result);
+			} else {
+				printf("Sensor data sent: %s\n", message);
+			}
+			//vTaskDelay(pdMS_TO_TICKS(20));
+		}
+
+    	if (xQueueReceive(accelero_queue, &accelero_data, /*portMAX_DELAY*/ pdMS_TO_TICKS(2)) == pdPASS) {
+			//printf("UDP Task: Received on axis x, value: %.2f g\n", accelero_data.accel_x_g);
+			//printf("UDP Task: Received on axis y, value: %.2f g\n", accelero_data.accel_y_g);
+			//printf("UDP Task: Received on axis z, value: %.2f g\n", accelero_data.accel_z_g);
+
+			char message[100];
+			snprintf(message, sizeof(message), "{\"accel_x_g\": %.2f, \"accel_y_g\": %.2f, \"accel_z_g\": %.2f}",
+							accelero_data.accel_x_g, accelero_data.accel_y_g, accelero_data.accel_z_g);
 
 			result = cy_socket_sendto(client_handle, message, strlen(message),
 									  CY_SOCKET_FLAGS_NONE, &udp_server_addr,
@@ -312,6 +332,7 @@ void udp_client_task(void *arg)
 			} else {
 				printf("Sensor data sent: %s\n", message);
 			}
+			//vTaskDelay(pdMS_TO_TICKS(20));
 		}
     }
 }

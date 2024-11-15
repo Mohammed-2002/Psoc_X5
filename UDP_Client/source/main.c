@@ -48,13 +48,14 @@
 
 /* FreeRTOS header file. */
 #include <FreeRTOS.h>
+#include <sensor_readout_task.h>
+#include <accelerometer_task.h>
 #include <task.h>
 #include "queue.h"
 
 /* UDP client task header file. */
 #include "udp_client.h"
 #include "button_led_task.h"
-#include "sensor_readout.h"
 /* Include serial flash library and QSPI memory configurations only for the
  * kits that require the Wi-Fi firmware to be loaded in external QSPI NOR flash.
  */
@@ -121,6 +122,8 @@ int main(void)
     xTaskCreate(button_led_task, "Button_LED_Task", 1024, NULL, 1, NULL);
 
     xTaskCreate(sensor_readout_task, "Sensor task", 1024, NULL, 1, NULL);
+
+    xTaskCreate(accelerometer_task, "Accelero task", 1024, NULL, 1, NULL);
 
     /* Init QSPI and enable XIP to get the Wi-Fi firmware from the QSPI NOR flash */
     /*

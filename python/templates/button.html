@@ -52,18 +52,26 @@
             font-size: 16px;
             cursor: pointer;
         }
+
+        #canvas { border: 1px solid #ccc; background: #f9f9f9; }
+
     </style>
 </head>
 <body>
     <div class="container">
         <h3>UDP States</h3>
 
-        <!-- <p id="sensorData">STATE: Unknown<p> -->
+        <canvas id="canvas" width="400" height="400"></canvas>
+        <canvas id="carCanvas" width="400" height="400"></canvas>
 
         <p id="sensor1">STATE: Unknown<p>
         <p id="sensor2">STATE: Unknown<p>
         <p id="sensor3">STATE: Unknown<p>
-        <!-- <p id="sensor4">STATE: Unknown<p> -->
+        <p id="sensor4">STATE: Unknown<p>
+
+        <p id="accX">STATE: Unknown<p>
+        <p id="accY">STATE: Unknown<p>
+        <p id="accZ">STATE: Unknown<p>
 
         <h3>MQTT States</h3>
 
@@ -107,10 +115,22 @@
         socket.on('update_sensor_data', function(data) {
             //document.getElementById('sensorData').textContent = `LED: ${data.sensor_data}`;
 
-            document.getElementById('sensor1').textContent = `Distance 1: ${data.sensor_data[1]} cm`;
-            document.getElementById('sensor2').textContent = `Distance 2: ${data.sensor_data[2]} cm`;
-            document.getElementById('sensor3').textContent = `Distance 3: ${data.sensor_data[3]} cm`;
-            //document.getElementById('sensor4').textContent = `Distance 4: ${data.sensor_data[4]} cm`;
+            document.getElementById('sensor1').textContent = `Distance 1: ${data.sensor_data['0']} cm`;
+            document.getElementById('sensor2').textContent = `Distance 2: ${data.sensor_data['1']} cm`;
+            document.getElementById('sensor3').textContent = `Distance 3: ${data.sensor_data['2']} cm`;
+            document.getElementById('sensor4').textContent = `Distance 4: ${data.sensor_data['3']} cm`;
+
+            drawCar(data);
+        });
+
+        socket.on('update_accelero_data', function(data) {
+            //document.getElementById('sensorData').textContent = `LED: ${data.sensor_data}`;
+
+            document.getElementById('accX').textContent = `X: ${data.accelero_data['x']} g`;
+            document.getElementById('accY').textContent = `Y: ${data.accelero_data['y']} g`;
+            document.getElementById('accZ').textContent = `Z: ${data.accelero_data['z']} g`;
+
+            updateCanvas(data.accelero_data['y'], data.accelero_data['z']);
 
         });
 
@@ -198,6 +218,99 @@
             button.disabled = !button.disabled;
             button.classList.toggle("disabled-button");
         }
+
+        /////////////////////////////////////////////////////////////////////////////
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        // Set canvas center for reference
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+        const scale = 50;
+
+        let accelY = 0;
+        let accelZ = 0;      
+
+        function updateCanvas(accelY, accelZ) {
+            // Clear the canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw the fixed center point (0,0 reference)
+            ctx.fillStyle = 'gray';
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, 5, 0, 2 * Math.PI);
+            ctx.fill();
+
+            // Calculate dot position based on Y and Z acceleration
+            const x = centerX + accelY * scale;
+            const y = centerY - accelZ * scale;  // Invert Z-axis to make down positive
+
+            // Draw the moving dot
+            ctx.fillStyle = 'red';
+            ctx.beginPath();
+            ctx.arc(x, y, 10, 0, 2 * Math.PI);
+            ctx.fill();
+
+            // Optional: Display acceleration values
+            ctx.fillStyle = 'black';
+            ctx.font = '14px Arial';
+            ctx.fillText(`Y Accel: ${accelY.toFixed(2)}g`, 10, 20);
+            ctx.fillText(`Z Accel: ${accelZ.toFixed(2)}g`, 10, 40);
+        }
+        /////////////////////////////////////////////////////////////////////////
+
+        function getColor(distance) {
+            if (distance <= 30) return "red";
+            if (distance <= 60) return "yellow";
+            return "green";
+        }
+
+        // For the second canvas (car visualization)
+        const carCanvas = document.getElementById('carCanvas');
+        const ctx2 = carCanvas.getContext('2d');  // Use ctx2 for the second canvas
+
+        // Car dimensions and position
+        const carWidth = 100;
+        const carHeight = 200;
+        const carCenterX = carCanvas.width / 2;
+        const carCenterY = carCanvas.height / 2;
+
+        // Sample sensor data (replace with real-time values)
+        let sensorDistances = { front: 40, back: 70, left: 20, right: 60 };
+
+        function drawCar(data) {
+            ctx2.clearRect(0, 0, carCanvas.width, carCanvas.height);
+
+            // Draw the car
+            ctx2.fillStyle = 'gray';
+            ctx2.fillRect(carCenterX - carWidth / 2, carCenterY - carHeight / 2, carWidth, carHeight);
+
+            // Draw distance indicators as colored rectangles or gradients
+            drawGradientSide("top", data.sensor_data['0']);
+            drawGradientSide("bottom", data.sensor_data['1']);
+            drawGradientSide("left", data.sensor_data['2']);
+            drawGradientSide("right", data.sensor_data['3']);
+        }
+
+        function drawGradientSide(side, distance) {
+            ctx2.fillStyle = getColor(distance);
+            switch (side) {
+                case "top":
+                    ctx2.fillRect(carCenterX - carWidth / 2, carCenterY - carHeight / 2 - 20, carWidth, 20); // Above the car
+                    break;
+                case "bottom":
+                    ctx2.fillRect(carCenterX - carWidth / 2, carCenterY + carHeight / 2, carWidth, 20); // Below the car
+                    break;
+                case "left":
+                    ctx2.fillRect(carCenterX - carWidth / 2 - 20, carCenterY - carHeight / 2, 20, carHeight); // Left of the car
+                    break;
+                case "right":
+                    ctx2.fillRect(carCenterX + carWidth / 2, carCenterY - carHeight / 2, 20, carHeight); // Right of the car
+                    break;
+            }
+        }
+
+        drawCar(data);
 
     </script>
 </body>

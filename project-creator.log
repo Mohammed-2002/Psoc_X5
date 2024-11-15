@@ -1,7 +1,7 @@
 Loading the ModusToolbox Technology Packs and Early Access Packs
 Finished loading the ModusToolbox Technology Packs and Early Access Packs (3 ms)
 Loading the tools information
-Finished loading the tools information (56 ms)
+Finished loading the tools information (55 ms)
 Loading the manifest data
 Loading super manfiest files from all sources
 Getting manifests from remote and/or local sources
@@ -87,13 +87,13 @@ Finished download of file 'https://github.com/CyberonEBU/cyberon-mtb-mw-manifest
 Finished download of file 'https://github.com/golioth/mtb-golioth-mw-manifest/raw/main/mtb-golioth-mw-manifest-fv2.xml'
 Finished download of file 'https://github.com/memfault/mtb-memfault-mw-manifest/raw/main/mtb-memfault-mw-manifest-fv2.xml'
 Finished download of file 'https://github.com/sensiml/sensiml-mw-manifest/raw/main/sensiml-mw-manifest-fv2.xml'
-Finished loading the manifest data (3635 ms)
+Finished loading the manifest data (2475 ms)
 0 error(s), 0 warning(s)
 
 Summary: 
 
 BSP: CY8CPROTO-062-4343W
-Template Application(s): Wi-Fi_UDP_Client
+Template Application(s): Empty_App
 Application(s) Root Path: C:/Users/Johannes/Psoc_X5
 
 Press "Create" to create the selected application(s).
@@ -101,126 +101,74 @@ Press "Create" to create the selected application(s).
 Collecting application data...
 
 Info: The following entered on the command line will create the exact same project as that created with the GUI tool:
-C:/Users/Johannes/ModusToolbox/tools_3.2/project-creator/project-creator-cli.exe --board-id CY8CPROTO-062-4343W --board-uri https://github.com/cypresssemiconductorco/TARGET_CY8CPROTO-062-4343W --board-commit latest-v4.X --app-path C:/Users/Johannes/mtw/Wi-Fi_UDP_Client --target-dir C:/Users/Johannes/Psoc_X5 --user-app-name UDP_Client --use-modus-shell
+C:/Users/Johannes/ModusToolbox/tools_3.2/project-creator/project-creator-cli.exe --board-id CY8CPROTO-062-4343W --board-uri https://github.com/cypresssemiconductorco/TARGET_CY8CPROTO-062-4343W --board-commit latest-v4.X --app-path C:/Users/Johannes/Psoc_X5/Empty_App --target-dir C:/Users/Johannes/Psoc_X5 --user-app-name I2C --use-modus-shell
 
-Starting application creation for 'C:/Users/Johannes/Psoc_X5/UDP_Client'.
-Acquiring the application source 'C:/Users/Johannes/mtw/Wi-Fi_UDP_Client'.
-Copying C:/Users/Johannes/mtw/Wi-Fi_UDP_Client to C:/Users/Johannes/Psoc_X5/UDP_Client.
-Copied C:/Users/Johannes/mtw/Wi-Fi_UDP_Client to C:/Users/Johannes/Psoc_X5/UDP_Client.
+Starting application creation for 'C:/Users/Johannes/Psoc_X5/I2C'.
+Acquiring the application source 'C:/Users/Johannes/Psoc_X5/Empty_App'.
+Copying C:/Users/Johannes/Psoc_X5/Empty_App to C:/Users/Johannes/Psoc_X5/I2C.
+Copied C:/Users/Johannes/Psoc_X5/Empty_App to C:/Users/Johannes/Psoc_X5/I2C.
 Acquired application source successfully.
 Loading the application.
 Loaded the application successfully.
-Processing project 'UDP_Client'.
-Starting to commit changes to the filesystem and project 'mtb-example-wifi-udp-client'.
-Writing mtb file for asset 'CY8CPROTO-062-4343W' to the folder 'C:/Users/Johannes/Psoc_X5/UDP_Client/deps'.
+Processing project 'I2C'.
+Starting to commit changes to the filesystem and project 'mtb-example-empty-app'.
+Writing mtb file for asset 'CY8CPROTO-062-4343W' to the folder 'C:/Users/Johannes/Psoc_X5/I2C/deps'.
+Starting: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/freertos/release-v10.5.002 -c advice.detachedHead=false checkout release-v10.5.002 --force
 Starting: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/retarget-io/release-v1.6.0 -c advice.detachedHead=false checkout release-v1.6.0 --force
-Starting: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/serial-flash/release-v1.4.2 -c advice.detachedHead=false checkout release-v1.4.2 --force
-Starting: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/wifi-core-freertos-lwip-mbedtls clone --origin cypress --no-checkout --filter=blob:none https://github.com/Infineon/wifi-core-freertos-lwip-mbedtls release-v1.1.0
-Starting: git -C C:/Users/Johannes/Psoc_X5/UDP_Client/libs clone --origin cypress --no-checkout --filter=blob:none https://github.com/cypresssemiconductorco/TARGET_CY8CPROTO-062-4343W TARGET_CY8CPROTO-062-4343W
-Cloning into 'TARGET_CY8CPROTO-062-4343W'...
-Cloning into 'release-v1.1.0'...
-HEAD is now at 9830481 Upload serial-flash [1864]
-Success: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/serial-flash/release-v1.4.2 -c advice.detachedHead=false checkout release-v1.4.2 --force
+Starting: git -C C:/Users/Johannes/Psoc_X5/I2C/libs clone --origin cypress --no-checkout --filter=blob:none https://github.com/cypresssemiconductorco/TARGET_CY8CPROTO-062-4343W TARGET_CY8CPROTO-062-4343W
 Starting: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/abstraction-rtos/release-v1.8.2 -c advice.detachedHead=false checkout release-v1.8.2 --force
+Cloning into 'TARGET_CY8CPROTO-062-4343W'...
 HEAD is now at 33bd0e3 Upload retarget-io [2708]
 Success: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/retarget-io/release-v1.6.0 -c advice.detachedHead=false checkout release-v1.6.0 --force
 Starting: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/cat1cm0p/release-v1.7.0 -c advice.detachedHead=false checkout release-v1.7.0 --force
-Success: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/wifi-core-freertos-lwip-mbedtls clone --origin cypress --no-checkout --filter=blob:none https://github.com/Infineon/wifi-core-freertos-lwip-mbedtls release-v1.1.0
+Success: git -C C:/Users/Johannes/Psoc_X5/I2C/libs clone --origin cypress --no-checkout --filter=blob:none https://github.com/cypresssemiconductorco/TARGET_CY8CPROTO-062-4343W TARGET_CY8CPROTO-062-4343W
 Starting: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/clib-support/release-v1.5.0 -c advice.detachedHead=false checkout release-v1.5.0 --force
 HEAD is now at ff914ca Upload cat1cm0p 1.7.0.499 [2752]
 Success: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/cat1cm0p/release-v1.7.0 -c advice.detachedHead=false checkout release-v1.7.0 --force
 Starting: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/cmsis/release-v5.8.1 -c advice.detachedHead=false checkout release-v5.8.1 --force
 HEAD is now at 654db3a Upload clib-support [2455]
 Success: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/clib-support/release-v1.5.0 -c advice.detachedHead=false checkout release-v1.5.0 --force
-Starting: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/connectivity-utilities/release-v4.5.0 -c advice.detachedHead=false checkout release-v4.5.0 --force
-Success: git -C C:/Users/Johannes/Psoc_X5/UDP_Client/libs clone --origin cypress --no-checkout --filter=blob:none https://github.com/cypresssemiconductorco/TARGET_CY8CPROTO-062-4343W TARGET_CY8CPROTO-062-4343W
 Starting: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/core-lib/release-v1.4.2 -c advice.detachedHead=false checkout release-v1.4.2 --force
-HEAD is now at e28913a Upload core-lib [2455]
-Success: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/core-lib/release-v1.4.2 -c advice.detachedHead=false checkout release-v1.4.2 --force
-Starting: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/core-make/release-v3.3.1 -c advice.detachedHead=false checkout release-v3.3.1 --force
 HEAD is now at 8498cc2 Upload abstraction-rtos [2654]
 Success: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/abstraction-rtos/release-v1.8.2 -c advice.detachedHead=false checkout release-v1.8.2 --force
-Starting: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/cy-mbedtls-acceleration clone --origin cypress --no-checkout --filter=blob:none https://github.com/cypresssemiconductorco/cy-mbedtls-acceleration release-v1.6.0
-Cloning into 'release-v1.6.0'...
-HEAD is now at 58bf444 Upload core-make 3.3.1.5153 [2252]
-Success: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/core-make/release-v3.3.1 -c advice.detachedHead=false checkout release-v3.3.1 --force
-Starting: git -C C:/Users/Johannes/.modustoolbox/global/device-db/release-v4.18.0 -c advice.detachedHead=false checkout release-v4.18.0 --force
-Success: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/cy-mbedtls-acceleration clone --origin cypress --no-checkout --filter=blob:none https://github.com/cypresssemiconductorco/cy-mbedtls-acceleration release-v1.6.0
-Starting: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/freertos/release-v10.5.002 -c advice.detachedHead=false checkout release-v10.5.002 --force
+Starting: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/core-make/release-v3.3.1 -c advice.detachedHead=false checkout release-v3.3.1 --force
 HEAD is now at e175e03 Upload freertos 10.5.002.657 [2307]
 Success: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/freertos/release-v10.5.002 -c advice.detachedHead=false checkout release-v10.5.002 --force
-Starting: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/lwip-freertos-integration/release-v1.0.0 -c advice.detachedHead=false checkout release-v1.0.0 --force
-HEAD is now at 
-f4797e9 Upload lwip-freertos-integration 1.0.0.19
-Success: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/lwip-freertos-integration/release-v1.0.0 -c advice.detachedHead=false checkout release-v1.0.0 --force
-Starting: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/lwip-network-interface-integration/release-v1.4.1 -c advice.detachedHead=false checkout release-v1.4.1 --force
-HEAD is now at c667f90 Upload connectivity-utilities 4.5.0.1401 [2644]
-Success: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/connectivity-utilities/release-v4.5.0 -c advice.detachedHead=false checkout release-v4.5.0 --force
-Starting: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/lwip/STABLE-2_1_2_RELEASE -c advice.detachedHead=false checkout STABLE-2_1_2_RELEASE --force
+Starting: git -C C:/Users/Johannes/.modustoolbox/global/device-db/release-v4.18.0 -c advice.detachedHead=false checkout release-v4.18.0 --force
+HEAD is now at 58bf444 Upload core-make 3.3.1.5153 [2252]
+Success: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/core-make/release-v3.3.1 -c advice.detachedHead=false checkout release-v3.3.1 --force
+Starting: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/mtb-hal-cat1/release-v2.6.1 -c advice.detachedHead=false checkout release-v2.6.1 --force
+HEAD is now at e28913a Upload core-lib [2455]
+Success: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/core-lib/release-v1.4.2 -c advice.detachedHead=false checkout release-v1.4.2 --force
+Starting: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/mtb-pdl-cat1/release-v3.12.0 -c advice.detachedHead=false checkout release-v3.12.0 --force
 HEAD is now at 07182a6f Upload device-db 4.18.0.7028 [2794]
 Success: git -C C:/Users/Johannes/.modustoolbox/global/device-db/release-v4.18.0 -c advice.detachedHead=false checkout release-v4.18.0 --force
-Starting: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/mbedtls clone --origin cypress --no-checkout --filter=blob:none https://github.com/ARMmbed/mbedtls mbedtls-2.25.0
-Cloning into 'mbedtls-2.25.0'...
-HEAD is now at 7d17679 Upload cmsis 5.8.1.114 [2752]
-Success: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/cmsis/release-v5.8.1 -c advice.detachedHead=false checkout release-v5.8.1 --force
-Starting: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/mtb-hal-cat1/release-v2.6.1 -c advice.detachedHead=false checkout release-v2.6.1 --force
-HEAD is now at 158fc3b Upload lwip-network-interface-integration 1.4.1.359 [2752]
-Success: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/lwip-network-interface-integration/release-v1.4.1 -c advice.detachedHead=false checkout release-v1.4.1 --force
-Starting: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/mtb-pdl-cat1/release-v3.12.0 -c advice.detachedHead=false checkout release-v3.12.0 --force
-HEAD is now at 159e31b6 Prepare 2.1.2 release
-Success: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/lwip/STABLE-2_1_2_RELEASE -c advice.detachedHead=false checkout STABLE-2_1_2_RELEASE --force
 Starting: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/recipe-make-cat1a/release-v2.2.1 -c advice.detachedHead=false checkout release-v2.2.1 --force
 HEAD is now at 3f18eed Upload recipe-make-cat1a 2.2.1.5190 [2313]
 Success: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/recipe-make-cat1a/release-v2.2.1 -c advice.detachedHead=false checkout release-v2.2.1 --force
-Starting: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/secure-sockets/release-v3.7.0 -c advice.detachedHead=false checkout release-v3.7.0 --force
-HEAD is now at d2a78dd Upload secure-sockets 3.7.0.2676 [2644]
-Success: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/secure-sockets/release-v3.7.0 -c advice.detachedHead=false checkout release-v3.7.0 --force
-Starting: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/whd-bsp-integration/release-v2.3.0 -c advice.detachedHead=false checkout release-v2.3.0 --force
-HEAD is now at 0a6aa58 Upload whd-bsp-integration [2455]
-Success: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/whd-bsp-integration/release-v2.3.0 -c advice.detachedHead=false checkout release-v2.3.0 --force
-Starting: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/wifi-connection-manager/release-v3.5.0 -c advice.detachedHead=false checkout release-v3.5.0 --force
-Success: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/mbedtls clone --origin cypress --no-checkout --filter=blob:none https://github.com/ARMmbed/mbedtls mbedtls-2.25.0
-Starting: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/wifi-host-driver/release-v4.1.1 -c advice.detachedHead=false checkout release-v4.1.1 --force
-HEAD is now at 7d53742 Upload wifi-connection-manager 3.5.0.2268 [2644]
-Success: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/wifi-connection-manager/release-v3.5.0 -c advice.detachedHead=false checkout release-v3.5.0 --force
-Starting: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/wifi-resources/release-v1.0.0 -c advice.detachedHead=false checkout release-v1.0.0 --force
-HEAD is now at 224e570 Upload wifi-resources 1.0.0.52 [2752]
-Success: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/wifi-resources/release-v1.0.0 -c advice.detachedHead=false checkout release-v1.0.0 --force
-Starting: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/wpa3-external-supplicant/release-v1.2.1 -c advice.detachedHead=false checkout release-v1.2.1 --force
-HEAD is now at cfaeaa6 Upload wpa3-external-supplicant 1.2.1.146 [2307]
-Success: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/wpa3-external-supplicant/release-v1.2.1 -c advice.detachedHead=false checkout release-v1.2.1 --force
-Starting: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/wifi-core-freertos-lwip-mbedtls/release-v1.1.0 -c advice.detachedHead=false checkout release-v1.1.0 --force
-HEAD is now at a80a714 Upload wifi-core-freertos-lwip-mbedtls 1.1.0.96 [1864]
-Success: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/wifi-core-freertos-lwip-mbedtls/release-v1.1.0 -c advice.detachedHead=false checkout release-v1.1.0 --force
-Starting: git -C C:/Users/Johannes/Psoc_X5/UDP_Client/libs/TARGET_CY8CPROTO-062-4343W -c advice.detachedHead=false checkout release-v4.3.2 --force
+Starting: git -C C:/Users/Johannes/Psoc_X5/I2C/libs/TARGET_CY8CPROTO-062-4343W -c advice.detachedHead=false checkout release-v4.3.2 --force
+HEAD is now at 7d17679 Upload cmsis 5.8.1.114 [2752]
+Success: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/cmsis/release-v5.8.1 -c advice.detachedHead=false checkout release-v5.8.1 --force
 HEAD is now at c0dc092 Upload TARGET_CY8CPROTO-062-4343W [2752]
-Success: git -C C:/Users/Johannes/Psoc_X5/UDP_Client/libs/TARGET_CY8CPROTO-062-4343W -c advice.detachedHead=false checkout release-v4.3.2 --force
-Starting: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/cy-mbedtls-acceleration/release-v1.6.0 -c advice.detachedHead=false checkout release-v1.6.0 --force
-HEAD is now at e5f61c3 Upload cy-mbedtls-acceleration 1.6.0.1209 [2307]
-Success: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/cy-mbedtls-acceleration/release-v1.6.0 -c advice.detachedHead=false checkout release-v1.6.0 --force
-Starting: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/mbedtls/mbedtls-2.25.0 -c advice.detachedHead=false checkout mbedtls-2.25.0 --force
-HEAD is now at d839e0f Upload wifi-host-driver 4.1.1.24726 [2752]
-Success: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/wifi-host-driver/release-v4.1.1 -c advice.detachedHead=false checkout release-v4.1.1 --force
-HEAD is now at 1c54b5410 Merge pull request #786 from ARMmbed/dev/yanesca/mbedtls-2.25.0r0-pr
-Success: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/mbedtls/mbedtls-2.25.0 -c advice.detachedHead=false checkout mbedtls-2.25.0 --force
+Success: git -C C:/Users/Johannes/Psoc_X5/I2C/libs/TARGET_CY8CPROTO-062-4343W -c advice.detachedHead=false checkout release-v4.3.2 --force
 HEAD is now at 56ee340 Upload mtb-hal-cat1 [2593]
 Success: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/mtb-hal-cat1/release-v2.6.1 -c advice.detachedHead=false checkout release-v2.6.1 --force
 HEAD is now at cd8d37e Upload mtb-pdl-cat1 3.12.0.36524 [2752]
 Success: git -C C:/Users/Johannes/Psoc_X5/mtb_shared/mtb-pdl-cat1/release-v3.12.0 -c advice.detachedHead=false checkout release-v3.12.0 --force
 Requested to change the active target to 'APP_CY8CPROTO-062-4343W'.
-Removed the file 'C:/Users/Johannes/Psoc_X5/UDP_Client/deps/TARGET_CY8CPROTO-062-4343W.mtb'.
-Writing the file 'C:/Users/Johannes/Psoc_X5/UDP_Client/libs/app.mk'.
-Successfully committed changes to the project 'mtb-example-wifi-udp-client'.
-Project "UDP_Client" created successfully.
-Successfully created "UDP_Client" application.
+Removed the file 'C:/Users/Johannes/Psoc_X5/I2C/deps/TARGET_CY8CPROTO-062-4343W.mtb'.
+Writing the file 'C:/Users/Johannes/Psoc_X5/I2C/libs/app.mk'.
+Successfully committed changes to the project 'mtb-example-empty-app'.
+Project "I2C" created successfully.
+Successfully created "I2C" application.
 ==============================================================================
-= Export "UDP_Client" application to Eclipse IDE for ModusToolbox™ =
+= Export "I2C" application to Eclipse IDE for ModusToolbox™ =
 ==============================================================================
-make eclipse CY_IDE_PRJNAME=UDP_Client CY_MAKE_IDE=eclipse CY_MAKE_IDE_VERSION=3.2 CY_TOOLS_PATHS=C:/Users/Johannes/ModusToolbox/tools_3.2 MTB_MAKE_ECLIPSE_FORCE_REGENERATE_PROJECT=1
+make eclipse CY_IDE_PRJNAME=I2C CY_MAKE_IDE=eclipse CY_MAKE_IDE_VERSION=3.2 CY_TOOLS_PATHS=C:/Users/Johannes/ModusToolbox/tools_3.2 MTB_MAKE_ECLIPSE_FORCE_REGENERATE_PROJECT=1
 Tools Directory: C:/Users/Johannes/ModusToolbox/tools_3.2
 Searching installed tools in progress...
 Searching installed tools complete
-Initializing build: mtb-example-wifi-udp-client Debug APP_CY8CPROTO-062-4343W GCC_ARM
+Initializing build: mtb-example-empty-app Debug APP_CY8CPROTO-062-4343W GCC_ARM
 Prebuild operations complete
 Auto-discovery in progress...
 Auto-discovery complete
@@ -234,19 +182,19 @@ Build rules construction complete
 Generating compilation database file...
 -> ./build/compile_commands.json
 Compilation database file generation complete
-Generated C:/Users/Johannes/Psoc_X5/UDP_Client/.cproject
-Generated C:/Users/Johannes/Psoc_X5/UDP_Client/.project
-Generated C:/Users/Johannes/Psoc_X5/UDP_Client/.mtbLaunchConfigs/UDP_Client Attach (KitProg3_MiniProg4).launch
-Generated C:/Users/Johannes/Psoc_X5/UDP_Client/.mtbLaunchConfigs/UDP_Client Debug (KitProg3_MiniProg4).launch
-Generated C:/Users/Johannes/Psoc_X5/UDP_Client/.mtbLaunchConfigs/UDP_Client Erase (KitProg3_MiniProg4).launch
-Generated C:/Users/Johannes/Psoc_X5/UDP_Client/.mtbLaunchConfigs/UDP_Client Program (KitProg3_MiniProg4).launch
+Generated C:/Users/Johannes/Psoc_X5/I2C/.cproject
+Generated C:/Users/Johannes/Psoc_X5/I2C/.project
+Generated C:/Users/Johannes/Psoc_X5/I2C/.mtbLaunchConfigs/I2C Attach (KitProg3_MiniProg4).launch
+Generated C:/Users/Johannes/Psoc_X5/I2C/.mtbLaunchConfigs/I2C Debug (KitProg3_MiniProg4).launch
+Generated C:/Users/Johannes/Psoc_X5/I2C/.mtbLaunchConfigs/I2C Erase (KitProg3_MiniProg4).launch
+Generated C:/Users/Johannes/Psoc_X5/I2C/.mtbLaunchConfigs/I2C Program (KitProg3_MiniProg4).launch
 Instructions:
 1. Open Eclipse IDE for ModusToolbox
 2. Select 'Import Existing Application In-Place' from the QuickPanel
 3. Browse to the application root directory
-The application "UDP_Client" was successfully exported to Eclipse IDE for ModusToolbox™.
+The application "I2C" was successfully exported to Eclipse IDE for ModusToolbox™.
 0 error(s), 0 warning(s)
 
 Summary:
 
-Successfully created and exported "UDP_Client" application.
+Successfully created and exported "I2C" application.
