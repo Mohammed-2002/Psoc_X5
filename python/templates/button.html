@@ -286,10 +286,10 @@
             ctx2.fillRect(carCenterX - carWidth / 2, carCenterY - carHeight / 2, carWidth, carHeight);
 
             // Draw distance indicators as colored rectangles or gradients
-            drawGradientSide("top", data.sensor_data['0']);
-            drawGradientSide("bottom", data.sensor_data['1']);
-            drawGradientSide("left", data.sensor_data['2']);
-            drawGradientSide("right", data.sensor_data['3']);
+            drawGradientSide("top", data.sensor_data['3']);
+            drawGradientSide("bottom", data.sensor_data['0']);
+            drawGradientSide("left", data.sensor_data['1']);
+            drawGradientSide("right", data.sensor_data['2']);
         }
 
         function drawGradientSide(side, distance) {

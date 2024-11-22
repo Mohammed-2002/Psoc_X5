@@ -106,7 +106,7 @@ void init_mpu6050(cyhal_i2c_t* i2c_master_obj) {
                 printf("Failed to configure accelerometer, error code: %lu\r\n", (unsigned long)result);
             }
         } else {
-            printf("Failed to wake up MPU6050, error code: %lu\r\n", (unsigned long)result);
+            //printf("Failed to wake up MPU6050, error code: %lu\r\n", (unsigned long)result);
         }
 
         // Optional: Add a short delay between retries to prevent rapid looping
