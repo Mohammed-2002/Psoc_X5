@@ -92,8 +92,8 @@
 #define MQTT_PUB_TOPIC_THERMISTOR         					"Thermistor"
 //#define MQTT_SUB_TOPIC                    "ledstate"
 
-#define MQTT_LED_CONTROL_TOPIC			  "ledstate"
-#define MQTT_MOTOR_CONTROL_TOPIC		  "motorstate"
+#define MQTT_LED_CONTROL_SUB_TOPIC 							"ledstate"
+#define MQTT_MOTOR_CONTROL_SUB_TOPIC						"motorstate"
 
 /* Set the QoS that is associated with the MQTT publish, and subscribe messages.
  * Valid choices are 0, 1, and 2. Other values should not be used in this macro.
@@ -118,8 +118,8 @@
 /* MQTT messages which are published on the MQTT_PUB_TOPIC that controls the
  * device (user LED in this example) state in this code example.
  */
-#define MQTT_DEVICE_ON_MESSAGE            "TURN ON"
-#define MQTT_DEVICE_OFF_MESSAGE           "TURN OFF"
+#define MQTT_DEVICE_ON_MESSAGE            "1"
+#define MQTT_DEVICE_OFF_MESSAGE           "0"
 
 #define MQTT_MOTOR_ON_MESSAGE			  "TURN ON"
 #define MQTT_MOTOR_OFF_MESSAGE            "TURN OFF"

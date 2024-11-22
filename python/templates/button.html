@@ -5,51 +5,74 @@
     <title>MQTT Status Display</title>
     <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
     <style>
-        /*
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f9f9f9;
-            color: #333;
+            background-color: #252552; /* Darker background */
+            color: #f0f0f0; /* Light text */
             display: flex;
             justify-content: center;
             align-items: flex-start;
         }
         .container {
             display: grid;
-            grid-template-columns: 1fr 2fr 1fr;
+            grid-template-columns: 2fr 1fr;
             gap: 20px;
-            max-width: 1200px;
+            max-width: 1600px;
             margin: 20px;
-            padding: 20px;
-            background: #fff;
+            padding: 10px;
+            background: #2b2b3d; /* Slightly lighter than body background */
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px rgba(74, 34, 34, 0.5);
         }
-        .status-section, .drawing-section, .control-panel {
-            padding: 20px;
-            background: #f7f7f7;
+        .drawing-section {
+            grid-column: 1 / 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #34345a;
+            border-radius: 8px;
+        }
+        .status-section {
+            margin-top: 10px;
+            padding: 10px;
+            background: #323351; /* Slightly brighter */
+            border-radius: 8px;
+        }
+        .control-panel {
+            grid-column: 2 / 3;
+            padding: 30px;
+            background: #44445c; /* Distinct color for control panel */
             border-radius: 8px;
         }
         h3 {
             text-align: center;
             margin-bottom: 10px;
         }
-        .status {
-            margin-bottom: 15px;
+        canvas {
+            border: 1px solid #555; /* Subtle border for canvases */
+            margin-left: 40px;
+            margin-right: 40px;
+            background: #34345a;
         }
         .canvas-container {
-            display: flex;
-            justify-content: space-between;
+            justify-content: center; /* Horizontal centering */
+            flex-direction: column; /* Stack canvases vertically */
+            margin: auto; /* Centering within the parent container */
+            width: fit-content;
         }
-        canvas {
-            display: block;
-            border: 1px solid #ccc;
-            background: #fff;
-            margin: 0 5px;
-            width: 180px;
-            height: 180px;
+        .sensor-data,
+        .accelerometer-data {
+            display: flex;
+            justify-content: space-evenly;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+        .data-item {
+            margin-right: 10px;
+        }
+        .h3 {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
         }
         .grid-container {
             display: grid;
@@ -58,119 +81,88 @@
             margin-top: 20px;
         }
         .grid-button {
-            padding: 10px;
+            padding: 40px;
             font-size: 14px;
-            border: none;
-            border-radius: 5px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            border: #f0f0f0;
+            border-radius: 10px;
             cursor: pointer;
-            background: #007BFF;
+            background: #b64545;
             color: white;
         }
         .grid-button.disabled-button {
-            opacity: 0.5;
+            opacity: 0.3;
             pointer-events: none;
         }
-        */
-
-        body { 
-            font-family: Arial, sans-serif; 
-        }
-
-        .container { 
-            max-width: 500px; 
-            margin: 0 auto; 
-            padding: 20px; 
-        }
-
-        h2, h3 { 
-            text-align: center; 
-        }
-
-        ul { 
-            list-style-type: none;
-            padding: 0; 
-        }
-        
-        li { 
-            background: #f3f3f3; 
-            padding: 10px;
-            margin: 5px 0; 
-            border-radius: 5px; 
-        }
-        
-        .disabled-button {
-            opacity: 0.5;
-            pointer-events: none;
-        }
-
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(3, 100px);
-            grid-template-rows: repeat(3, 100px);
-            gap: 10px;
-            justify-content: center;
-            align-items: center;
-            margin-top: 50px;
-        }
-
-        .grid-button {
-            width: 100%;
-            height: 100%;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        #canvas { border: 1px solid #ccc; background: #f9f9f9; }
-    </style>
+    </style>  
 </head>
 <body>
     <div class="container">
-        <h3>UDP States</h3>
-
-        <canvas id="canvas" width="400" height="400"></canvas>
-        <canvas id="carCanvas" width="400" height="400"></canvas>
-
-        <p id="sensor1">STATE: Unknown<p>
-        <p id="sensor2">STATE: Unknown<p>
-        <p id="sensor3">STATE: Unknown<p>
-        <p id="sensor4">STATE: Unknown<p>
-
-        <p id="accX">STATE: Unknown<p>
-        <p id="accY">STATE: Unknown<p>
-        <p id="accZ">STATE: Unknown<p>
-
-        <h3>MQTT States</h3>
-
-        <p id="ledState">LED: Unknown</p>
-        <p id="motorState">MOTORPINS: Unknown</p>
-        <p id="Thermistor">Temperature: Unknown</p>
-
-        <h3>Publish to Topic</h3>
-
-        <p>LED</p>
-        <button id="ledButton" onclick="toggleLed('ledstate', this)">TURN ON</button>
-        <p>MOTOR</p>
-
-        <div class="grid-container">
-            <button id="clockwiseButton" class="grid-button" onclick="publishMotorCommand('motorstate', this)">&#10227;</button>
-            <button id="forwardButton" class="grid-button" onclick="publishMotorCommand('motorstate', this)">FORWARD</button>
-            <button id="counterclockwiseButton" class="grid-button" onclick="publishMotorCommand('motorstate', this)">&#10226;</button>
-            <button id="leftButton" class="grid-button" onclick="publishMotorCommand('motorstate', this)">LEFT</button>
-            <button id="turnoffButton" class="grid-button" onclick="publishMotorCommand('motorstate', this)">TURN OFF</button>
-            <button id="rightButton" class="grid-button" onclick="publishMotorCommand('motorstate', this)">RIGHT</button>
-            <button id="emptyButton" class="grid-button" onclick="publishMotorCommand('motorstate', this)"></button>
-            <button id="backwardButton" class="grid-button" onclick="publishMotorCommand('motorstate', this)">BACKWARD</button>
-            <button id="emptyButton" class="grid-button" onclick="publishMotorCommand('motorstate', this)"></button>
-            
+        <!-- Data Panel -->
+        <div class="data-panel">
+            <div class="canvas-container">
+                <canvas id="canvas" width="200" height="200"></canvas>
+                <canvas id="carCanvas" width="200" height="200"></canvas>
+            </div>
+            <h3 class="h3">Car Sensor Data</h3>
+            <div class="status-section">
+                <h4 class="h3">Distance Sensors</h4>
+                <div class="sensor-data">
+                    <div class="data-item" id="sensor1">Distance 1: Unknown</div>
+                    <div class="data-item" id="sensor2">Distance 2: Unknown</div>
+                    <div class="data-item" id="sensor3">Distance 3: Unknown</div>
+                    <div class="data-item" id="sensor4">Distance 4: Unknown</div>
+                </div>
+            </div>
+            <div class="status-section">
+                <h4 class="h3">Speed Sensors</h4>
+                <div class="sensor-data">
+                    <div class="data-item" id="sensor1">Distance 1: Unknown</div>
+                    <div class="data-item" id="sensor2">Distance 2: Unknown</div>
+                    <div class="data-item" id="sensor3">Distance 3: Unknown</div>
+                    <div class="data-item" id="sensor4">Distance 4: Unknown</div>
+                </div>
+            </div>
+            <div class="status-section">
+                <h4 class="h3">Accelerometer</h4>
+                <div class="accelerometer-data">
+                    <div class="data-item" id="accX">X: Unknown</div>
+                    <div class="data-item" id="accY">Y: Unknown</div>
+                    <div class="data-item" id="accZ">Z: Unknown</div>
+                </div>
+            </div>
         </div>
 
-        <!-- <ul id="messages"></ul> -->
+        <!-- Control Panel -->
+        <div class="control-panel">
+            <h3 class="h3">Car Control Panel</h3>
+            <div class="control-section">
+                <div>
+                    <h4 class="h3">LED Control</h4>
+                    <button id="ledButton" class="grid-button" onclick="toggleLed('ledstate', this)">TURN ON</button>
+                </div>
+                <div>
+                    <h4 class="h3">Motor Control</h4>
+                    <div class="grid-container">
+                        <button id="clockwiseButton" class="grid-button" onclick="publishMotorCommand('motorstate', this)">&#10227;</button>
+                        <button id="forwardButton" class="grid-button" onclick="publishMotorCommand('motorstate', this)">FORWARD</button>
+                        <button id="counterclockwiseButton" class="grid-button" onclick="publishMotorCommand('motorstate', this)">&#10226;</button>
+                        <button id="leftButton" class="grid-button" onclick="publishMotorCommand('motorstate', this)">LEFT</button>
+                        <button id="turnoffButton" class="grid-button" onclick="publishMotorCommand('motorstate', this)">TURN OFF</button>
+                        <button id="rightButton" class="grid-button" onclick="publishMotorCommand('motorstate', this)">RIGHT</button>
+                        <button class="grid-button disabled-button"></button>
+                        <button id="backwardButton" class="grid-button" onclick="publishMotorCommand('motorstate', this)">BACKWARD</button>
+                        <button class="grid-button disabled-button"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
         const socket = io();
         
-        const topics = ["ledstate", "motorstate", "Thermistor"]; // Add the topics you want to subscribe to here
+        const topics = ["ledstate", "motorstate"]; // Add the topics you want to subscribe to here
 
         window.onload = () => {
             topics.forEach(topic => {
@@ -197,7 +189,7 @@
             document.getElementById('accY').textContent = `Y: ${data.accelero_data['y']} g`;
             document.getElementById('accZ').textContent = `Z: ${data.accelero_data['z']} g`;
 
-            updateCanvas(data.accelero_data['y'], data.accelero_data['z']);
+            updateCanvas(data.accelero_data['y'], data.accelero_data['x']);
 
         });
 
@@ -207,8 +199,6 @@
                 document.getElementById("ledState").textContent = `LED: ${data.payload}`;
             } else if (data.topic === "motorstate") {
                 document.getElementById("motorState").textContent = `MOTORPINS: ${data.payload}`;
-            } else if (data.topic === "Thermistor") {
-                document.getElementById("Thermistor").textContent = `Temperature: ${data.payload}`;
             }
         });
 

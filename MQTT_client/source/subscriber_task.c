@@ -49,6 +49,7 @@
 
 /* Task header files */
 #include "subscriber_task.h"
+#include "task_receive_motor_pins.h"
 #include "mqtt_task.h"
 
 /* Configuration file for MQTT client */
@@ -96,13 +97,13 @@ static cy_mqtt_subscribe_info_t subscribe_info[] =
 {
 	{
 		.qos = (cy_mqtt_qos_t) MQTT_MESSAGES_QOS,
-		.topic = MQTT_LED_CONTROL_TOPIC,
-		.topic_len = (sizeof(MQTT_LED_CONTROL_TOPIC) - 1)
+		.topic = MQTT_LED_CONTROL_SUB_TOPIC,
+		.topic_len = (sizeof(MQTT_LED_CONTROL_SUB_TOPIC) - 1)
 	},
 	{
 		.qos = (cy_mqtt_qos_t) MQTT_MESSAGES_QOS,
-		.topic = MQTT_MOTOR_CONTROL_TOPIC,
-		.topic_len = (sizeof(MQTT_MOTOR_CONTROL_TOPIC) - 1)
+		.topic = MQTT_MOTOR_CONTROL_SUB_TOPIC,
+		.topic_len = (sizeof(MQTT_MOTOR_CONTROL_SUB_TOPIC) - 1)
 	},
 
 };
@@ -168,21 +169,56 @@ void subscriber_task(void *pvParameters)
 
                 case UPDATE_DEVICE_STATE:
                 {
-                    /* Update the LED state as per received notification. */
-                    cyhal_gpio_write(CYBSP_USER_LED, subscriber_q_data.data);
+                	printf("TEST\r\n");
 
-                    /* Update the current device state extern variable. */
-                    current_device_state = subscriber_q_data.data;
+                    if (strncmp(subscriber_q_data.topic, MQTT_LED_CONTROL_SUB_TOPIC, strlen(subscriber_q_data.topic)) == 0)
+                    	{
+                    	printf("Het data is: %s\n", subscriber_q_data.data);
+                    	printf("Het topic is: %s\n", subscriber_q_data.topic);
 
-                    print_heap_usage("subscriber_task: After updating LED state");
-                    break;
+                    	uint8_t led_state = (strncmp(MQTT_DEVICE_ON_MESSAGE, subscriber_q_data.data, strlen(subscriber_q_data.data)) == 0)
+                    								  ? DEVICE_ON_STATE : DEVICE_OFF_STATE;
+                    		/* Update the LED state as per received notification. */
+                    	//int led_state = (int)atoi(subscriber_q_data.data);
+                    		cyhal_gpio_write(CYBSP_USER_LED, led_state);
+                    		printf("Het getal is: %d\n", led_state);
+
+                    	}
+					else if (strncmp(subscriber_q_data.topic, MQTT_MOTOR_CONTROL_SUB_TOPIC, strlen(subscriber_q_data.topic)) == 0)
+					{
+						uint8_t motor_state = 0b00000000u;
+						if (strncmp(MQTT_MOTOR_FORWARD_MESSAGE, subscriber_q_data.data, strlen(subscriber_q_data.data) ) == 0) {
+							motor_state = MOTOR_FORWARD;
+
+						} else if (strncmp(MQTT_MOTOR_BACKWARD_MESSAGE, subscriber_q_data.data, strlen(subscriber_q_data.data)) == 0) {
+							motor_state  = MOTOR_BACKWARD;
+						} else if (strncmp(MQTT_MOTOR_LEFT_MESSAGE, subscriber_q_data.data, strlen(subscriber_q_data.data)) == 0) {
+							motor_state  = MOTOR_LEFT;
+						} else if (strncmp(MQTT_MOTOR_RIGHT_MESSAGE, subscriber_q_data.data, strlen(subscriber_q_data.data)) == 0) {
+							motor_state  = MOTOR_RIGHT;
+						} else if (strncmp(MQTT_MOTOR_CLOCKWISE_MESSAGE, subscriber_q_data.data, strlen(subscriber_q_data.data)) == 0) {
+							motor_state  = MOTOR_CLOCKWISE;
+						} else if (strncmp(MQTT_MOTOR_COUNTERCLOCKWISE_MESSAGE, subscriber_q_data.data, strlen(subscriber_q_data.data)) == 0) {
+							motor_state = MOTOR_COUNTERCLOCKWISE;
+						} else {
+							motor_state = MOTOR_OFF_STATE;  // Default to off if message doesn't match any known command
+						}
+
+						// Print the value in binary (manually)
+						    printf("motor_state (binary): ");
+						    for (int i = 7; i >= 0; --i) {
+						        printf("%d", (motor_state >> i) & 1);  // Shift the bits and print each bit
+						    }
+						    printf("\n");
+						xQueueSend(motor_pins_queue, &motor_state, portMAX_DELAY);
+					}
+					else
+					{
+						/* Unrecognized topic */
+						printf("Subscriber: Received message on unrecognized topic.\n");
+						return;
+					}
                 }
-                case UPDATE_MOTOR_STATE:
-                	/* Send motor data to motor_pins_queue */
-					xQueueSend(motor_pins_queue, &subscriber_q_data.data, portMAX_DELAY);
-
-                	print_heap_usage("subscriber_task: After updating motor state");
-					break;
             }
         }
     }
@@ -213,40 +249,41 @@ static void subscribe_to_topic(void)
     mqtt_task_cmd_t mqtt_task_cmd;
 
     /* Array of topics to subscribe to */
-	cy_mqtt_subscribe_info_t subscribe_info[SUBSCRIPTION_COUNT] = {
-		{ .topic = MQTT_LED_CONTROL_TOPIC, .topic_len = strlen(MQTT_LED_CONTROL_TOPIC), .qos = MQTT_MESSAGES_QOS },
-		{ .topic = MQTT_MOTOR_CONTROL_TOPIC, .topic_len = strlen(MQTT_MOTOR_CONTROL_TOPIC), .qos = MQTT_MESSAGES_QOS }
-	};
+    cy_mqtt_subscribe_info_t subscribe_info[SUBSCRIPTION_COUNT] = {
+        { .topic = MQTT_LED_CONTROL_SUB_TOPIC, .topic_len = strlen(MQTT_LED_CONTROL_SUB_TOPIC), .qos = MQTT_MESSAGES_QOS },
+        { .topic = MQTT_MOTOR_CONTROL_SUB_TOPIC, .topic_len = strlen(MQTT_MOTOR_CONTROL_SUB_TOPIC), .qos = MQTT_MESSAGES_QOS }
+    };
 
-	/* Attempt to subscribe to each topic */
-	for (uint32_t i = 0; i < SUBSCRIPTION_COUNT; i++)
-	{
-		/* Subscribe with the configured parameters. */
-		for (uint32_t retry_count = 0; retry_count < MAX_SUBSCRIBE_RETRIES; retry_count++)
-		{
-			result = cy_mqtt_subscribe(mqtt_connection, &subscribe_info[i], SUBSCRIPTION_COUNT);
-			if (result == CY_RSLT_SUCCESS)
-			{
-				printf("\nMQTT client subscribed to the topic '%.*s' successfully.\n",
-						subscribe_info[i].topic_len, subscribe_info[i].topic);
-				break;
-			}
+    /* Attempt to subscribe to each topic */
+    for (uint32_t i = 0; i < SUBSCRIPTION_COUNT; i++)
+    {
+        /* Subscribe with the configured parameters. */
+        for (uint32_t retry_count = 0; retry_count < MAX_SUBSCRIBE_RETRIES; retry_count++)
+        {
+            result = cy_mqtt_subscribe(mqtt_connection, &subscribe_info[i], 1);  // Subscribe to one topic at a time
+            if (result == CY_RSLT_SUCCESS)
+            {
+                printf("\nMQTT client subscribed to the topic '%.*s' successfully.\n",
+                        subscribe_info[i].topic_len, subscribe_info[i].topic);
+                break;
+            }
 
-			vTaskDelay(pdMS_TO_TICKS(MQTT_SUBSCRIBE_RETRY_INTERVAL_MS));
-			/* Check if subscription failed after all retries */
-			if (result != CY_RSLT_SUCCESS)
-			{
-				printf("MQTT Subscribe to topic '%.*s' failed with error 0x%0X after %d retries...\n",
-				                   subscribe_info[i].topic_len, subscribe_info[i].topic, (int)result, MAX_SUBSCRIBE_RETRIES);
+            vTaskDelay(pdMS_TO_TICKS(MQTT_SUBSCRIBE_RETRY_INTERVAL_MS));
+            /* Check if subscription failed after all retries */
+            if (result != CY_RSLT_SUCCESS)
+            {
+                printf("MQTT Subscribe to topic '%.*s' failed with error 0x%0X after %d retries...\n",
+                       subscribe_info[i].topic_len, subscribe_info[i].topic, (int)result, MAX_SUBSCRIBE_RETRIES);
 
-				/* Notify the MQTT client task about the subscription failure */
-				mqtt_task_cmd = HANDLE_MQTT_SUBSCRIBE_FAILURE;
-				xQueueSend(mqtt_task_q, &mqtt_task_cmd, portMAX_DELAY);
-				return;
-			}
-		}
-	}
+                /* Notify the MQTT client task about the subscription failure */
+                mqtt_task_cmd = HANDLE_MQTT_SUBSCRIBE_FAILURE;
+                xQueueSend(mqtt_task_q, &mqtt_task_cmd, portMAX_DELAY);
+                return;
+            }
+        }
+    }
 }
+
 
 /******************************************************************************
  * Function Name: mqtt_subscription_callback
@@ -285,74 +322,19 @@ void mqtt_subscription_callback(cy_mqtt_publish_info_t *received_msg_info)
     /* Store the topic name in subscriber_q_data */
     strncpy(subscriber_q_data.topic, received_msg_info->topic, received_msg_info->topic_len);
 
+
     /* Ensure null termination */
+
     subscriber_q_data.topic[received_msg_info->topic_len] = '\0';
 
-    /* Determine command and data based on topic and message content */
-	if (strncmp(subscriber_q_data.topic, MQTT_LED_CONTROL_TOPIC, received_msg_info->topic_len) == 0)
-	{
-		/* Command for controlling the LED */
-		subscriber_q_data.cmd = UPDATE_DEVICE_STATE;
-		subscriber_q_data.data = (strncmp(MQTT_DEVICE_ON_MESSAGE, received_msg, received_msg_len) == 0)
-								  ? DEVICE_ON_STATE : DEVICE_OFF_STATE;
-	}
-	else if (strncmp(subscriber_q_data.topic, MQTT_MOTOR_CONTROL_TOPIC, received_msg_info->topic_len) == 0)
-	{
+	subscriber_q_data.cmd = UPDATE_DEVICE_STATE;
 
-		subscriber_q_data.cmd = UPDATE_MOTOR_STATE;
-		/*
-		subscriber_q_data.data = (strncmp(MQTT_MOTOR_ON_MESSAGE, received_msg, received_msg_len) == 0)
-									  ? MOTOR_ON_STATE : MOTOR_OFF_STATE;
-		*/
+	subscriber_q_data.data = (char*) received_msg;
 
-		if (strncmp(MQTT_MOTOR_FORWARD_MESSAGE, received_msg, received_msg_len) == 0) {
-		    subscriber_q_data.data = MOTOR_FORWARD;
-		} else if (strncmp(MQTT_MOTOR_BACKWARD_MESSAGE, received_msg, received_msg_len) == 0) {
-			subscriber_q_data.data = MOTOR_BACKWARD;
-		} else if (strncmp(MQTT_MOTOR_LEFT_MESSAGE, received_msg, received_msg_len) == 0) {
-			subscriber_q_data.data = MOTOR_LEFT;
-		} else if (strncmp(MQTT_MOTOR_RIGHT_MESSAGE, received_msg, received_msg_len) == 0) {
-			subscriber_q_data.data = MOTOR_RIGHT;
-		} else if (strncmp(MQTT_MOTOR_CLOCKWISE_MESSAGE, received_msg, received_msg_len) == 0) {
-			subscriber_q_data.data = MOTOR_CLOCKWISE;
-		} else if (strncmp(MQTT_MOTOR_COUNTERCLOCKWISE_MESSAGE, received_msg, received_msg_len) == 0) {
-			subscriber_q_data.data = MOTOR_COUNTERCLOCKWISE;
-		} else {
-		    subscriber_q_data.data = MOTOR_OFF_STATE;  // Default to off if message doesn't match any known command
-		}
-	}
-	else
-	{
-		/* Unrecognized topic */
-		printf("Subscriber: Received message on unrecognized topic.\n");
-		return;
-	}
+    subscriber_q_data.data[received_msg_len] = '\0';
 
 	print_heap_usage("MQTT subscription callback");
 
-    /* Assign the command to be sent to the subscriber task. */
-    //subscriber_q_data.cmd = UPDATE_DEVICE_STATE;
-
-    /* Assign the device state depending on the received MQTT message. */
-    /*
-    if ((strlen(MQTT_DEVICE_ON_MESSAGE) == received_msg_len) &&
-        (strncmp(MQTT_DEVICE_ON_MESSAGE, received_msg, received_msg_len) == 0))
-    {
-        subscriber_q_data.data = DEVICE_ON_STATE;
-    }
-    else if ((strlen(MQTT_DEVICE_OFF_MESSAGE) == received_msg_len) &&
-             (strncmp(MQTT_DEVICE_OFF_MESSAGE, received_msg, received_msg_len) == 0))
-    {
-        subscriber_q_data.data = DEVICE_OFF_STATE;
-    }
-    else
-    {
-        printf("  Subscriber: Received MQTT message not in valid format!\n");
-        return;
-    }
-
-    print_heap_usage("MQTT subscription callback");
-	*/
     /* Send the command and data to subscriber task queue */
     xQueueSend(subscriber_task_q, &subscriber_q_data, portMAX_DELAY);
 }

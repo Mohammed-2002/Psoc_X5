@@ -95,13 +95,13 @@ static cy_mqtt_subscribe_info_t subscribe_info[] =
 {
 	{
 		.qos = (cy_mqtt_qos_t) MQTT_MESSAGES_QOS,
-		.topic = MQTT_LED_CONTROL_TOPIC,
-		.topic_len = (sizeof(MQTT_LED_CONTROL_TOPIC) - 1)
+		.topic = MQTT_LED_CONTROL_SUB_TOPIC,
+		.topic_len = (sizeof(MQTT_LED_CONTROL_SUB_TOPIC) - 1)
 	},
 	{
 		.qos = (cy_mqtt_qos_t) MQTT_MESSAGES_QOS,
-		.topic = MQTT_MOTOR_CONTROL_TOPIC,
-		.topic_len = (sizeof(MQTT_MOTOR_CONTROL_TOPIC) - 1)
+		.topic = MQTT_MOTOR_CONTROL_SUB_TOPIC,
+		.topic_len = (sizeof(MQTT_MOTOR_CONTROL_SUB_TOPIC) - 1)
 	},
 
 };
@@ -213,8 +213,8 @@ static void subscribe_to_topic(void)
 
     /* Array of topics to subscribe to */
 	cy_mqtt_subscribe_info_t subscribe_info[SUBSCRIPTION_COUNT] = {
-		{ .topic = MQTT_LED_CONTROL_TOPIC, .topic_len = strlen(MQTT_LED_CONTROL_TOPIC), .qos = MQTT_MESSAGES_QOS },
-		{ .topic = MQTT_MOTOR_CONTROL_TOPIC, .topic_len = strlen(MQTT_MOTOR_CONTROL_TOPIC), .qos = MQTT_MESSAGES_QOS }
+		{ .topic = MQTT_LED_CONTROL_SUB_TOPIC, .topic_len = strlen(MQTT_LED_CONTROL_SUB_TOPIC), .qos = MQTT_MESSAGES_QOS },
+		{ .topic = MQTT_MOTOR_CONTROL_SUB_TOPIC, .topic_len = strlen(MQTT_MOTOR_CONTROL_SUB_TOPIC), .qos = MQTT_MESSAGES_QOS }
 	};
 
 	/* Attempt to subscribe to each topic */
@@ -288,14 +288,14 @@ void mqtt_subscription_callback(cy_mqtt_publish_info_t *received_msg_info)
     subscriber_q_data.topic[received_msg_info->topic_len] = '\0';
 
     /* Determine command and data based on topic and message content */
-	if (strncmp(subscriber_q_data.topic, MQTT_LED_CONTROL_TOPIC, received_msg_info->topic_len) == 0)
+	if (strncmp(subscriber_q_data.topic, MQTT_LED_CONTROL_SUB_TOPIC, received_msg_info->topic_len) == 0)
 	{
 		/* Command for controlling the LED */
 		subscriber_q_data.cmd = UPDATE_DEVICE_STATE;
 		subscriber_q_data.data = (strncmp(MQTT_DEVICE_ON_MESSAGE, received_msg, received_msg_len) == 0)
 								  ? DEVICE_ON_STATE : DEVICE_OFF_STATE;
 	}
-	else if (strncmp(subscriber_q_data.topic, MQTT_MOTOR_CONTROL_TOPIC, received_msg_info->topic_len) == 0)
+	else if (strncmp(subscriber_q_data.topic, MQTT_MOTOR_CONTROL_SUB_TOPIC, received_msg_info->topic_len) == 0)
 	{
 		/* Command for controlling motor pins */
 		subscriber_q_data.cmd = UPDATE_MOTOR_STATE;

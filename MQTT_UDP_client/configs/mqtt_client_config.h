@@ -91,8 +91,8 @@
 #define MQTT_PUB_TOPIC                    ""
 //#define MQTT_SUB_TOPIC                    "ledstate"
 
-#define MQTT_LED_CONTROL_TOPIC			  "ledstate"
-#define MQTT_MOTOR_CONTROL_TOPIC		  "motorstate"
+#define MQTT_LED_CONTROL_SUB_TOPIC			  "ledstate"
+#define MQTT_MOTOR_CONTROL_SUB_TOPIC		  "motorstate"
 
 /* Set the QoS that is associated with the MQTT publish, and subscribe messages.
  * Valid choices are 0, 1, and 2. Other values should not be used in this macro.

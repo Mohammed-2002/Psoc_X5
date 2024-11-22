@@ -58,16 +58,6 @@
 #define DEVICE_ON_STATE                    (0x00u)
 #define DEVICE_OFF_STATE                   (0x01u)
 
-#define MOTOR_FORWARD					   (0b10101010u)//(0xFFu)
-#define MOTOR_BACKWARD					   (0b01010101u)
-#define MOTOR_LEFT						   (0b01101001u)
-#define MOTOR_RIGHT						   (0b10010110u)
-
-#define MOTOR_CLOCKWISE						(0b10011001u)
-#define MOTOR_COUNTERCLOCKWISE				(0b01100110u)
-
-#define MOTOR_OFF_STATE					   (0b00000000u)//(0x00u)
-
 /*******************************************************************************
 * Global Variables
 ********************************************************************************/
@@ -77,14 +67,13 @@ typedef enum
     SUBSCRIBE_TO_TOPIC,
     UNSUBSCRIBE_FROM_TOPIC,
     UPDATE_DEVICE_STATE,
-	UPDATE_MOTOR_STATE
 } subscriber_cmd_t;
 
 /* Struct to be passed via the subscriber task queue */
 typedef struct{
 	char topic[50];
     subscriber_cmd_t cmd;
-    uint8_t data;
+    char* data;
 } subscriber_data_t;
 
 /*******************************************************************************

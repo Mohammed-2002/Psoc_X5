@@ -109,7 +109,7 @@ void calculate_rpm_speed(int pulse_count, int *rpm, float *speed) {
 }
 */
 float calculate_rpm_speed(int pulse_count) {
-    float rpm = pulse_count * 0.05 * (60000 / 500);
+    float rpm = pulse_count * 0.05 * (60000 / 100);
     float speed = (0.03 * 2 * 3.14 * (rpm)) / 60;
     return speed;
 }
@@ -162,7 +162,7 @@ void sensor_readout_task(void *params) {
     	float distance2;
     	float distance3;
 
-		if (cyhal_timer_read(&timer_rpm) / 1000 >= 500) {
+		if (cyhal_timer_read(&timer_rpm) / 1000 >= 100) {
 
 			distance0 = calculate_rpm_speed(pulse_counts[0]);
 			pulse_counts[0] = 0;
@@ -172,12 +172,12 @@ void sensor_readout_task(void *params) {
 			pulse_counts[2] = 0;
 			distance3 = calculate_rpm_speed(pulse_counts[3]);
 			pulse_counts[3] = 0;
-
+			/*
 			printf("Sensor %d, Speed: %f m/s\r\n", 0, distance0);
 			printf("Sensor %d, Speed: %f m/s\r\n", 1, distance1);
 			printf("Sensor %d, Speed: %f m/s\r\n", 2, distance2);
 			printf("Sensor %d, Speed: %f m/s\r\n", 3, distance3);
-
+			*/
 			cyhal_timer_reset(&timer_rpm); // Reset only the RPM timer
 		}
 

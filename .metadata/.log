@@ -131,3 +131,302 @@ Binding(CTRL+INSERT,
 		,,true),null),
 	org.eclipse.ui.defaultAcceleratorConfiguration,
 	org.eclipse.ui.console.ConsoleView,,,system)
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 14:46:06.261
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/openocd.exe -c gdb_port 3333 -c telnet_port 4444 -c tcl_port 6666 -s C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/../scripts -s bsps/TARGET_APP_CY8CPROTO-062-4343W/config/GeneratedSource -c source [find interface/kitprog3.cfg] -c transport select swd -c puts stderr {Started by GNU MCU Eclipse} -c source [find target/psoc6_2m.cfg] -c psoc6 sflash_restrictions 1 -c init; reset init -c echo "Started by GNU MCU Eclipse"
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 14:46:07.297
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/gcc/bin/arm-none-eabi-gdb.exe --interpreter=mi2 --nx
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 14:53:10.742
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/openocd.exe -c gdb_port 3333 -c telnet_port 4444 -c tcl_port 6666 -s C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/../scripts -s bsps/TARGET_APP_CY8CPROTO-062-4343W/config/GeneratedSource -c source [find interface/kitprog3.cfg] -c transport select swd -c puts stderr {Started by GNU MCU Eclipse} -c source [find target/psoc6_2m.cfg] -c psoc6 sflash_restrictions 1 -c init; reset init -c echo "Started by GNU MCU Eclipse"
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 14:53:10.898
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/gcc/bin/arm-none-eabi-gdb.exe --interpreter=mi2 --nx
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 15:06:46.159
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/openocd.exe -c gdb_port 3333 -c telnet_port 4444 -c tcl_port 6666 -s C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/../scripts -s bsps/TARGET_APP_CY8CPROTO-062-4343W/config/GeneratedSource -c source [find interface/kitprog3.cfg] -c transport select swd -c puts stderr {Started by GNU MCU Eclipse} -c source [find target/psoc6_2m.cfg] -c psoc6 sflash_restrictions 1 -c init; reset init -c echo "Started by GNU MCU Eclipse"
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 15:06:46.919
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/gcc/bin/arm-none-eabi-gdb.exe --interpreter=mi2 --nx
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 15:09:05.790
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/openocd.exe -c gdb_port 3333 -c telnet_port 4444 -c tcl_port 6666 -s C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/../scripts -s bsps/TARGET_APP_CY8CPROTO-062-4343W/config/GeneratedSource -c source [find interface/kitprog3.cfg] -c transport select swd -c puts stderr {Started by GNU MCU Eclipse} -c source [find target/psoc6_2m.cfg] -c psoc6 sflash_restrictions 1 -c init; reset init -c echo "Started by GNU MCU Eclipse"
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 15:09:05.941
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/gcc/bin/arm-none-eabi-gdb.exe --interpreter=mi2 --nx
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 15:18:36.271
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/openocd.exe -c gdb_port 3333 -c telnet_port 4444 -c tcl_port 6666 -s C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/../scripts -s bsps/TARGET_APP_CY8CPROTO-062-4343W/config/GeneratedSource -c source [find interface/kitprog3.cfg] -c transport select swd -c puts stderr {Started by GNU MCU Eclipse} -c source [find target/psoc6_2m.cfg] -c psoc6 sflash_restrictions 1 -c init; reset init -c echo "Started by GNU MCU Eclipse"
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 15:18:36.431
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/gcc/bin/arm-none-eabi-gdb.exe --interpreter=mi2 --nx
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 15:24:28.878
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/openocd.exe -c gdb_port 3333 -c telnet_port 4444 -c tcl_port 6666 -s C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/../scripts -s bsps/TARGET_APP_CY8CPROTO-062-4343W/config/GeneratedSource -c source [find interface/kitprog3.cfg] -c transport select swd -c puts stderr {Started by GNU MCU Eclipse} -c source [find target/psoc6_2m.cfg] -c psoc6 sflash_restrictions 1 -c init; reset init -c echo "Started by GNU MCU Eclipse"
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 15:24:29.053
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/gcc/bin/arm-none-eabi-gdb.exe --interpreter=mi2 --nx
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 15:27:38.653
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/openocd.exe -c gdb_port 3333 -c telnet_port 4444 -c tcl_port 6666 -s C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/../scripts -s bsps/TARGET_APP_CY8CPROTO-062-4343W/config/GeneratedSource -c source [find interface/kitprog3.cfg] -c transport select swd -c puts stderr {Started by GNU MCU Eclipse} -c source [find target/psoc6_2m.cfg] -c psoc6 sflash_restrictions 1 -c init; reset init -c echo "Started by GNU MCU Eclipse"
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 15:27:38.814
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/gcc/bin/arm-none-eabi-gdb.exe --interpreter=mi2 --nx
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 15:31:02.131
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/openocd.exe -c gdb_port 3333 -c telnet_port 4444 -c tcl_port 6666 -s C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/../scripts -s bsps/TARGET_APP_CY8CPROTO-062-4343W/config/GeneratedSource -c source [find interface/kitprog3.cfg] -c transport select swd -c puts stderr {Started by GNU MCU Eclipse} -c source [find target/psoc6_2m.cfg] -c psoc6 sflash_restrictions 1 -c init; reset init -c echo "Started by GNU MCU Eclipse"
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 15:31:02.268
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/gcc/bin/arm-none-eabi-gdb.exe --interpreter=mi2 --nx
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 15:33:05.133
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/openocd.exe -c gdb_port 3333 -c telnet_port 4444 -c tcl_port 6666 -s C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/../scripts -s bsps/TARGET_APP_CY8CPROTO-062-4343W/config/GeneratedSource -c source [find interface/kitprog3.cfg] -c transport select swd -c puts stderr {Started by GNU MCU Eclipse} -c source [find target/psoc6_2m.cfg] -c psoc6 sflash_restrictions 1 -c init; reset init -c echo "Started by GNU MCU Eclipse"
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 15:33:05.298
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/gcc/bin/arm-none-eabi-gdb.exe --interpreter=mi2 --nx
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 15:36:26.028
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/openocd.exe -c gdb_port 3333 -c telnet_port 4444 -c tcl_port 6666 -s C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/../scripts -s bsps/TARGET_APP_CY8CPROTO-062-4343W/config/GeneratedSource -c source [find interface/kitprog3.cfg] -c transport select swd -c puts stderr {Started by GNU MCU Eclipse} -c source [find target/psoc6_2m.cfg] -c psoc6 sflash_restrictions 1 -c init; reset init -c echo "Started by GNU MCU Eclipse"
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 15:36:26.167
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/gcc/bin/arm-none-eabi-gdb.exe --interpreter=mi2 --nx
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.core 4 0 2024-11-22 15:36:27.090
+!MESSAGE Debug session 'MQTT_client Program (KitProg3_MiniProg4)' already started. Terminate the first one before restarting.
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 15:37:09.333
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/openocd.exe -c gdb_port 3333 -c telnet_port 4444 -c tcl_port 6666 -s C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/../scripts -s bsps/TARGET_APP_CY8CPROTO-062-4343W/config/GeneratedSource -c source [find interface/kitprog3.cfg] -c transport select swd -c puts stderr {Started by GNU MCU Eclipse} -c source [find target/psoc6_2m.cfg] -c psoc6 sflash_restrictions 1 -c init; reset init -c echo "Started by GNU MCU Eclipse"
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 15:37:09.492
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/gcc/bin/arm-none-eabi-gdb.exe --interpreter=mi2 --nx
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 15:41:09.316
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/openocd.exe -c gdb_port 3333 -c telnet_port 4444 -c tcl_port 6666 -s C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/../scripts -s bsps/TARGET_APP_CY8CPROTO-062-4343W/config/GeneratedSource -c source [find interface/kitprog3.cfg] -c transport select swd -c puts stderr {Started by GNU MCU Eclipse} -c source [find target/psoc6_2m.cfg] -c psoc6 sflash_restrictions 1 -c init; reset init -c echo "Started by GNU MCU Eclipse"
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 15:41:09.467
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/gcc/bin/arm-none-eabi-gdb.exe --interpreter=mi2 --nx
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 15:43:00.360
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/openocd.exe -c gdb_port 3333 -c telnet_port 4444 -c tcl_port 6666 -s C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/../scripts -s bsps/TARGET_APP_CY8CPROTO-062-4343W/config/GeneratedSource -c source [find interface/kitprog3.cfg] -c transport select swd -c puts stderr {Started by GNU MCU Eclipse} -c source [find target/psoc6_2m.cfg] -c psoc6 sflash_restrictions 1 -c init; reset init -c echo "Started by GNU MCU Eclipse"
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 15:43:00.512
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/gcc/bin/arm-none-eabi-gdb.exe --interpreter=mi2 --nx
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 15:43:46.066
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/openocd.exe -c gdb_port 3333 -c telnet_port 4444 -c tcl_port 6666 -s C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/../scripts -s bsps/TARGET_APP_CY8CPROTO-062-4343W/config/GeneratedSource -c source [find interface/kitprog3.cfg] -c transport select swd -c puts stderr {Started by GNU MCU Eclipse} -c source [find target/psoc6_2m.cfg] -c psoc6 sflash_restrictions 1 -c init; reset init -c echo "Started by GNU MCU Eclipse"
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 15:43:46.217
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/gcc/bin/arm-none-eabi-gdb.exe --interpreter=mi2 --nx
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 15:45:38.724
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/openocd.exe -c gdb_port 3333 -c telnet_port 4444 -c tcl_port 6666 -s C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/../scripts -s bsps/TARGET_APP_CY8CPROTO-062-4343W/config/GeneratedSource -c source [find interface/kitprog3.cfg] -c transport select swd -c puts stderr {Started by GNU MCU Eclipse} -c source [find target/psoc6_2m.cfg] -c psoc6 sflash_restrictions 1 -c init; reset init -c echo "Started by GNU MCU Eclipse"
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 15:45:38.890
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/gcc/bin/arm-none-eabi-gdb.exe --interpreter=mi2 --nx
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 15:50:26.863
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/openocd.exe -c gdb_port 3333 -c telnet_port 4444 -c tcl_port 6666 -s C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/../scripts -s bsps/TARGET_APP_CY8CPROTO-062-4343W/config/GeneratedSource -c source [find interface/kitprog3.cfg] -c transport select swd -c puts stderr {Started by GNU MCU Eclipse} -c source [find target/psoc6_2m.cfg] -c psoc6 sflash_restrictions 1 -c init; reset init -c echo "Started by GNU MCU Eclipse"
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 15:50:27.026
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/gcc/bin/arm-none-eabi-gdb.exe --interpreter=mi2 --nx
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 15:53:32.747
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/openocd.exe -c gdb_port 3333 -c telnet_port 4444 -c tcl_port 6666 -s C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/../scripts -s bsps/TARGET_APP_CY8CPROTO-062-4343W/config/GeneratedSource -c source [find interface/kitprog3.cfg] -c transport select swd -c puts stderr {Started by GNU MCU Eclipse} -c source [find target/psoc6_2m.cfg] -c psoc6 sflash_restrictions 1 -c init; reset init -c echo "Started by GNU MCU Eclipse"
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 15:53:32.886
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/gcc/bin/arm-none-eabi-gdb.exe --interpreter=mi2 --nx
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 15:55:03.394
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/openocd.exe -c gdb_port 3333 -c telnet_port 4444 -c tcl_port 6666 -s C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/../scripts -s bsps/TARGET_APP_CY8CPROTO-062-4343W/config/GeneratedSource -c source [find interface/kitprog3.cfg] -c transport select swd -c puts stderr {Started by GNU MCU Eclipse} -c source [find target/psoc6_2m.cfg] -c psoc6 sflash_restrictions 1 -c init; reset init -c echo "Started by GNU MCU Eclipse"
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 15:55:03.544
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/gcc/bin/arm-none-eabi-gdb.exe --interpreter=mi2 --nx
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 15:56:04.595
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/openocd.exe -c gdb_port 3333 -c telnet_port 4444 -c tcl_port 6666 -s C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/../scripts -s bsps/TARGET_APP_CY8CPROTO-062-4343W/config/GeneratedSource -c source [find interface/kitprog3.cfg] -c transport select swd -c puts stderr {Started by GNU MCU Eclipse} -c source [find target/psoc6_2m.cfg] -c psoc6 sflash_restrictions 1 -c init; reset init -c echo "Started by GNU MCU Eclipse"
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 15:56:04.736
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/gcc/bin/arm-none-eabi-gdb.exe --interpreter=mi2 --nx
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 15:57:03.755
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/openocd.exe -c gdb_port 3333 -c telnet_port 4444 -c tcl_port 6666 -s C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/../scripts -s bsps/TARGET_APP_CY8CPROTO-062-4343W/config/GeneratedSource -c source [find interface/kitprog3.cfg] -c transport select swd -c puts stderr {Started by GNU MCU Eclipse} -c source [find target/psoc6_2m.cfg] -c psoc6 sflash_restrictions 1 -c init; reset init -c echo "Started by GNU MCU Eclipse"
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 15:57:03.931
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/gcc/bin/arm-none-eabi-gdb.exe --interpreter=mi2 --nx
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 15:58:08.846
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/openocd.exe -c gdb_port 3333 -c telnet_port 4444 -c tcl_port 6666 -s C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/../scripts -s bsps/TARGET_APP_CY8CPROTO-062-4343W/config/GeneratedSource -c source [find interface/kitprog3.cfg] -c transport select swd -c puts stderr {Started by GNU MCU Eclipse} -c source [find target/psoc6_2m.cfg] -c psoc6 sflash_restrictions 1 -c init; reset init -c echo "Started by GNU MCU Eclipse"
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 15:58:09.001
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/gcc/bin/arm-none-eabi-gdb.exe --interpreter=mi2 --nx
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 16:01:21.544
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/openocd.exe -c gdb_port 3333 -c telnet_port 4444 -c tcl_port 6666 -s C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/../scripts -s bsps/TARGET_APP_CY8CPROTO-062-4343W/config/GeneratedSource -c source [find interface/kitprog3.cfg] -c transport select swd -c puts stderr {Started by GNU MCU Eclipse} -c source [find target/psoc6_2m.cfg] -c psoc6 sflash_restrictions 1 -c init; reset init -c echo "Started by GNU MCU Eclipse"
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 16:01:21.710
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/gcc/bin/arm-none-eabi-gdb.exe --interpreter=mi2 --nx
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 16:03:05.247
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/openocd.exe -c gdb_port 3333 -c telnet_port 4444 -c tcl_port 6666 -s C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/../scripts -s bsps/TARGET_APP_CY8CPROTO-062-4343W/config/GeneratedSource -c source [find interface/kitprog3.cfg] -c transport select swd -c puts stderr {Started by GNU MCU Eclipse} -c source [find target/psoc6_2m.cfg] -c psoc6 sflash_restrictions 1 -c init; reset init -c echo "Started by GNU MCU Eclipse"
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 16:03:05.403
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/gcc/bin/arm-none-eabi-gdb.exe --interpreter=mi2 --nx
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 16:04:19.825
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/openocd.exe -c gdb_port 3333 -c telnet_port 4444 -c tcl_port 6666 -s C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/../scripts -s bsps/TARGET_APP_CY8CPROTO-062-4343W/config/GeneratedSource -c source [find interface/kitprog3.cfg] -c transport select swd -c puts stderr {Started by GNU MCU Eclipse} -c source [find target/psoc6_2m.cfg] -c psoc6 sflash_restrictions 1 -c init; reset init -c echo "Started by GNU MCU Eclipse"
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 16:04:19.973
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/gcc/bin/arm-none-eabi-gdb.exe --interpreter=mi2 --nx
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 16:06:28.473
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/openocd.exe -c gdb_port 3333 -c telnet_port 4444 -c tcl_port 6666 -s C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/../scripts -s bsps/TARGET_APP_CY8CPROTO-062-4343W/config/GeneratedSource -c source [find interface/kitprog3.cfg] -c transport select swd -c puts stderr {Started by GNU MCU Eclipse} -c source [find target/psoc6_2m.cfg] -c psoc6 sflash_restrictions 1 -c init; reset init -c echo "Started by GNU MCU Eclipse"
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 16:06:28.621
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/gcc/bin/arm-none-eabi-gdb.exe --interpreter=mi2 --nx
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 16:09:02.039
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/openocd.exe -c gdb_port 3333 -c telnet_port 4444 -c tcl_port 6666 -s C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/../scripts -s bsps/TARGET_APP_CY8CPROTO-062-4343W/config/GeneratedSource -c source [find interface/kitprog3.cfg] -c transport select swd -c puts stderr {Started by GNU MCU Eclipse} -c source [find target/psoc6_2m.cfg] -c psoc6 sflash_restrictions 1 -c init; reset init -c echo "Started by GNU MCU Eclipse"
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 16:09:02.197
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/gcc/bin/arm-none-eabi-gdb.exe --interpreter=mi2 --nx
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 16:15:13.314
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/openocd.exe -c gdb_port 3333 -c telnet_port 4444 -c tcl_port 6666 -s C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/../scripts -s bsps/TARGET_APP_CY8CPROTO-062-4343W/config/GeneratedSource -c source [find interface/kitprog3.cfg] -c transport select swd -c puts stderr {Started by GNU MCU Eclipse} -c source [find target/psoc6_2m.cfg] -c psoc6 sflash_restrictions 1 -c init; reset init -c echo "Started by GNU MCU Eclipse"
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 16:15:13.489
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/gcc/bin/arm-none-eabi-gdb.exe --interpreter=mi2 --nx
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 16:17:39.252
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/openocd.exe -c gdb_port 3333 -c telnet_port 4444 -c tcl_port 6666 -s C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/../scripts -s bsps/TARGET_APP_CY8CPROTO-062-4343W/config/GeneratedSource -c source [find interface/kitprog3.cfg] -c transport select swd -c puts stderr {Started by GNU MCU Eclipse} -c source [find target/psoc6_2m.cfg] -c psoc6 sflash_restrictions 1 -c init; reset init -c echo "Started by GNU MCU Eclipse"
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 16:17:39.395
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/gcc/bin/arm-none-eabi-gdb.exe --interpreter=mi2 --nx
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 16:20:21.383
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/openocd.exe -c gdb_port 3333 -c telnet_port 4444 -c tcl_port 6666 -s C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/../scripts -s bsps/TARGET_APP_CY8CPROTO-062-4343W/config/GeneratedSource -c source [find interface/kitprog3.cfg] -c transport select swd -c puts stderr {Started by GNU MCU Eclipse} -c source [find target/psoc6_2m.cfg] -c psoc6 sflash_restrictions 1 -c init; reset init -c echo "Started by GNU MCU Eclipse"
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 16:20:21.532
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/gcc/bin/arm-none-eabi-gdb.exe --interpreter=mi2 --nx
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 16:22:21.339
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/openocd.exe -c gdb_port 3333 -c telnet_port 4444 -c tcl_port 6666 -s C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/../scripts -s bsps/TARGET_APP_CY8CPROTO-062-4343W/config/GeneratedSource -c source [find interface/kitprog3.cfg] -c transport select swd -c puts stderr {Started by GNU MCU Eclipse} -c source [find target/psoc6_2m.cfg] -c psoc6 sflash_restrictions 1 -c init; reset init -c echo "Started by GNU MCU Eclipse"
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 16:22:21.510
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/gcc/bin/arm-none-eabi-gdb.exe --interpreter=mi2 --nx
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 16:27:19.073
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/openocd.exe -c gdb_port 3333 -c telnet_port 4444 -c tcl_port 6666 -s C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/../scripts -s bsps/TARGET_APP_CY8CPROTO-062-4343W/config/GeneratedSource -c source [find interface/kitprog3.cfg] -c transport select swd -c puts stderr {Started by GNU MCU Eclipse} -c source [find target/psoc6_2m.cfg] -c psoc6 sflash_restrictions 1 -c init; reset init -c echo "Started by GNU MCU Eclipse"
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 16:27:19.230
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/gcc/bin/arm-none-eabi-gdb.exe --interpreter=mi2 --nx
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 16:30:38.533
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/openocd.exe -c gdb_port 3333 -c telnet_port 4444 -c tcl_port 6666 -s C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/../scripts -s bsps/TARGET_APP_CY8CPROTO-062-4343W/config/GeneratedSource -c source [find interface/kitprog3.cfg] -c transport select swd -c puts stderr {Started by GNU MCU Eclipse} -c source [find target/psoc6_2m.cfg] -c psoc6 sflash_restrictions 1 -c init; reset init -c echo "Started by GNU MCU Eclipse"
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 16:30:38.685
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/gcc/bin/arm-none-eabi-gdb.exe --interpreter=mi2 --nx
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 16:51:55.952
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/openocd.exe -c gdb_port 3333 -c telnet_port 4444 -c tcl_port 6666 -s C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/../scripts -s bsps/TARGET_APP_CY8CPROTO-062-4343W/config/GeneratedSource -c source [find interface/kitprog3.cfg] -c transport select swd -c puts stderr {Started by GNU MCU Eclipse} -c source [find target/psoc6_2m.cfg] -c psoc6 sflash_restrictions 1 -c init; reset init -c echo "Started by GNU MCU Eclipse"
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 16:51:56.145
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/gcc/bin/arm-none-eabi-gdb.exe --interpreter=mi2 --nx
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 16:59:36.818
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/openocd.exe -c gdb_port 3333 -c telnet_port 4444 -c tcl_port 6666 -s C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/../scripts -s bsps/TARGET_APP_CY8CPROTO-062-4343W/config/GeneratedSource -c source [find interface/kitprog3.cfg] -c transport select swd -c puts stderr {Started by GNU MCU Eclipse} -c source [find target/psoc6_2m.cfg] -c psoc6 sflash_restrictions 1 -c init; reset init -c echo "Started by GNU MCU Eclipse"
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 16:59:36.968
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/gcc/bin/arm-none-eabi-gdb.exe --interpreter=mi2 --nx
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 17:05:11.866
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/openocd.exe -c gdb_port 3333 -c telnet_port 4444 -c tcl_port 6666 -s C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/../scripts -s bsps/TARGET_APP_CY8CPROTO-062-4343W/config/GeneratedSource -c source [find interface/kitprog3.cfg] -c transport select swd -c puts stderr {Started by GNU MCU Eclipse} -c source [find target/psoc6_2m.cfg] -c psoc6 sflash_restrictions 1 -c init; reset init -c echo "Started by GNU MCU Eclipse"
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 17:05:12.053
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/gcc/bin/arm-none-eabi-gdb.exe --interpreter=mi2 --nx
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 17:11:26.026
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/openocd.exe -c gdb_port 3333 -c telnet_port 4444 -c tcl_port 6666 -s C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/../scripts -s bsps/TARGET_APP_CY8CPROTO-062-4343W/config/GeneratedSource -c source [find interface/kitprog3.cfg] -c transport select swd -c puts stderr {Started by GNU MCU Eclipse} -c source [find target/psoc6_2m.cfg] -c psoc6 sflash_restrictions 1 -c init; reset init -c echo "Started by GNU MCU Eclipse"
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 17:11:26.177
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/gcc/bin/arm-none-eabi-gdb.exe --interpreter=mi2 --nx
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 17:12:51.272
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/openocd.exe -c gdb_port 3333 -c telnet_port 4444 -c tcl_port 6666 -s C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/../scripts -s bsps/TARGET_APP_CY8CPROTO-062-4343W/config/GeneratedSource -c source [find interface/kitprog3.cfg] -c transport select swd -c puts stderr {Started by GNU MCU Eclipse} -c source [find target/psoc6_2m.cfg] -c psoc6 sflash_restrictions 1 -c init; reset init -c echo "Started by GNU MCU Eclipse"
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 17:12:51.439
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/gcc/bin/arm-none-eabi-gdb.exe --interpreter=mi2 --nx
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 17:15:32.091
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/openocd.exe -c gdb_port 3333 -c telnet_port 4444 -c tcl_port 6666 -s C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/../scripts -s bsps/TARGET_APP_CY8CPROTO-062-4343W/config/GeneratedSource -c source [find interface/kitprog3.cfg] -c transport select swd -c puts stderr {Started by GNU MCU Eclipse} -c source [find target/psoc6_2m.cfg] -c psoc6 sflash_restrictions 1 -c init; reset init -c echo "Started by GNU MCU Eclipse"
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 17:15:32.246
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/gcc/bin/arm-none-eabi-gdb.exe --interpreter=mi2 --nx
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 17:19:06.127
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/openocd.exe -c gdb_port 3333 -c telnet_port 4444 -c tcl_port 6666 -s C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/../scripts -s bsps/TARGET_APP_CY8CPROTO-062-4343W/config/GeneratedSource -c source [find interface/kitprog3.cfg] -c transport select swd -c puts stderr {Started by GNU MCU Eclipse} -c source [find target/psoc6_2m.cfg] -c psoc6 sflash_restrictions 1 -c init; reset init -c echo "Started by GNU MCU Eclipse"
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 17:19:06.419
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/gcc/bin/arm-none-eabi-gdb.exe --interpreter=mi2 --nx
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 17:21:11.767
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/openocd.exe -c gdb_port 3333 -c telnet_port 4444 -c tcl_port 6666 -s C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/../scripts -s bsps/TARGET_APP_CY8CPROTO-062-4343W/config/GeneratedSource -c source [find interface/kitprog3.cfg] -c transport select swd -c puts stderr {Started by GNU MCU Eclipse} -c source [find target/psoc6_2m.cfg] -c psoc6 sflash_restrictions 1 -c init; reset init -c echo "Started by GNU MCU Eclipse"
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 17:21:11.958
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/gcc/bin/arm-none-eabi-gdb.exe --interpreter=mi2 --nx
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 17:26:57.633
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/openocd.exe -c gdb_port 3333 -c telnet_port 4444 -c tcl_port 6666 -s C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/../scripts -s bsps/TARGET_APP_CY8CPROTO-062-4343W/config/GeneratedSource -c source [find interface/kitprog3.cfg] -c transport select swd -c puts stderr {Started by GNU MCU Eclipse} -c source [find target/psoc6_2m.cfg] -c psoc6 sflash_restrictions 1 -c init; reset init -c echo "Started by GNU MCU Eclipse"
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 17:26:57.801
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/gcc/bin/arm-none-eabi-gdb.exe --interpreter=mi2 --nx
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 17:29:50.417
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/openocd.exe -c gdb_port 3333 -c telnet_port 4444 -c tcl_port 6666 -s C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/../scripts -s bsps/TARGET_APP_CY8CPROTO-062-4343W/config/GeneratedSource -c source [find interface/kitprog3.cfg] -c transport select swd -c puts stderr {Started by GNU MCU Eclipse} -c source [find target/psoc6_2m.cfg] -c psoc6 sflash_restrictions 1 -c init; reset init -c echo "Started by GNU MCU Eclipse"
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 17:29:50.598
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/gcc/bin/arm-none-eabi-gdb.exe --interpreter=mi2 --nx
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 5012 2024-11-22 17:30:05.686
+!MESSAGE Error in final launch sequence
+!STACK 1
+org.eclipse.core.runtime.CoreException: Failed to execute MI command:
+-target-select remote localhost:3333
+Error message from debugger back end:
+localhost:3333: Connection timed out.
+	at org.eclipse.cdt.dsf.concurrent.Query.get(Query.java:112)
+	at org.eclipse.embedcdt.debug.gdbjtag.openocd.core.dsf.LaunchConfigurationDelegate.launchDebugSession(LaunchConfigurationDelegate.java:453)
+	at org.eclipse.embedcdt.debug.gdbjtag.openocd.core.dsf.LaunchConfigurationDelegate.launchDebugger(LaunchConfigurationDelegate.java:178)
+	at org.eclipse.embedcdt.debug.gdbjtag.openocd.core.dsf.LaunchConfigurationDelegate.launch(LaunchConfigurationDelegate.java:154)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:806)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:717)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:1040)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$1.run(DebugUIPlugin.java:1243)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+Contains: Failed to execute MI command:
+-target-select remote localhost:3333
+Error message from debugger back end:
+localhost:3333: Connection timed out.
+java.lang.Exception: localhost:3333: Connection timed out.
+	at org.eclipse.cdt.dsf.mi.service.command.AbstractMIControl$RxThread.processMIOutput(AbstractMIControl.java:1024)
+	at org.eclipse.cdt.dsf.mi.service.command.AbstractMIControl$RxThread.run(AbstractMIControl.java:853)
+!SUBENTRY 1 org.eclipse.cdt.dsf 4 10004 2024-11-22 17:30:05.696
+!MESSAGE Failed to execute MI command:
+-target-select remote localhost:3333
+Error message from debugger back end:
+localhost:3333: Connection timed out.
+!SUBENTRY 2 org.eclipse.cdt.dsf.gdb 4 10004 2024-11-22 17:30:05.696
+!MESSAGE Failed to execute MI command:
+-target-select remote localhost:3333
+Error message from debugger back end:
+localhost:3333: Connection timed out.
+!STACK 0
+java.lang.Exception: localhost:3333: Connection timed out.
+	at org.eclipse.cdt.dsf.mi.service.command.AbstractMIControl$RxThread.processMIOutput(AbstractMIControl.java:1024)
+	at org.eclipse.cdt.dsf.mi.service.command.AbstractMIControl$RxThread.run(AbstractMIControl.java:853)
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 17:30:34.981
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/openocd.exe -c gdb_port 3333 -c telnet_port 4444 -c tcl_port 6666 -s C:/Users/Johannes/ModusToolbox/tools_3.2/../../../../Infineon/Tools/ModusToolboxProgtools-1.2.1/openocd/bin/../scripts -s bsps/TARGET_APP_CY8CPROTO-062-4343W/config/GeneratedSource -c source [find interface/kitprog3.cfg] -c transport select swd -c puts stderr {Started by GNU MCU Eclipse} -c source [find target/psoc6_2m.cfg] -c psoc6 sflash_restrictions 1 -c init; reset init -c echo "Started by GNU MCU Eclipse"
+
+!ENTRY org.eclipse.embedcdt.debug.gdbjtag.openocd.core 4 1 2024-11-22 17:30:35.150
+!MESSAGE C:/Users/Johannes/ModusToolbox/tools_3.2/gcc/bin/arm-none-eabi-gdb.exe --interpreter=mi2 --nx
