@@ -68,6 +68,7 @@ typedef enum
 typedef struct{
     publisher_cmd_t cmd;
     char *data;
+    char *topic;
 } publisher_data_t;
 
 /*******************************************************************************

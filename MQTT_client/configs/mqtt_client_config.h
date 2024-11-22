@@ -88,7 +88,8 @@
 */
 /********************* MQTT MESSAGE CONFIGURATION MACROS **********************/
 /* The MQTT topics to be used by the publisher and subscriber. */
-#define MQTT_PUB_TOPIC                    ""
+#define MQTT_PUB_TOPIC_LEDSTATUS_LEDSTATUS                  "ledstate"
+#define MQTT_PUB_TOPIC_THERMISTOR         					"Thermistor"
 //#define MQTT_SUB_TOPIC                    "ledstate"
 
 #define MQTT_LED_CONTROL_TOPIC			  "ledstate"

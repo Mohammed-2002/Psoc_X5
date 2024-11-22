@@ -5,6 +5,73 @@
     <title>MQTT Status Display</title>
     <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
     <style>
+        /*
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 20px;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .status-section, .drawing-section, .control-panel {
+            padding: 20px;
+            background: #f7f7f7;
+            border-radius: 8px;
+        }
+        h3 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .status {
+            margin-bottom: 15px;
+        }
+        .canvas-container {
+            display: flex;
+            justify-content: space-between;
+        }
+        canvas {
+            display: block;
+            border: 1px solid #ccc;
+            background: #fff;
+            margin: 0 5px;
+            width: 180px;
+            height: 180px;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .grid-button {
+            padding: 10px;
+            font-size: 14px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background: #007BFF;
+            color: white;
+        }
+        .grid-button.disabled-button {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        */
+
         body { 
             font-family: Arial, sans-serif; 
         }
@@ -54,7 +121,6 @@
         }
 
         #canvas { border: 1px solid #ccc; background: #f9f9f9; }
-
     </style>
 </head>
 <body>
@@ -77,6 +143,7 @@
 
         <p id="ledState">LED: Unknown</p>
         <p id="motorState">MOTORPINS: Unknown</p>
+        <p id="Thermistor">Temperature: Unknown</p>
 
         <h3>Publish to Topic</h3>
 
@@ -103,7 +170,7 @@
     <script>
         const socket = io();
         
-        const topics = ["ledstate", "motorstate"]; // Add the topics you want to subscribe to here
+        const topics = ["ledstate", "motorstate", "Thermistor"]; // Add the topics you want to subscribe to here
 
         window.onload = () => {
             topics.forEach(topic => {
@@ -140,6 +207,8 @@
                 document.getElementById("ledState").textContent = `LED: ${data.payload}`;
             } else if (data.topic === "motorstate") {
                 document.getElementById("motorState").textContent = `MOTORPINS: ${data.payload}`;
+            } else if (data.topic === "Thermistor") {
+                document.getElementById("Thermistor").textContent = `Temperature: ${data.payload}`;
             }
         });
 

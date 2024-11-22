@@ -51,6 +51,8 @@
 #include "publisher_task.h"
 #include "mqtt_task.h"
 #include "subscriber_task.h"
+#include "temperature_task.h"
+
 
 /* Configuration file for MQTT client */
 #include "mqtt_client_config.h"
@@ -58,6 +60,7 @@
 /* Middleware libraries */
 #include "cy_mqtt_api.h"
 #include "cy_retarget_io.h"
+
 
 /******************************************************************************
 * Macros
@@ -99,8 +102,6 @@ QueueHandle_t publisher_task_q;
 cy_mqtt_publish_info_t publish_info =
 {
     .qos = (cy_mqtt_qos_t) MQTT_MESSAGES_QOS,
-    .topic = MQTT_PUB_TOPIC,
-    .topic_len = (sizeof(MQTT_PUB_TOPIC) - 1),
     .retain = false,
     .dup = false
 };
@@ -111,6 +112,8 @@ cyhal_gpio_callback_data_t cb_data =
     .callback = isr_button_press,
     .callback_arg = NULL
 };
+
+int led_state_server = 0;
 
 /******************************************************************************
  * Function Name: publisher_task
@@ -147,6 +150,11 @@ void publisher_task(void *pvParameters)
     /* Create a message queue to communicate with other tasks and callbacks. */
     publisher_task_q = xQueueCreate(PUBLISHER_TASK_QUEUE_LENGTH, sizeof(publisher_data_t));
 
+    xTaskCreate(TemperatureTask, "Temperature Task", 1024, NULL, 1, NULL);
+
+    //printf("Temperature Task created\r\n");
+
+
     while (true)
     {
         /* Wait for commands from other tasks and callbacks. */
@@ -171,6 +179,9 @@ void publisher_task(void *pvParameters)
                 case PUBLISH_MQTT_MSG:
                 {
                     /* Publish the data received over the message queue. */
+                    publish_info.topic = publisher_q_data.topic;
+                    publish_info.topic_len = strlen(publisher_q_data.topic);
+
                     publish_info.payload = publisher_q_data.data;
                     publish_info.payload_len = strlen(publish_info.payload);
 
@@ -222,7 +233,7 @@ static void publisher_init(void)
                             USER_BTN_INTR_PRIORITY, true);
     
     printf("\nPress the user button (SW2) to publish \"%s\"/\"%s\" on the topic '%s'...\n", 
-           MQTT_DEVICE_ON_MESSAGE, MQTT_DEVICE_OFF_MESSAGE, publish_info.topic);
+           MQTT_DEVICE_ON_MESSAGE, MQTT_DEVICE_OFF_MESSAGE, MQTT_PUB_TOPIC_LEDSTATUS_LEDSTATUS);
 }
 
 /******************************************************************************
@@ -278,14 +289,18 @@ static void isr_button_press(void *callback_arg, cyhal_gpio_event_t event)
     publisher_q_data.cmd = PUBLISH_MQTT_MSG;
 
     /* Assign the publish message payload so that the device state toggles. */
-    if (current_device_state == DEVICE_ON_STATE)
+    if (led_state_server == 1)
     {
-        publisher_q_data.data = (char *)MQTT_DEVICE_OFF_MESSAGE;
+        publisher_q_data.data = (char *)"0";
+        led_state_server = 0;
     }
     else
     {
-        publisher_q_data.data = (char *)MQTT_DEVICE_ON_MESSAGE;
+        publisher_q_data.data = (char *) "1";
+        led_state_server = 1;
     }
+
+    publisher_q_data.topic = (char *) MQTT_PUB_TOPIC_LEDSTATUS_LEDSTATUS;
 
     /* Send the command and data to publisher task over the queue */
     xQueueSendFromISR(publisher_task_q, &publisher_q_data, &xHigherPriorityTaskWoken);
