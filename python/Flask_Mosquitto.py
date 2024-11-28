@@ -30,10 +30,11 @@ sock.bind((UDP_IP, UDP_PORT))
 #sensor_data = None
 
 sensor_data = {}
+speed_data = {}
 accelero_data = {}
 
 def listen_to_udp():
-    global sensor_data, accelero_data
+    global sensor_data, speed_data, accelero_data
     while True:
         data, addr = sock.recvfrom(1024)  # Buffer size
         message = data.decode('utf-8')
@@ -68,6 +69,13 @@ def listen_to_udp():
                 sensor_data['2'] = parsed_data["distance2"]
                 sensor_data['3'] = parsed_data["distance3"]
                 socketio.emit('update_sensor_data', {'sensor_data': sensor_data})
+            
+            elif "speed0" in parsed_data and "speed1" in parsed_data and "speed2" in parsed_data and "speed3" in parsed_data:
+                speed_data['0'] = parsed_data["speed0"]
+                speed_data['1'] = parsed_data["speed1"]
+                speed_data['2'] = parsed_data["speed2"]
+                speed_data['3'] = parsed_data["speed3"]
+                socketio.emit('update_speed_data', {'speed_data': speed_data})
             #'''
         except json.JSONDecodeError:
             print("Received malformed JSON:", message)
@@ -83,6 +91,10 @@ def get_acceleroData():
 @app.route('/api/sensorData')
 def get_sensorData():
     return jsonify({'sensor_data': sensor_data})
+
+@app.route('/api/speedData')
+def get_speedData():
+    return jsonify({'speed_data': speed_data})
 
 @app.route('/')
 def index():

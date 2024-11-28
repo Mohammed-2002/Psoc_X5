@@ -32,6 +32,7 @@
 
 cyhal_timer_t timer_distance, timer_rpm; // Separate timers
 QueueHandle_t distance_queue = NULL;
+QueueHandle_t speed_queue = NULL;
 
 // Function Prototypes
 //void init_distance_timer(void);
@@ -138,17 +139,20 @@ void sensor_readout_task(void *params) {
     }
 
     if (distance_queue == NULL) {
-		distance_queue = xQueueCreate(10, sizeof(SensorData_t));
+		distance_queue = xQueueCreate(10, sizeof(DistanceData_t));
+	}
+    if (speed_queue == NULL) {
+    	speed_queue = xQueueCreate(10, sizeof(SpeedData_t));
 	}
 
     while (true) {
-    	/*
+
     	//DISTANCES
     	float distance0 = measure_distance(trigger_pins[0], echo_pins[0]);
     	float distance1 = measure_distance(trigger_pins[1], echo_pins[1]);
     	float distance2 = measure_distance(trigger_pins[2], echo_pins[2]);
     	float distance3 = measure_distance(trigger_pins[3], echo_pins[3]);
-    	 */
+
 
     	//RPM
     	for (int i = 0; i < 4; i++) {
@@ -156,21 +160,20 @@ void sensor_readout_task(void *params) {
 		}
 
 		// Check if 5 seconds have elapsed for RPM calculation
-
-    	float distance0;
-    	float distance1;
-    	float distance2;
-    	float distance3;
+    	float speed0;
+    	float speed1;
+    	float speed2;
+    	float speed3;
 
 		if (cyhal_timer_read(&timer_rpm) / 1000 >= 100) {
 
-			distance0 = calculate_rpm_speed(pulse_counts[0]);
+			speed0 = calculate_rpm_speed(pulse_counts[0]);
 			pulse_counts[0] = 0;
-			distance1 = calculate_rpm_speed(pulse_counts[1]);
+			speed1 = calculate_rpm_speed(pulse_counts[1]);
 			pulse_counts[1] = 0;
-			distance2 = calculate_rpm_speed(pulse_counts[2]);
+			speed2 = calculate_rpm_speed(pulse_counts[2]);
 			pulse_counts[2] = 0;
-			distance3 = calculate_rpm_speed(pulse_counts[3]);
+			speed3 = calculate_rpm_speed(pulse_counts[3]);
 			pulse_counts[3] = 0;
 			/*
 			printf("Sensor %d, Speed: %f m/s\r\n", 0, distance0);
@@ -181,16 +184,25 @@ void sensor_readout_task(void *params) {
 			cyhal_timer_reset(&timer_rpm); // Reset only the RPM timer
 		}
 
-    	SensorData_t data =
+    	DistanceData_t distanceData =
 			{ .distance0 = distance0,
 		   	  .distance1 = distance1,
 			  .distance2 = distance2,
 			  .distance3 = distance3
 			};
+    	SpeedData_t speedData =
+			{ .speed0 = speed0,
+			  .speed1 = speed1,
+			  .speed2 = speed2,
+			  .speed3 = speed3
+			};
 
-    	if (xQueueSend(distance_queue, &data, pdMS_TO_TICKS(100)) != pdPASS) {
-			printf("Failed to send data to queue\n");
+    	if (xQueueSend(distance_queue, &distanceData, pdMS_TO_TICKS(100)) != pdPASS) {
+			printf("Failed to send distanceData to queue\n");
     	}
+    	if (xQueueSend(speed_queue, &speedData, pdMS_TO_TICKS(100)) != pdPASS) {
+			printf("Failed to send speedData to queue\n");
+		}
 
     	/*
     	printf("Sensor 0 Distance: %.2f cm\n", data.distance0);
@@ -199,23 +211,7 @@ void sensor_readout_task(void *params) {
     	printf("Sensor 3 Distance: %.2f cm\n", data.distance3);
     	*/
     	vTaskDelay(pdMS_TO_TICKS(20));
-    	/*
-        // Measure and print distances for each sensor
-        for (int i = 0; i < 4; i++) {
-            float distance = measure_distance(trigger_pins[i], echo_pins[i]);
-            printf("Sensor %d Distance: %f cm\r\n", i + 1, distance);
 
-            if (distance >= 0) {
-				SensorData_t data = { .sensor_id = i + 1, .distance = distance };
-				if (xQueueSend(distance_queue, &data, pdMS_TO_TICKS(100)) != pdPASS) {
-					printf("Failed to send data to queue\n");
-				}
-				printf("Sensor %d Distance: %.2f cm\n", data.sensor_id, data.distance);
-			}
-        }
-
-        vTaskDelay(pdMS_TO_TICKS(50));
-        */
         /*
         // Update pulse counts for each RPM sensor
         for (int i = 0; i < 4; i++) {

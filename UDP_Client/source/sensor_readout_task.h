@@ -19,7 +19,14 @@ typedef struct {
     float distance1;
     float distance2;
     float distance3;
-} SensorData_t;
+} DistanceData_t;
+
+typedef struct {
+	float speed0;
+	float speed1;
+	float speed2;
+	float speed3;
+} SpeedData_t;
 
 // Function to initialize distance measurement resources
 void init_distance_timer(void);

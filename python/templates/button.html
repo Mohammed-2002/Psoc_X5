@@ -117,10 +117,10 @@
             <div class="status-section">
                 <h4 class="h3">Speed Sensors</h4>
                 <div class="sensor-data">
-                    <div class="data-item" id="sensor1">Distance 1: Unknown</div>
-                    <div class="data-item" id="sensor2">Distance 2: Unknown</div>
-                    <div class="data-item" id="sensor3">Distance 3: Unknown</div>
-                    <div class="data-item" id="sensor4">Distance 4: Unknown</div>
+                    <div class="data-item" id="speed_sensor1">Speed 1: Unknown</div>
+                    <div class="data-item" id="speed_sensor2">Speed 2: Unknown</div>
+                    <div class="data-item" id="speed_sensor3">Speed 3: Unknown</div>
+                    <div class="data-item" id="speed_sensor4">Speed 4: Unknown</div>
                 </div>
             </div>
             <div class="status-section">
@@ -180,6 +180,16 @@
             document.getElementById('sensor4').textContent = `Distance 4: ${data.sensor_data['3']} cm`;
 
             drawCar(data);
+        });
+
+        socket.on('update_speed_data', function(data) {
+            //document.getElementById('sensorData').textContent = `LED: ${data.sensor_data}`;
+
+            document.getElementById('speed_sensor1').textContent = `Speed 1: ${data.speed_data['0']}`;
+            document.getElementById('speed_sensor2').textContent = `Speed 2: ${data.speed_data['1']}`;
+            document.getElementById('speed_sensor3').textContent = `Speed 3: ${data.speed_data['2']}`;
+            document.getElementById('speed_sensor4').textContent = `Speed 4: ${data.speed_data['3']}`;
+
         });
 
         socket.on('update_accelero_data', function(data) {
@@ -329,8 +339,8 @@
         const ctx2 = carCanvas.getContext('2d');  // Use ctx2 for the second canvas
 
         // Car dimensions and position
-        const carWidth = 100;
-        const carHeight = 200;
+        const carWidth = 50;
+        const carHeight = 100;
         const carCenterX = carCanvas.width / 2;
         const carCenterY = carCanvas.height / 2;
 

@@ -102,6 +102,7 @@ extern TaskHandle_t client_task_handle;
 
 extern QueueHandle_t led_state_queue;
 extern QueueHandle_t distance_queue;
+extern QueueHandle_t speed_queue;
 
 /*******************************************************************************
  * Function Name: udp_client_task
@@ -278,8 +279,10 @@ void udp_client_task(void *arg)
         printf("Failed to send data to server. Error : %"PRIu32"\n", result);
     }
 
-    SensorData_t sensor_data;
+    DistanceData_t distance_data;
+    SpeedData_t speed_data;
     AcceleroData_t accelero_data;
+
     while(true)
     {
     	/*
@@ -299,10 +302,10 @@ void udp_client_task(void *arg)
 		}
 		*/
 
-    	if (xQueueReceive(distance_queue, &sensor_data, /*portMAX_DELAY*/ pdMS_TO_TICKS(30)) == pdPASS) {
+    	if (xQueueReceive(distance_queue, &distance_data, /*portMAX_DELAY*/ pdMS_TO_TICKS(30)) == pdPASS) {
     		char message[100];
 			snprintf(message, sizeof(message), "{\"distance0\": %.2f, \"distance1\": %.2f, \"distance2\": %.2f, \"distance3\": %.2f}",
-										sensor_data.distance0, sensor_data.distance1, sensor_data.distance2, sensor_data.distance3);
+										distance_data.distance0, distance_data.distance1, distance_data.distance2, distance_data.distance3);
 
 			result = cy_socket_sendto(client_handle, message, strlen(message),
 									  CY_SOCKET_FLAGS_NONE, &udp_server_addr,
@@ -310,7 +313,23 @@ void udp_client_task(void *arg)
 			if (result != CY_RSLT_SUCCESS) {
 				printf("Failed to send distance to server. Error: %" PRIu32 "\n", result);
 			} else {
-				//printf("Sensor data sent: %s\n", message);
+				printf("Sensor data sent: %s\n", message);
+			}
+			//vTaskDelay(pdMS_TO_TICKS(20));
+		}
+
+    	if (xQueueReceive(speed_queue, &speed_data, /*portMAX_DELAY*/ pdMS_TO_TICKS(30)) == pdPASS) {
+			char message[100];
+			snprintf(message, sizeof(message), "{\"speed0\": %.2f, \"speed1\": %.2f, \"speed2\": %.2f, \"speed3\": %.2f}",
+										speed_data.speed0, speed_data.speed1, speed_data.speed2, speed_data.speed3);
+
+			result = cy_socket_sendto(client_handle, message, strlen(message),
+									  CY_SOCKET_FLAGS_NONE, &udp_server_addr,
+									  sizeof(cy_socket_sockaddr_t), &bytes_sent);
+			if (result != CY_RSLT_SUCCESS) {
+				printf("Failed to send speed to server. Error: %" PRIu32 "\n", result);
+			} else {
+				printf("Sensor data sent: %s\n", message);
 			}
 			//vTaskDelay(pdMS_TO_TICKS(20));
 		}
