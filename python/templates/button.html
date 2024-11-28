@@ -150,9 +150,12 @@
                         <button id="leftButton" class="grid-button" onclick="publishMotorCommand('motorstate', this)">LEFT</button>
                         <button id="turnoffButton" class="grid-button" onclick="publishMotorCommand('motorstate', this)">TURN OFF</button>
                         <button id="rightButton" class="grid-button" onclick="publishMotorCommand('motorstate', this)">RIGHT</button>
-                        <button class="grid-button disabled-button"></button>
                         <button id="backwardButton" class="grid-button" onclick="publishMotorCommand('motorstate', this)">BACKWARD</button>
-                        <button class="grid-button disabled-button"></button>
+
+                        <button id="forwardRightButton" class="grid-button" onclick="publishMotorCommand('motorstate', this)">FORWARDRIGHT</button>
+                        <button id="forwardLeftButton" class="grid-button" onclick="publishMotorCommand('motorstate', this)">FORWARDLEFT</button>
+                        <button id="backwardRightButton" class="grid-button" onclick="publishMotorCommand('motorstate', this)">BACKWARDRIGHT</button>
+                        <button id="backwardLeftButton" class="grid-button" onclick="publishMotorCommand('motorstate', this)">BACKWARDLEFT</button>
                     </div>
                 </div>
             </div>
@@ -227,6 +230,11 @@
                 document.getElementById("leftButton"),
                 document.getElementById("rightButton"),
 
+                document.getElementById("forwardRightButton"),
+                document.getElementById("forwardLeftButton"),
+                document.getElementById("backwardRightButton"),
+                document.getElementById("backwardLeftButton"),
+
                 document.getElementById("clockwiseButton"),
                 document.getElementById("counterclockwiseButton"),
             
@@ -264,6 +272,19 @@
                     break;
                 case "rightButton":
                     command = "GO RIGHT";
+                    break;
+
+                case "forwardRightButton":
+                    command = "GO FORWARDRIGHT";
+                    break;
+                case "forwardLeftButton":
+                    command = "GO FORWARDLEFT";
+                    break;
+                case "backwardRightButton":
+                    command = "GO BACKWARDRIGHT";
+                    break;
+                case "backwardLeftButton":
+                    command = "GO BACKWARDLEFT";
                     break;
 
                 case "clockwiseButton":

@@ -189,14 +189,26 @@ void subscriber_task(void *pvParameters)
 						uint8_t motor_state = 0b00000000u;
 						if (strncmp(MQTT_MOTOR_FORWARD_MESSAGE, subscriber_q_data.data, strlen(subscriber_q_data.data) ) == 0) {
 							motor_state = MOTOR_FORWARD;
-
 						} else if (strncmp(MQTT_MOTOR_BACKWARD_MESSAGE, subscriber_q_data.data, strlen(subscriber_q_data.data)) == 0) {
 							motor_state  = MOTOR_BACKWARD;
 						} else if (strncmp(MQTT_MOTOR_LEFT_MESSAGE, subscriber_q_data.data, strlen(subscriber_q_data.data)) == 0) {
 							motor_state  = MOTOR_LEFT;
 						} else if (strncmp(MQTT_MOTOR_RIGHT_MESSAGE, subscriber_q_data.data, strlen(subscriber_q_data.data)) == 0) {
 							motor_state  = MOTOR_RIGHT;
-						} else if (strncmp(MQTT_MOTOR_CLOCKWISE_MESSAGE, subscriber_q_data.data, strlen(subscriber_q_data.data)) == 0) {
+						}
+
+						else if (strncmp(MQTT_MOTOR_FORWARDRIGHT_MESSAGE, subscriber_q_data.data, strlen(subscriber_q_data.data)) == 0) {
+							motor_state  = MOTOR_FORWARDRIGHT;
+						} else if (strncmp(MQTT_MOTOR_FORWARDLEFT_MESSAGE, subscriber_q_data.data, strlen(subscriber_q_data.data)) == 0) {
+							motor_state  = MOTOR_FORWARDLEFT;
+						} else if (strncmp(MQTT_MOTOR_BACKWARDRIGHT_MESSAGE, subscriber_q_data.data, strlen(subscriber_q_data.data)) == 0) {
+							motor_state  = MOTOR_BACKWARDRIGHT;
+						} else if (strncmp(MQTT_MOTOR_BACKWARDLEFT_MESSAGE, subscriber_q_data.data, strlen(subscriber_q_data.data)) == 0) {
+							motor_state  = MOTOR_BACKWARDLEFT;
+						}
+
+
+						else if (strncmp(MQTT_MOTOR_CLOCKWISE_MESSAGE, subscriber_q_data.data, strlen(subscriber_q_data.data)) == 0) {
 							motor_state  = MOTOR_CLOCKWISE;
 						} else if (strncmp(MQTT_MOTOR_COUNTERCLOCKWISE_MESSAGE, subscriber_q_data.data, strlen(subscriber_q_data.data)) == 0) {
 							motor_state = MOTOR_COUNTERCLOCKWISE;
