@@ -202,7 +202,8 @@
             document.getElementById('accY').textContent = `Y: ${data.accelero_data['y']} g`;
             document.getElementById('accZ').textContent = `Z: ${data.accelero_data['z']} g`;
 
-            updateCanvas(data.accelero_data['y'], data.accelero_data['x']);
+            //updateCanvas(data.accelero_data['y'], data.accelero_data['x']);
+            updateCanvas(data.accelero_data['x'], data.accelero_data['y']);
 
         });
 

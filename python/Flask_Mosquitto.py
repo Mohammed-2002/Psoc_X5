@@ -23,6 +23,7 @@ bootstrap = Bootstrap(app)
 socketio = SocketIO(app, cors_allowed_origins='*', async_mode="eventlet")
 
 UDP_IP = "192.168.132.204"
+#UDP_IP = "192.168.132.189"
 UDP_PORT = 57345
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 sock.bind((UDP_IP, UDP_PORT))

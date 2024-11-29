@@ -129,7 +129,7 @@ void read_accelerometer_data(cyhal_i2c_t* i2c_master_obj, int16_t* accel_x, int1
                                                  1000);                // Timeout of 1000 ms
 
     if (result == CY_RSLT_SUCCESS) {
-        printf("read result success\r\n");
+        //printf("read result success\r\n");
     } else {
         printf("read result failed, error code: %lu\r\n", (unsigned long)result);
     }
@@ -197,7 +197,7 @@ void accelerometer_task(void *params) {
 		float accel_z_g = convert_to_g(accel_z);
 
 		AcceleroData_t data =
-			{ .accel_x_g = accel_x_g,
+			{ .accel_x_g = accel_x_g - 0.10,
 			  .accel_y_g = accel_y_g,
 			  .accel_z_g = accel_z_g + 1.0,
 			};
@@ -205,7 +205,7 @@ void accelerometer_task(void *params) {
 		if (xQueueSend(accelero_queue, &data, pdMS_TO_TICKS(100)) != pdPASS) {
 			printf("Failed to send data to queue\n");
 		}
-		printf("Accel X: %.4f g, Accel Y: %.4f g, Accel Z: %.4f g\r\n", data.accel_x_g, data.accel_y_g, data.accel_z_g);
+		//printf("Accel X: %.4f g, Accel Y: %.4f g, Accel Z: %.4f g\r\n", data.accel_x_g, data.accel_y_g, data.accel_z_g);
 
         // Add a delay between reads
 		vTaskDelay(pdMS_TO_TICKS(20));

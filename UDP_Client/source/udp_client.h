@@ -71,7 +71,7 @@
 /* Change the server IP address to match the UDP server address (IP address
  * of the PC).
  */
-#define UDP_SERVER_IP_ADDRESS             MAKE_IPV4_ADDRESS(192, 168, 132, 204)
+#define UDP_SERVER_IP_ADDRESS             MAKE_IPV4_ADDRESS(192, 168, 132, 189)
 #define UDP_SERVER_PORT                   (57345)
 
 /*******************************************************************************
