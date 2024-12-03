@@ -19,6 +19,15 @@
 #define MOTOR_BACKWARDRIGHT					(0b00010100u)
 #define MOTOR_BACKWARDLEFT					(0b01000001u)
 
+#define BACK_WHEELS_OFF_LEFT                (0b01100000u)
+#define BACK_WHEELS_OFF_RIGHT               (0b10010000u)
+#define FRONT_WHEELS_OFF_LEFT               (0b00001001u)
+#define FRONT_WHEELS_OFF_RIGHT              (0b00000110u)
+#define RIGHT_WHEELS_OFF_FORWARD            (0b10001000u)
+#define RIGHT_WHEELS_OFF_BACKWARD           (0b01000100u)
+#define LEFT_WHEELS_OFF_FORWARD             (0b00100010u)
+#define LEFT_WHEELS_OFF_BACKWARD            (0b00010001u)
+
 #define MOTOR_CLOCKWISE						(0b10011001u)
 #define MOTOR_COUNTERCLOCKWISE				(0b01100110u)
 

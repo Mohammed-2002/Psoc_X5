@@ -233,7 +233,7 @@ static void publisher_init(void)
                             USER_BTN_INTR_PRIORITY, true);
     
     printf("\nPress the user button (SW2) to publish \"%s\"/\"%s\" on the topic '%s'...\n", 
-           MQTT_DEVICE_ON_MESSAGE, MQTT_DEVICE_OFF_MESSAGE, MQTT_PUB_TOPIC_LEDSTATUS_LEDSTATUS);
+           MQTT_DEVICE_ON_MESSAGE, MQTT_DEVICE_OFF_MESSAGE, MQTT_PUB_TOPIC_LEDSTATUS);
 }
 
 /******************************************************************************
@@ -291,16 +291,18 @@ static void isr_button_press(void *callback_arg, cyhal_gpio_event_t event)
     /* Assign the publish message payload so that the device state toggles. */
     if (led_state_server == 1)
     {
-        publisher_q_data.data = (char *)"0";
+        //publisher_q_data.data = (char *)"0";
+    	publisher_q_data.data = MQTT_DEVICE_OFF_MESSAGE;
         led_state_server = 0;
     }
     else
     {
-        publisher_q_data.data = (char *) "1";
+        //publisher_q_data.data = (char *) "1";
+    	publisher_q_data.data = MQTT_DEVICE_ON_MESSAGE;
         led_state_server = 1;
     }
 
-    publisher_q_data.topic = (char *) MQTT_PUB_TOPIC_LEDSTATUS_LEDSTATUS;
+    publisher_q_data.topic = (char *) MQTT_PUB_TOPIC_LEDSTATUS;
 
     /* Send the command and data to publisher task over the queue */
     xQueueSendFromISR(publisher_task_q, &publisher_q_data, &xHigherPriorityTaskWoken);

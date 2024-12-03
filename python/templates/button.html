@@ -63,7 +63,8 @@
             width: fit-content;
         }
         .sensor-data,
-        .accelerometer-data {
+        .accelerometer-data,
+        .thermistor-data {
             display: flex;
             justify-content: space-evenly;
             font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -131,6 +132,12 @@
                     <div class="data-item" id="accZ">Z: Unknown</div>
                 </div>
             </div>
+            <div class="status-section">
+                <h4 class="h3">Thermistor</h4>
+                <div class="thermistor-data">
+                    <div class="data-item" id="temperature_state">Unknown</div>
+                </div>
+            </div>
         </div>
 
         <!-- Control Panel -->
@@ -165,7 +172,7 @@
     <script>
         const socket = io();
         
-        const topics = ["ledstate", "motorstate"]; // Add the topics you want to subscribe to here
+        const topics = ["ledstate", "motorstate", "Thermistor"]; // Add the topics you want to subscribe to here
 
         window.onload = () => {
             topics.forEach(topic => {
@@ -213,6 +220,8 @@
                 document.getElementById("ledState").textContent = `LED: ${data.payload}`;
             } else if (data.topic === "motorstate") {
                 document.getElementById("motorState").textContent = `MOTORPINS: ${data.payload}`;
+            } else if (data.topic === "Thermistor") {
+                document.getElementById("temperature_state").textContent = `Temperature: ${data.payload} °C`;
             }
         });
 
@@ -250,10 +259,12 @@
 
         function toggleLed(topic, button) {
             const command = button.textContent;
-
+            
             socket.emit('publish', JSON.stringify({ topic: topic, message: command }));
             console.log(`Published message: '${command}' to topic: ${topic}`);
-        
+            
+            //publishToTopic(topic, command);
+
             button.textContent = (command === "TURN ON") ? "TURN OFF" : "TURN ON";
         }
 

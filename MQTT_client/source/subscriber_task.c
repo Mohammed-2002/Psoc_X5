@@ -169,19 +169,23 @@ void subscriber_task(void *pvParameters)
 
                 case UPDATE_DEVICE_STATE:
                 {
-                	printf("TEST\r\n");
+                	//printf("TEST\r\n");
 
                     if (strncmp(subscriber_q_data.topic, MQTT_LED_CONTROL_SUB_TOPIC, strlen(subscriber_q_data.topic)) == 0)
                     	{
                     	printf("Het data is: %s\n", subscriber_q_data.data);
                     	printf("Het topic is: %s\n", subscriber_q_data.topic);
-
+                    	/*
                     	uint8_t led_state = (strncmp(MQTT_DEVICE_ON_MESSAGE, subscriber_q_data.data, strlen(subscriber_q_data.data)) == 0)
                     								  ? DEVICE_ON_STATE : DEVICE_OFF_STATE;
+                    	*/
+                    	uint8_t led_state = (strncmp(MQTT_DEVICE_ON_MESSAGE, subscriber_q_data.data, strlen(subscriber_q_data.data)) == 0)
+													  ? (0x01) : (0x00);
+
                     		/* Update the LED state as per received notification. */
                     	//int led_state = (int)atoi(subscriber_q_data.data);
                     		cyhal_gpio_write(CYBSP_USER_LED, led_state);
-                    		printf("Het getal is: %d\n", led_state);
+                    		printf("De ledstate is: %d\n", led_state);
 
                     	}
 					else if (strncmp(subscriber_q_data.topic, MQTT_MOTOR_CONTROL_SUB_TOPIC, strlen(subscriber_q_data.topic)) == 0)
@@ -207,6 +211,23 @@ void subscriber_task(void *pvParameters)
 							motor_state  = MOTOR_BACKWARDLEFT;
 						}
 
+						else if (strncmp(MQTT_MOTOR_BACK_WHEELS_OFF_LEFT_MESSAGE, subscriber_q_data.data, strlen(subscriber_q_data.data)) == 0){
+							motor_state = BACK_WHEELS_OFF_LEFT;
+						} else if (strncmp(MQTT_MOTOR_BACK_WHEELS_OFF_RIGHT_MESSAGE, subscriber_q_data.data, strlen(subscriber_q_data.data)) == 0){
+							motor_state = BACK_WHEELS_OFF_RIGHT;
+						} else if (strncmp(MQTT_MOTOR_FRONT_WHEELS_OFF_LEFT_MESSAGE, subscriber_q_data.data, strlen(subscriber_q_data.data)) == 0){
+							motor_state = FRONT_WHEELS_OFF_LEFT;
+						} else if (strncmp(MQTT_MOTOR_FRONT_WHEELS_OFF_RIGHT_MESSAGE, subscriber_q_data.data, strlen(subscriber_q_data.data)) == 0){
+							motor_state = FRONT_WHEELS_OFF_RIGHT;
+						} else if (strncmp(MQTT_MOTOR_RIGHT_WHEELS_OFF_FORWARD_MESSAGE, subscriber_q_data.data, strlen(subscriber_q_data.data)) == 0){
+							motor_state = RIGHT_WHEELS_OFF_FORWARD;
+						} else if (strncmp(MQTT_MOTOR_RIGHT_WHEELS_OFF_BACKWARD_MESSAGE, subscriber_q_data.data, strlen(subscriber_q_data.data)) == 0){
+							motor_state = RIGHT_WHEELS_OFF_BACKWARD;
+						} else if (strncmp(MQTT_MOTOR_LEFT_WHEELS_OFF_FORWARD_MESSAGE, subscriber_q_data.data, strlen(subscriber_q_data.data)) == 0){
+							motor_state = LEFT_WHEELS_OFF_FORWARD;
+						} else if (strncmp(MQTT_MOTOR_LEFT_WHEELS_OFF_BACKWARD_MESSAGE, subscriber_q_data.data, strlen(subscriber_q_data.data)) == 0){
+							motor_state = LEFT_WHEELS_OFF_BACKWARD;
+						}
 
 						else if (strncmp(MQTT_MOTOR_CLOCKWISE_MESSAGE, subscriber_q_data.data, strlen(subscriber_q_data.data)) == 0) {
 							motor_state  = MOTOR_CLOCKWISE;
