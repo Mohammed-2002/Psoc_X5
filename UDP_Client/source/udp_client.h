@@ -49,8 +49,8 @@
  * CY_WCM_MAX_SSID_LEN and CY_WCM_MAX_PASSPHRASE_LEN as defined in cy_wcm.h file.
  */
 
-#define WIFI_SSID                         "Johannes"
-#define WIFI_PASSWORD                     "johanneschopov"
+#define WIFI_SSID                         "LaurenceLaptop"
+#define WIFI_PASSWORD                     "jeffbewos"
 
 /* Security type of the Wi-Fi access point. See 'cy_wcm_security_t' structure
  * in "cy_wcm.h" for more details.
@@ -71,7 +71,9 @@
 /* Change the server IP address to match the UDP server address (IP address
  * of the PC).
  */
-#define UDP_SERVER_IP_ADDRESS             MAKE_IPV4_ADDRESS(192, 168, 132, 189)
+//Laurence laptop
+#define UDP_SERVER_IP_ADDRESS             MAKE_IPV4_ADDRESS(192, 168, 137, 1)
+//#define UDP_SERVER_IP_ADDRESS             MAKE_IPV4_ADDRESS(192, 168, 132, 189)
 //#define UDP_SERVER_IP_ADDRESS             MAKE_IPV4_ADDRESS(192, 168, 132, 204)
 //#define UDP_SERVER_IP_ADDRESS             MAKE_IPV4_ADDRESS(192, 168, 132, 164)
 #define UDP_SERVER_PORT                   (57345)

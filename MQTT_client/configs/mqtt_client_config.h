@@ -63,7 +63,8 @@
 */
 
 
-#define MQTT_BROKER_ADDRESS					"192.168.132.204"
+//#define MQTT_BROKER_ADDRESS					"192.168.132.204"
+#define MQTT_BROKER_ADDRESS					"192.168.137.168"
 #define MQTT_PORT                         1883
 #define MQTT_SECURE_CONNECTION            ( 0 )
 #define MQTT_USERNAME                     ""

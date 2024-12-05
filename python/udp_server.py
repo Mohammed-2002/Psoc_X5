@@ -1,4 +1,4 @@
-
+'''
 import socket
 import optparse
 import time
@@ -24,7 +24,6 @@ def enter_command(sock, addr):
         sock.sendto(bytes(str(cmd), "utf-8"), addr)
 
 def receive_messages(sock):
-    """Continuously receive messages from the client and print them."""
     while True:
         try:
             data, addr = sock.recvfrom(4096)
@@ -39,7 +38,7 @@ def receive_messages(sock):
                 print("Acknowledgment received: LED turned OFF.")
             elif message == 'INVALID CMD RECEIVED':
                 print("Client received an invalid command.")
-            #'''
+            
             else:
                 print(f"Message from Client: {message}")
 
@@ -70,3 +69,39 @@ if __name__ == '__main__':
     (options, args) = parser.parse_args()
 
     echo_server(options.hostname, options.port)
+'''
+
+import socket
+import json
+
+# Define the UDP server's address and port
+UDP_IP = "192.168.137.1"  # Replace with the server's IP address
+UDP_PORT = 57345           # Replace with the server's port
+
+# Create a UDP socket
+sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+
+# Bind the socket if required (or skip if server sends unicast directly to you)
+sock.bind((UDP_IP, UDP_PORT))
+
+print(f"Listening for UDP data on {UDP_IP}:{UDP_PORT}...")
+
+while True:
+    try:
+        # Receive data from the UDP server
+        data, addr = sock.recvfrom(1024)  # Buffer size
+        message = data.decode('utf-8')
+        print(f"Received message from {addr}: {message}")
+        
+        # Try parsing JSON if the data is in JSON format
+        try:
+            parsed_data = json.loads(message)
+            print("Parsed JSON Data:", parsed_data)
+        except json.JSONDecodeError:
+            print("Received malformed JSON data:", message)
+
+    except KeyboardInterrupt:
+        print("UDP Client stopped.")
+        break
+    except Exception as e:
+        print(f"Error: {e}")
