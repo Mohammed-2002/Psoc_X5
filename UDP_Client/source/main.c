@@ -55,7 +55,6 @@
 
 /* UDP client task header file. */
 #include "udp_client.h"
-#include "button_led_task.h"
 /* Include serial flash library and QSPI memory configurations only for the
  * kits that require the Wi-Fi firmware to be loaded in external QSPI NOR flash.
  */
@@ -77,8 +76,6 @@
 
 /* UDP server task handle. */
 TaskHandle_t client_task_handle;
-
-QueueHandle_t led_state_queue;
 
 /*******************************************************************************
 * Function Name: main
@@ -110,16 +107,6 @@ int main(void)
 
     /* Initialize retarget-io to use the debug UART port */
     cy_retarget_io_init(CYBSP_DEBUG_UART_TX, CYBSP_DEBUG_UART_RX, CY_RETARGET_IO_BAUDRATE);
-
-    /* Initialize the User LED */
-    //cyhal_gpio_init(CYBSP_USER_LED, CYHAL_GPIO_DIR_OUTPUT, CYHAL_GPIO_DRIVE_STRONG, CYBSP_LED_STATE_OFF);
-
-    led_state_queue = xQueueCreate(10, sizeof(uint32_t));
-        if (led_state_queue == NULL) {
-            printf("Queue creation failed\n");
-            CY_ASSERT(0);
-        }
-    xTaskCreate(button_led_task, "Button_LED_Task", 1024, NULL, 1, NULL);
 
     xTaskCreate(sensor_readout_task, "Sensor task", 1024, NULL, 1, NULL);
 

@@ -100,7 +100,6 @@ cy_socket_sockaddr_t peer_addr;
 /* UDP Client task handle. */
 extern TaskHandle_t client_task_handle;
 
-extern QueueHandle_t led_state_queue;
 extern QueueHandle_t distance_queue;
 extern QueueHandle_t speed_queue;
 
@@ -119,116 +118,8 @@ extern QueueHandle_t speed_queue;
  *
  *******************************************************************************/
 
-void original_udp_client_task(void *arg)
-{
-    cy_rslt_t result ;
-
-    /* Variable to store the number of bytes sent to the UDP server. */
-    uint32_t bytes_sent = 0;
-
-    /* Variable to receive LED ON/OFF from udp_client_recv_handler. */
-    uint32_t led_state_ack = LED_OFF_CMD;
-
-    /* IP address and UDP port number of the UDP server */
-    cy_socket_sockaddr_t udp_server_addr = {
-        .ip_address.ip.v4 = UDP_SERVER_IP_ADDRESS,
-        .ip_address.version = CY_SOCKET_IP_VER_V4,
-        .port = UDP_SERVER_PORT
-    };
-
-    /* Connect to Wi-Fi AP */
-    if(connect_to_wifi_ap() != CY_RSLT_SUCCESS )
-    {
-        printf("\n Failed to connect to Wi-FI AP.\n");
-        CY_ASSERT(0);
-    }
-
-    /* Secure Sockets initialized */
-    result = cy_socket_init();
-    if (result != CY_RSLT_SUCCESS)
-    {
-        printf("Secure Sockets initialization failed!\n");
-        CY_ASSERT(0);
-    }
-    printf("Secure Sockets initialized\n");
-
-    result = create_udp_client_socket();
-    if (result != CY_RSLT_SUCCESS)
-    {
-        printf("UDP Client Socket creation failed!\n");
-        CY_ASSERT(0);
-    }
-
-    /* First send data to Server and wait to receive command */
-    result = cy_socket_sendto(client_handle, START_COMM_MSG, strlen(START_COMM_MSG), CY_SOCKET_FLAGS_NONE,
-                                &udp_server_addr, sizeof(cy_socket_sockaddr_t), &bytes_sent);
-    if(result == CY_RSLT_SUCCESS)
-    {
-        printf("Data sent to server\n");
-    }
-    else
-    {
-        printf("Failed to send data to server. Error : %"PRIu32"\n", result);
-    }
-
-    while(true)
-    {
-        /* Wait till ON/OFF command is received from UDP Server . */
-        //xTaskNotifyWait(0, 0, &led_state_ack, portMAX_DELAY);
-
-        // Example of sending data to server, e.g., LED status
-		const char *data_to_send = "Client message";
-		send_data_to_server(data_to_send);
-
-        printf("============================================================\n");
-
-        /* Send acknowledgment to server after setting the LED ON or OFF */
-        if(led_state_ack == LED_ON_CMD)
-        {
-            /* Turn the LED ON and set flag to send acknowledgment  */
-            printf("Command received from server to turn on LED\n");
-            cyhal_gpio_write(CYBSP_USER_LED, CYBSP_LED_STATE_ON);
-            printf("LED turned ON\n");
-
-            result = cy_socket_sendto(client_handle, ACK_LED_ON, strlen(ACK_LED_ON), CY_SOCKET_FLAGS_NONE,
-                                        &udp_server_addr, sizeof(cy_socket_sockaddr_t), &bytes_sent);
-            if(result != CY_RSLT_SUCCESS)
-            {
-                printf("Failed to send Acknowledgment to server. Error: %"PRIu32"\n", result);
-            }
-        }
-        else if(led_state_ack == LED_OFF_CMD)
-        {
-            /* Turn the LED OFF and set flag to send acknowledgment */
-            printf("Command received from server to turn off LED\n");
-            cyhal_gpio_write(CYBSP_USER_LED, CYBSP_LED_STATE_OFF);
-            printf("LED turned OFF\n");
-
-            result = cy_socket_sendto(client_handle, ACK_LED_OFF, strlen(ACK_LED_OFF), CY_SOCKET_FLAGS_NONE,
-                                        &udp_server_addr, sizeof(cy_socket_sockaddr_t), &bytes_sent);
-            if(result != CY_RSLT_SUCCESS)
-            {
-                printf("Failed to send acknowledgment to server. Error: %"PRIu32"\n", result);
-            }
-        }
-        else
-        {
-            printf("Invalid command received.\n");
-            result = cy_socket_sendto(client_handle, INVALID_CMD_MSG, strlen(INVALID_CMD_MSG), CY_SOCKET_FLAGS_NONE,
-                                        &udp_server_addr, sizeof(cy_socket_sockaddr_t), &bytes_sent);
-            if(result != CY_RSLT_SUCCESS)
-            {
-                printf("Failed to send acknowledgment to server. Error: %"PRIu32"\n", result);
-            }
-        }
-
-        print_heap_usage("After controlling the LED and ACKing the server");
-    }
- }
-
 void udp_client_task(void *arg)
 {
-	uint32_t led_state;
     cy_rslt_t result ;
 
     /* Variable to store the number of bytes sent to the UDP server. */
@@ -285,23 +176,6 @@ void udp_client_task(void *arg)
 
     while(true)
     {
-    	/*
-    	if (xQueueReceive(led_state_queue, &led_state, portMAX_DELAY) == pdPASS) {
-    		printf("LED state: %d\n", led_state);
-
-			const char *ack_message = (led_state == LED_ON_CMD) ? "LED ON" : "LED OFF";
-			//printf("ack_message : %s\n", ack_message);
-			result = cy_socket_sendto(client_handle, ack_message, strlen(ack_message),
-									  CY_SOCKET_FLAGS_NONE, &udp_server_addr,
-									  sizeof(cy_socket_sockaddr_t), &bytes_sent);
-			if (result != CY_RSLT_SUCCESS) {
-				printf("Failed to send LED state to server. Error: %" PRIu32 "\n", result);
-			} else {
-                printf("LED state sent: %s\n", ack_message);
-            }
-		}
-		*/
-
     	if (xQueueReceive(distance_queue, &distance_data, /*portMAX_DELAY*/ pdMS_TO_TICKS(0)) == pdPASS) {
     		char message[100];
 			snprintf(message, sizeof(message), "{\"distance0\": %.2f, \"distance1\": %.2f, \"distance2\": %.2f, \"distance3\": %.2f}",

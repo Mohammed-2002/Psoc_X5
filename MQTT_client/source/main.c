@@ -57,9 +57,7 @@
 #include "cycfg_qspi_memslot.h"
 #endif
 
-
 /* Include de custom headers voor de taken */
-#include "task_send_motor_pins.h"
 #include "task_receive_motor_pins.h"
 #include "task_receive_motor_duty_cycle.h"
 
@@ -121,9 +119,6 @@ int main()
 		CY_ASSERT(0);
 	}
 
-	/* Create queue voor subscriber waarden */
-	//subscriber_task_q = xQueueCreate(SUBSCRIBER_TASK_QUEUE_LENGTH, sizeof(subscriber_data_t));
-
 	/* Check of de queue succesvol is aangemaakt */
 	if (motor_pins_queue == NULL || subscriber_task_q)
 	{
@@ -133,9 +128,6 @@ int main()
 
     /* Create the MQTT Client task. */
     xTaskCreate(mqtt_client_task, "MQTT Client task", MQTT_CLIENT_TASK_STACK_SIZE, NULL, MQTT_CLIENT_TASK_PRIORITY, NULL);
-
-    /* Create the subscriber task */
-    //xTaskCreate(subscriber_task, "Subscriber Task", SUBSCRIBER_TASK_STACK_SIZE, NULL, SUBSCRIBER_TASK_PRIORITY, NULL);
 
     /* Maak de taak die motor pin waarden ontvangt en naar GPIO schrijft */
     xTaskCreate(task_receive_motor_pins, "ReceiveMotorPinsTask", 1024, NULL, 1, NULL);

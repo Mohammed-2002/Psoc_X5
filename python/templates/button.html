@@ -63,8 +63,7 @@
             width: fit-content;
         }
         .sensor-data,
-        .accelerometer-data,
-        .thermistor-data {
+        .accelerometer-data {
             display: flex;
             justify-content: space-evenly;
             font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -132,12 +131,6 @@
                     <div class="data-item" id="accZ">Z: Unknown</div>
                 </div>
             </div>
-            <div class="status-section">
-                <h4 class="h3">Thermistor</h4>
-                <div class="thermistor-data">
-                    <div class="data-item" id="temperature_state">Unknown</div>
-                </div>
-            </div>
         </div>
 
         <!-- Control Panel -->
@@ -152,17 +145,26 @@
                     <h4 class="h3">Motor Control</h4>
                     <div class="grid-container">
                         <button id="clockwiseButton" class="grid-button" onclick="publishMotorCommand('motorstate', this)">&#10227;</button>
-                        <button id="forwardButton" class="grid-button" onclick="publishMotorCommand('motorstate', this)">FORWARD</button>
+                        <button id="autonomousButton" class="grid-button" onclick="toggleAutonomous()">AUTONOMOUS</button>
                         <button id="counterclockwiseButton" class="grid-button" onclick="publishMotorCommand('motorstate', this)">&#10226;</button>
+                        <button id="forwardLeftButton" class="grid-button" onclick="publishMotorCommand('motorstate', this)">FORWARDLEFT</button> 
+                        <button id="forwardButton" class="grid-button" onclick="publishMotorCommand('motorstate', this)">FORWARD</button>
+                        <button id="forwardRightButton" class="grid-button" onclick="publishMotorCommand('motorstate', this)">FORWARDRIGHT</button>
                         <button id="leftButton" class="grid-button" onclick="publishMotorCommand('motorstate', this)">LEFT</button>
                         <button id="turnoffButton" class="grid-button" onclick="publishMotorCommand('motorstate', this)">TURN OFF</button>
                         <button id="rightButton" class="grid-button" onclick="publishMotorCommand('motorstate', this)">RIGHT</button>
-                        <button id="backwardButton" class="grid-button" onclick="publishMotorCommand('motorstate', this)">BACKWARD</button>
-
-                        <button id="forwardRightButton" class="grid-button" onclick="publishMotorCommand('motorstate', this)">FORWARDRIGHT</button>
-                        <button id="forwardLeftButton" class="grid-button" onclick="publishMotorCommand('motorstate', this)">FORWARDLEFT</button>
-                        <button id="backwardRightButton" class="grid-button" onclick="publishMotorCommand('motorstate', this)">BACKWARDRIGHT</button>
                         <button id="backwardLeftButton" class="grid-button" onclick="publishMotorCommand('motorstate', this)">BACKWARDLEFT</button>
+                        <button id="backwardButton" class="grid-button" onclick="publishMotorCommand('motorstate', this)">BACKWARD</button>
+                        <button id="backwardRightButton" class="grid-button" onclick="publishMotorCommand('motorstate', this)">BACKWARDRIGHT</button>
+                        <button id="backWheelsOffRight" class="grid-button" onclick="publishMotorCommand('motorstate', this)">BACKWHEELSOFFRIGHT</button>
+                        <button id="backWheelsOffLeft" class="grid-button" onclick="publishMotorCommand('motorstate', this)">BACKWHEELSOFFLEFT</button>
+                        <button id="frontWheelsOffRight" class="grid-button" onclick="publishMotorCommand('motorstate', this)">FRONTWHEELSOFFRIGHT</button>
+                        <button id="frontWheelsOffLeft" class="grid-button" onclick="publishMotorCommand('motorstate', this)">FRONTWHEELSOFFLEFT</button>
+                        <button id="rightWheelsOffForward" class="grid-button" onclick="publishMotorCommand('motorstate', this)">RIGHTWHEELSOFFFORWARD</button>
+                        <button id="rightWheelsOffBackward" class="grid-button" onclick="publishMotorCommand('motorstate', this)">RIGHTWHEELSOFFBACKWARD</button>
+                        <button id="leftWheelsOffForward" class="grid-button" onclick="publishMotorCommand('motorstate', this)">LEFTWHEELSOFFFORWARD</button>
+                        <button id="leftWheelsOffBackward" class="grid-button" onclick="publishMotorCommand('motorstate', this)">LEFTWHEELSOFFBACKWARD</button>
+                        <button id="rewindButton" class="grid-button" onclick="" style="visibility: hidden;" ></button>
                     </div>
                 </div>
             </div>
@@ -171,8 +173,13 @@
 
     <script>
         const socket = io();
+        let autonomous = false; // Boolean-variabele die toggelt
+        let logArray = []; // To store button logs
+        let currentButton = null; // Track the currently pressed button
+        let buttonStartTime = null; // Track the start time of the current button press
+
         
-        const topics = ["ledstate", "motorstate", "Thermistor"]; // Add the topics you want to subscribe to here
+        const topics = ["ledstate", "motorstate"]; // Add the topics you want to subscribe to here
 
         window.onload = () => {
             topics.forEach(topic => {
@@ -181,16 +188,68 @@
             });
         };
 
-        socket.on('update_sensor_data', function(data) {
-            //document.getElementById('sensorData').textContent = `LED: ${data.sensor_data}`;
+            function toggleAutonomous() {
+            autonomous = !autonomous; // Toggle de boolean
+            console.log("Autonomous mode:", autonomous);
 
+            // Stuur de status naar de server
+            socket.emit('toggle_autonomous', { autonomous: autonomous });
+        }
+
+        // Initialize the "stop" state to prevent redundant commands
+        let check = 0;
+        socket.on('update_sensor_data', function(data) {
+            // Display sensor distances
             document.getElementById('sensor1').textContent = `Distance 1: ${data.sensor_data['0']} cm`;
             document.getElementById('sensor2').textContent = `Distance 2: ${data.sensor_data['1']} cm`;
             document.getElementById('sensor3').textContent = `Distance 3: ${data.sensor_data['2']} cm`;
             document.getElementById('sensor4').textContent = `Distance 4: ${data.sensor_data['3']} cm`;
 
+            if (data.sensor_data['3'] < 50) {
+                if (!document.getElementById('forwardButton').classList.contains('disabled-button')) {
+                    document.getElementById('forwardButton').classList.add('disabled-button');
+                    document.getElementById('forwardRightButton').classList.add('disabled-button');
+                    document.getElementById('forwardLeftButton').classList.add('disabled-button');
+                }
+            } else {
+                if (document.getElementById('forwardButton').classList.contains('disabled-button')) {
+                    document.getElementById('forwardButton').classList.remove('disabled-button');
+                    document.getElementById('forwardRightButton').classList.remove('disabled-button');
+                    document.getElementById('forwardLeftButton').classList.remove('disabled-button');
+                }
+            }
+            if (data.sensor_data['0'] < 50) {
+                if (!document.getElementById('backwardButton').classList.contains('disabled-button')) {
+                    document.getElementById('backwardButton').classList.add('disabled-button');
+                }
+            } else {
+                if (document.getElementById('backwardButton').classList.contains('disabled-button')) {
+                    document.getElementById('backwardButton').classList.remove('disabled-button');
+                }
+            }
+            if (data.sensor_data['1'] < 50) {
+                if (!document.getElementById('leftButton').classList.contains('disabled-button')) {
+                    document.getElementById('leftButton').classList.add('disabled-button');
+                }
+            } else {
+                if (document.getElementById('leftButton').classList.contains('disabled-button')) {
+                    document.getElementById('leftButton').classList.remove('disabled-button');
+                }
+            }
+            if (data.sensor_data['2'] < 50) {
+                if (!document.getElementById('rightButton').classList.contains('disabled-button')) {
+                    document.getElementById('rightButton').classList.add('disabled-button');
+                }
+            } else {
+                if (document.getElementById('rightButton').classList.contains('disabled-button')) {
+                    document.getElementById('rightButton').classList.remove('disabled-button');
+                }
+            }
+
+            // Additional visualization logic
             drawCar(data);
         });
+
 
         socket.on('update_speed_data', function(data) {
             //document.getElementById('sensorData').textContent = `LED: ${data.sensor_data}`;
@@ -209,7 +268,6 @@
             document.getElementById('accY').textContent = `Y: ${data.accelero_data['y']} g`;
             document.getElementById('accZ').textContent = `Z: ${data.accelero_data['z']} g`;
 
-            //updateCanvas(data.accelero_data['y'], data.accelero_data['x']);
             updateCanvas(data.accelero_data['x'], data.accelero_data['y']);
 
         });
@@ -220,8 +278,6 @@
                 document.getElementById("ledState").textContent = `LED: ${data.payload}`;
             } else if (data.topic === "motorstate") {
                 document.getElementById("motorState").textContent = `MOTORPINS: ${data.payload}`;
-            } else if (data.topic === "Thermistor") {
-                document.getElementById("temperature_state").textContent = `Temperature: ${data.payload} °C`;
             }
         });
 
@@ -239,11 +295,21 @@
                 document.getElementById("backwardButton"),
                 document.getElementById("leftButton"),
                 document.getElementById("rightButton"),
+                document.getElementById("rewindButton"),
 
                 document.getElementById("forwardRightButton"),
                 document.getElementById("forwardLeftButton"),
                 document.getElementById("backwardRightButton"),
                 document.getElementById("backwardLeftButton"),
+
+                document.getElementById("backWheelsOffRight"),
+                document.getElementById("backWheelsOffLeft"),
+                document.getElementById("frontWheelsOffRight"),
+                document.getElementById("frontWheelsOffLeft"),
+                document.getElementById("rightWheelsOffForward"),
+                document.getElementById("rightWheelsOffBackward"),
+                document.getElementById("leftWheelsOffForward"),
+                document.getElementById("leftWheelsOffBackward"),
 
                 document.getElementById("clockwiseButton"),
                 document.getElementById("counterclockwiseButton"),
@@ -259,66 +325,183 @@
 
         function toggleLed(topic, button) {
             const command = button.textContent;
-            
+
             socket.emit('publish', JSON.stringify({ topic: topic, message: command }));
             console.log(`Published message: '${command}' to topic: ${topic}`);
-            
-            //publishToTopic(topic, command);
-
+        
             button.textContent = (command === "TURN ON") ? "TURN OFF" : "TURN ON";
         }
 
         function publishMotorCommand(topic, button) {
-            enableAll()
+        enableAll();
 
-            let command;
-            switch (button.id) {
-                case "forwardButton":
-                    command = "GO FORWARD";
-                    break;
-                case "backwardButton":
-                    command = "GO BACKWARD";
-                    break;
-                case "leftButton":
-                    command = "GO LEFT";
-                    break;
-                case "rightButton":
-                    command = "GO RIGHT";
-                    break;
+        let command;
+        switch (button.id) {
+            case "forwardButton":
+                command = "GO FORWARD";
+                break;
+            case "backwardButton":
+                command = "GO BACKWARD";
+                break;
+            case "leftButton":
+                command = "GO LEFT";
+                break;
+            case "rightButton":
+                command = "GO RIGHT";
+                break;
 
-                case "forwardRightButton":
-                    command = "GO FORWARDRIGHT";
-                    break;
-                case "forwardLeftButton":
-                    command = "GO FORWARDLEFT";
-                    break;
-                case "backwardRightButton":
-                    command = "GO BACKWARDRIGHT";
-                    break;
-                case "backwardLeftButton":
-                    command = "GO BACKWARDLEFT";
-                    break;
+            case "forwardRightButton":
+                command = "GO FORWARDRIGHT";
+                break;
+            case "forwardLeftButton":
+                command = "GO FORWARDLEFT";
+                break;
+            case "rewindButton":
+                break;
+            case "backwardRightButton":
+                command = "GO BACKWARDRIGHT";
+                break;
+            case "backwardLeftButton":
+                command = "GO BACKWARDLEFT";
+                break;
 
-                case "clockwiseButton":
-                    command = "GO CLOCKWISE";
-                    break;
-                case "counterclockwiseButton":
-                    command = "GO COUNTERCLOCKWISE";
-                    break;
+            case "clockwiseButton":
+                command = "GO CLOCKWISE";
+                break;
+            case "counterclockwiseButton":
+                command = "GO COUNTERCLOCKWISE";
+                break;
 
-                case "turnoffButton":
-                    command = "TURN OFF";
-                    break;
-                default:
-                    console.error("Unknown button ID");
-                    return;
-            } 
+            case "turnoffButton":
+                command = "TURN OFF";
+                break;
+
+            case "backWheelsOffRight":
+                command = "BACK WHEELS OFF RIGHT";
+                break;
+            case "backWheelsOffLeft":
+                command = "BACK WHEELS OFF LEFT";
+                break;
+            case "frontWheelsOffRight":
+                command = "FRONT WHEELS OFF RIGHT";
+                break;
+            case "frontWheelsOffLeft":
+                command = "FRONT WHEELS OFF LEFT";
+                break;
+            case "rightWheelsOffForward":
+                command = "RIGHT WHEELS OFF FORWARD";
+                break;
+            case "rightWheelsOffBackward":
+                command = "RIGHT WHEELS OFF BACKWARD";
+                break;
+            case "leftWheelsOffForward":
+                command = "LEFT WHEELS OFF FORWARD";
+                break;
+            case "leftWheelsOffBackward":
+                command = "LEFT WHEELS OFF BACKWARD";
+                break;
+
+            default:
+                console.error("Unknown button ID");
+                return;
+        }
+
+        const currentTime = Date.now(); // Get the current timestamp
+
+        if (currentButton && button.id !== currentButton.id) {
+                // Calculate the duration of the previous button press
+                let duration = (currentTime - buttonStartTime) / 1000; // in seconds
+
+                // Use the command instead of textContent
+                if (currentCommand === "TURN OFF") {
+                    duration = 0.5; // Set duration to 0.5 seconds for "TURN OFF"
+                }
+
+                // Log the message (command) and duration
+                logArray.push({
+                    message: currentCommand, // Use the last button's command
+                    duration: duration,
+                });
+            }
+
+            // Update the current button, command, and start time
+            currentButton = button;
+            currentCommand = command;
+            buttonStartTime = currentTime;
 
             socket.emit('publish', JSON.stringify({ topic: topic, message: command }));
             console.log(`Published message: '${command}' to topic: ${topic}`);
 
             button.disabled = !button.disabled;
             button.classList.toggle("disabled-button");
+        }
+
+        document.getElementById("rewindButton").onclick = async () => {
+            if (currentButton) {
+                // Log the final button's duration before rewinding
+                let duration = (Date.now() - buttonStartTime) / 1000; // in seconds
+
+                // Use the command instead of textContent
+                if (currentCommand === "TURN OFF") {
+                    duration = 0.5; // Set duration to 0.5 seconds for "TURN OFF"
+                }
+
+                logArray.push({
+                    message: currentCommand, // Use the command instead of textContent
+                    duration: duration,
+                });
+            }
+
+            // Print the log array to the console
+            console.log("Button Press Logs:", logArray);
+
+            // Start the rewind process
+            await rewindMovements();
+
+            // Clear the logs and states after rewinding
+            logArray = [];
+            currentButton = null;
+            currentCommand = null;
+            buttonStartTime = null;
+        };
+
+        // Rewind Movements Function
+        function getOppositeCommand(command) {
+            const opposites = {
+                "GO FORWARD": "GO BACKWARD",
+                "GO BACKWARD": "GO FORWARD",
+                "GO LEFT": "GO RIGHT",
+                "GO RIGHT": "GO LEFT",
+                "GO FORWARDRIGHT": "GO BACKWARDLEFT",
+                "GO FORWARDLEFT": "GO BACKWARDRIGHT",
+                "GO BACKWARDRIGHT": "GO FORWARDLEFT",
+                "GO BACKWARDLEFT": "GO FORWARDRIGHT",
+                "GO CLOCKWISE": "GO COUNTERCLOCKWISE",
+                "GO COUNTERCLOCKWISE": "GO CLOCKWISE",
+                "TURN OFF": "TURN OFF", // No opposite command or you can handle it differently
+            };
+
+            return opposites[command] || null; // Return null if no opposite exists
+        }
+
+        async function rewindMovements() {
+            console.log("Starting rewind...");
+
+            for (let i = logArray.length - 1; i >= 0; i--) {
+                const { message, duration } = logArray[i];
+                const oppositeCommand = getOppositeCommand(message);
+
+                if (oppositeCommand) {
+                    // Publish the opposite command
+                    socket.emit('publish', JSON.stringify({ topic: 'motorstate', message: oppositeCommand }));
+                    console.log(`Executing: ${oppositeCommand} for ${duration}s`);
+
+                    // Wait for the duration
+                    await new Promise(resolve => setTimeout(resolve, duration * 1000));
+                }
+            }
+            socket.emit('publish', JSON.stringify({ topic: 'motorstate', message: 'TURN OFF' }));
+            console.log("Rewind complete.");
         }
 
         /////////////////////////////////////////////////////////////////////////////
