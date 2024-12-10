@@ -62,14 +62,14 @@
 #define MQTT_PASSWORD                     "testtest"
 */
 
-
+/*
 //#define MQTT_BROKER_ADDRESS					"192.168.132.204"
-#define MQTT_BROKER_ADDRESS					"192.168.137.168"
+#define MQTT_BROKER_ADDRESS				  "192.168.137.168"
 #define MQTT_PORT                         1883
 #define MQTT_SECURE_CONNECTION            ( 0 )
 #define MQTT_USERNAME                     ""
 #define MQTT_PASSWORD                     ""
-
+*/
 
 /*
 // Naar de public hiveMQ broker werkt.
@@ -80,13 +80,13 @@
 #define MQTT_PASSWORD                     "johanneschopov"
 */
 
-/*
+
 #define MQTT_BROKER_ADDRESS               "94e72a782d7b4b9c8ddc2224804a18ce.s1.eu.hivemq.cloud"
 #define MQTT_PORT                         8883
 #define MQTT_SECURE_CONNECTION            ( 1 )
-#define MQTT_USERNAME                     "IoT_Johannes"
+#define MQTT_USERNAME                     "psoc"
 #define MQTT_PASSWORD                     "johanneschopov"
-*/
+
 /********************* MQTT MESSAGE CONFIGURATION MACROS **********************/
 /* The MQTT topics to be used by the publisher and subscriber. */
 #define MQTT_PUB_TOPIC_LEDSTATUS        					"ledstate"
@@ -95,6 +95,7 @@
 
 #define MQTT_LED_CONTROL_SUB_TOPIC 							"ledstate"
 #define MQTT_MOTOR_CONTROL_SUB_TOPIC						"motorstate"
+#define MQTT_LOW_POWER_SUB_TOPIC							"lowpowerstate"
 
 /* Set the QoS that is associated with the MQTT publish, and subscribe messages.
  * Valid choices are 0, 1, and 2. Other values should not be used in this macro.
@@ -152,6 +153,9 @@
 #define MQTT_MOTOR_CLOCKWISE_MESSAGE				"GO CLOCKWISE"
 #define MQTT_MOTOR_COUNTERCLOCKWISE_MESSAGE			"GO COUNTERCLOCKWISE"
 
+#define MQTT_LOW_POWER_ON            "LOW POWER ON"
+#define MQTT_LOW_POWER_OFF            "LOW POWER OFF"
+
 /******************* OTHER MQTT CLIENT CONFIGURATION MACROS *******************/
 /* A unique client identifier to be used for every MQTT connection. */
 #define MQTT_CLIENT_IDENTIFIER            "psoc6-mqtt-client"
@@ -201,7 +205,7 @@
  * Specify the SNI Host Name to use this extension
  * as specified by the MQTT Broker.
  */
-#define MQTT_SNI_HOSTNAME                 "test.mosquitto.org"
+#define MQTT_SNI_HOSTNAME                 (MQTT_BROKER_ADDRESS)
 
 /* A Network buffer is allocated for sending and receiving MQTT packets over
  * the network. Specify the size of this buffer using this macro.
@@ -280,66 +284,38 @@
 "cnSZ58zKgsMVnKUcqnlKeliIFV0B2rN4OOJWGLMA+7tyRV9tS/kQpvFxrZTYuGsi\n"\
 "63SlFFm4mKJnvCZBCnJReKM=\n"\
 "-----END PRIVATE KEY-----\n"
-
-/* PEM-encoded Root CA certificate */
-/*//MOSQUITTO
-#define ROOT_CA_CERTIFICATE     \
-"-----BEGIN CERTIFICATE-----\n"\
-"MIIEAzCCAuugAwIBAgIUBY1hlCGvdj4NhBXkZ/uLUZNILAwwDQYJKoZIhvcNAQEL\n"\
-"BQAwgZAxCzAJBgNVBAYTAkdCMRcwFQYDVQQIDA5Vbml0ZWQgS2luZ2RvbTEOMAwG\n"\
-"A1UEBwwFRGVyYnkxEjAQBgNVBAoMCU1vc3F1aXR0bzELMAkGA1UECwwCQ0ExFjAU\n"\
-"BgNVBAMMDW1vc3F1aXR0by5vcmcxHzAdBgkqhkiG9w0BCQEWEHJvZ2VyQGF0Y2hv\n"\
-"by5vcmcwHhcNMjAwNjA5MTEwNjM5WhcNMzAwNjA3MTEwNjM5WjCBkDELMAkGA1UE\n"\
-"BhMCR0IxFzAVBgNVBAgMDlVuaXRlZCBLaW5nZG9tMQ4wDAYDVQQHDAVEZXJieTES\n"\
-"MBAGA1UECgwJTW9zcXVpdHRvMQswCQYDVQQLDAJDQTEWMBQGA1UEAwwNbW9zcXVp\n"\
-"dHRvLm9yZzEfMB0GCSqGSIb3DQEJARYQcm9nZXJAYXRjaG9vLm9yZzCCASIwDQYJ\n"\
-"KoZIhvcNAQEBBQADggEPADCCAQoCggEBAME0HKmIzfTOwkKLT3THHe+ObdizamPg\n"\
-"UZmD64Tf3zJdNeYGYn4CEXbyP6fy3tWc8S2boW6dzrH8SdFf9uo320GJA9B7U1FW\n"\
-"Te3xda/Lm3JFfaHjkWw7jBwcauQZjpGINHapHRlpiCZsquAthOgxW9SgDgYlGzEA\n"\
-"s06pkEFiMw+qDfLo/sxFKB6vQlFekMeCymjLCbNwPJyqyhFmPWwio/PDMruBTzPH\n"\
-"3cioBnrJWKXc3OjXdLGFJOfj7pP0j/dr2LH72eSvv3PQQFl90CZPFhrCUcRHSSxo\n"\
-"E6yjGOdnz7f6PveLIB574kQORwt8ePn0yidrTC1ictikED3nHYhMUOUCAwEAAaNT\n"\
-"MFEwHQYDVR0OBBYEFPVV6xBUFPiGKDyo5V3+Hbh4N9YSMB8GA1UdIwQYMBaAFPVV\n"\
-"6xBUFPiGKDyo5V3+Hbh4N9YSMA8GA1UdEwEB/wQFMAMBAf8wDQYJKoZIhvcNAQEL\n"\
-"BQADggEBAGa9kS21N70ThM6/Hj9D7mbVxKLBjVWe2TPsGfbl3rEDfZ+OKRZ2j6AC\n"\
-"6r7jb4TZO3dzF2p6dgbrlU71Y/4K0TdzIjRj3cQ3KSm41JvUQ0hZ/c04iGDg/xWf\n"\
-"+pp58nfPAYwuerruPNWmlStWAXf0UTqRtg4hQDWBuUFDJTuWuuBvEXudz74eh/wK\n"\
-"sMwfu1HFvjy5Z0iMDU8PUDepjVolOCue9ashlS4EB5IECdSR2TItnAIiIwimx839\n"\
-"LdUdRudafMu5T5Xma182OC0/u/xRlEm+tvKGGmfFcN0piqVl8OrSPBgIlb+1IKJE\n"\
-"m/XriWr/Cq4h/JfB7NTsezVslgkBaoU=\n"\
-"-----END CERTIFICATE-----\n"
 */
-/*
+
 //HIVEMQ
 #define ROOT_CA_CERTIFICATE     \
 "-----BEGIN CERTIFICATE-----\n"\
-"MIIFCzCCA/OgAwIBAgISBCtYGv7FR2wkunFzzlcW/S0UMA0GCSqGSIb3DQEBCwUA\n"\
-"MDMxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MQwwCgYDVQQD\n"\
-"EwNSMTEwHhcNMjQxMDI0MjM0NDE1WhcNMjUwMTIyMjM0NDE0WjAfMR0wGwYDVQQD\n"\
-"DBQqLnMxLmV1LmhpdmVtcS5jbG91ZDCCASIwDQYJKoZIhvcNAQEBBQADggEPADCC\n"\
-"AQoCggEBAKVuz2sMPmxx2w/f81/YAEKTbNZMJPk2+ooLFg5hxXvReF+AwIT4XvZ+\n"\
-"MLhSKvFxmghJF+BB9WyhqrcJLGDCP4s6SOLWTYixEoTcaLUviqqn+06kYqDJ6E83\n"\
-"NGsc7T42DlPnzqcZZjPRed9rt4CP3RgeZlWyYZgiD8FoJG9gie8ytihF/FkGZT8T\n"\
-"N4Vkl2vQa3mfBWeeKrcuhcLPxqIWDz/30iYfLtEe5JYYScoCKTXcP9SUStjpR8pD\n"\
-"vfOWdvasOAuBy7yBbx01/4lcQt50hfbhTR/K14/D4rNkuuvU7ktSQnoxVXC8YDwG\n"\
-"zkny10DFt65mVYLNZcBQtOLHHOZGV30CAwEAAaOCAiswggInMA4GA1UdDwEB/wQE\n"\
-"AwIFoDAdBgNVHSUEFjAUBggrBgEFBQcDAQYIKwYBBQUHAwIwDAYDVR0TAQH/BAIw\n"\
-"ADAdBgNVHQ4EFgQUgsEjDU35+EWJKBsFxJ0lM0PXMi4wHwYDVR0jBBgwFoAUxc9G\n"\
-"pOr0w8B6bJXELbBeki8m47kwVwYIKwYBBQUHAQEESzBJMCIGCCsGAQUFBzABhhZo\n"\
-"dHRwOi8vcjExLm8ubGVuY3Iub3JnMCMGCCsGAQUFBzAChhdodHRwOi8vcjExLmku\n"\
-"bGVuY3Iub3JnLzAzBgNVHREELDAqghQqLnMxLmV1LmhpdmVtcS5jbG91ZIISczEu\n"\
-"ZXUuaGl2ZW1xLmNsb3VkMBMGA1UdIAQMMAowCAYGZ4EMAQIBMIIBAwYKKwYBBAHW\n"\
-"eQIEAgSB9ASB8QDvAHYAzxFW7tUufK/zh1vZaS6b6RpxZ0qwF+ysAdJbd87MOwgA\n"\
-"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\n"\
+"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\n"\
 "-----END CERTIFICATE-----"
 
 /******************************************************************************

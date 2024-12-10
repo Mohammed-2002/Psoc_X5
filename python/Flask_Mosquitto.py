@@ -3,6 +3,7 @@ eventlet.monkey_patch()
 import json
 import socket
 import threading
+import ssl
 from flask import Flask, render_template, jsonify
 from flask_socketio import SocketIO, emit
 from flask_mqtt import Mqtt
@@ -10,20 +11,34 @@ from flask_bootstrap import Bootstrap
 from flask_cors import CORS
 
 app = Flask(__name__)
-app.config['MQTT_BROKER_URL'] = "192.168.132.204"
+app.config['MQTT_BROKER_URL'] = "94e72a782d7b4b9c8ddc2224804a18ce.s1.eu.hivemq.cloud"
+app.config['MQTT_BROKER_PORT'] = 8883
+app.config['MQTT_USERNAME'] = "IoT_Johannes"
+app.config['MQTT_PASSWORD'] = "johanneschopov"
+app.config['MQTT_REFRESH_TIME'] = 0.1  # refresh time in seconds
+#app.config['MQTT_KEEPALIVE'] = 5  # set the time interval for sending a ping to the broker to 5 seconds
+
+app.config['MQTT_TLS_ENABLED'] = True
+app.config['MQTT_TLS_VERSION'] = ssl.PROTOCOL_TLSv1_2
+app.config['MQTT_TLS_CA_CERTS'] = "C:/Users/Johannes/Psoc_X5/python/ca.crt"
+'''
+app = Flask(__name__)
+#app.config['MQTT_BROKER_URL'] = "192.168.132.204"
+app.config['MQTT_BROKER_URL'] = "192.168.137.168"
 app.config['MQTT_BROKER_PORT'] = 1883
 app.config['MQTT_USERNAME'] = ""
 app.config['MQTT_PASSWORD'] = ""
 app.config['MQTT_REFRESH_TIME'] = 0.1  # refresh time in seconds
 #app.config['MQTT_KEEPALIVE'] = 5  # set the time interval for sending a ping to the broker to 5 seconds
+'''
 
 cors = CORS(app, resources={r"*": {"origins": "*"}})
 mqtt = Mqtt(app)
 bootstrap = Bootstrap(app)
 socketio = SocketIO(app, cors_allowed_origins='*', async_mode="eventlet")
 
-UDP_IP = "192.168.132.204"
-#UDP_IP = "192.168.132.189"
+#UDP_IP = "192.168.137.1"
+UDP_IP = "192.168.137.168"
 UDP_PORT = 57345
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 sock.bind((UDP_IP, UDP_PORT))

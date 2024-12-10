@@ -109,10 +109,10 @@ int main()
                         CY_RETARGET_IO_BAUDRATE);
 
     /* Create motor_pins_queue voor 8-bit waarden */
-	motor_pins_queue = xQueueCreate(10, sizeof(uint8_t));  // Queue voor 10 items van 8-bit data
+	motor_pins_queue = xQueueCreate(50, sizeof(uint8_t));  // Queue voor 10 items van 8-bit data
 
 	// In main() function
-	/*
+
 	motor_duty_cycle_queue = xQueueCreate(10, sizeof(uint8_t));  // Queue voor 10 items van 8-bit duty cycle waarden
 
 	if (motor_duty_cycle_queue == NULL)
@@ -120,7 +120,7 @@ int main()
 		printf("Failed to create motor duty cycle queue.\n");
 		CY_ASSERT(0);
 	}
-	*/
+
 	/* Create queue voor subscriber waarden */
 	//subscriber_task_q = xQueueCreate(SUBSCRIBER_TASK_QUEUE_LENGTH, sizeof(subscriber_data_t));
 
@@ -141,7 +141,7 @@ int main()
     xTaskCreate(task_receive_motor_pins, "ReceiveMotorPinsTask", 1024, NULL, 1, NULL);
 
 
-	//xTaskCreate(task_receive_motor_duty_cycle, "ReceiveMotorDutyCycleTask", 1024, NULL, 1, NULL);
+	xTaskCreate(task_receive_motor_duty_cycle, "ReceiveMotorDutyCycleTask", 1024, NULL, 1, NULL);
 
 
     /* Start the FreeRTOS scheduler. */

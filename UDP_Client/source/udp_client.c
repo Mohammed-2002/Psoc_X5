@@ -329,7 +329,7 @@ void udp_client_task(void *arg)
 			if (result != CY_RSLT_SUCCESS) {
 				printf("Failed to send speed to server. Error: %" PRIu32 "\n", result);
 			} else {
-				//printf("Sensor data sent: %s\n", message);
+				printf("Sensor data sent: %s\n", message);
 			}
 			//vTaskDelay(pdMS_TO_TICKS(20));
 		}
@@ -349,7 +349,7 @@ void udp_client_task(void *arg)
 			if (result != CY_RSLT_SUCCESS) {
 				printf("Failed to send LED state to server. Error: %" PRIu32 "\n", result);
 			} else {
-				//printf("Sensor data sent: %s\n", message);
+				printf("Sensor data sent: %s\n", message);
 			}
 			//vTaskDelay(pdMS_TO_TICKS(20));
 		}

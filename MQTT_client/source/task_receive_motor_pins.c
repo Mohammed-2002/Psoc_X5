@@ -29,7 +29,8 @@ void task_receive_motor_pins(void *arg)
     for (;;)
     {
         /* Ontvang de waarde van de queue */
-        if (xQueueReceive(motor_pins_queue, &receivedValue, portMAX_DELAY) == pdTRUE)
+        //if (xQueueReceive(motor_pins_queue, &receivedValue, portMAX_DELAY) == pdTRUE)
+		if (xQueueReceive(motor_pins_queue, &receivedValue, pdMS_TO_TICKS(100)) == pdTRUE)
         {
             /* Zet de ontvangen 8 bits op de respectievelijke GPIO-pinnen */
             cyhal_gpio_write(P0_5,   (receivedValue >> 0) & 0x01);  // Bit 0

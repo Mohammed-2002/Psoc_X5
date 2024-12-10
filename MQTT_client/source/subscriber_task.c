@@ -46,10 +46,13 @@
 #include "cybsp.h"
 #include "string.h"
 #include "FreeRTOS.h"
+#include "timers.h"
+#include "cy_syspm.h"
 
 /* Task header files */
 #include "subscriber_task.h"
 #include "task_receive_motor_pins.h"
+#include "task_receive_motor_duty_cycle.h"
 #include "mqtt_task.h"
 
 /* Configuration file for MQTT client */
@@ -69,7 +72,7 @@
 #define MQTT_SUBSCRIBE_RETRY_INTERVAL_MS        (1000)
 
 /* The number of MQTT topics to be subscribed to. */
-#define SUBSCRIPTION_COUNT                      (2)
+#define SUBSCRIPTION_COUNT                      (3)
 
 /* Queue length of a message queue that is used to communicate with the 
  * subscriber task.
@@ -81,6 +84,7 @@
 *******************************************************************************/
 /* Task handle for this task. */
 TaskHandle_t subscriber_task_handle;
+
 
 /* Handle of the queue holding the commands for the subscriber task */
 QueueHandle_t subscriber_task_q;
@@ -107,6 +111,7 @@ static cy_mqtt_subscribe_info_t subscribe_info[] =
 	},
 
 };
+
 
 /******************************************************************************
 * Function Prototypes
@@ -151,7 +156,7 @@ void subscriber_task(void *pvParameters)
     while (true)
     {
         /* Wait for commands from other tasks and callbacks. */
-        if (pdTRUE == xQueueReceive(subscriber_task_q, &subscriber_q_data, portMAX_DELAY))
+        if (pdTRUE == xQueueReceive(subscriber_task_q, &subscriber_q_data, pdMS_TO_TICKS(100)))
         {
             switch(subscriber_q_data.cmd)
             {
@@ -245,6 +250,17 @@ void subscriber_task(void *pvParameters)
 						    printf("\n");
 						xQueueSend(motor_pins_queue, &motor_state, portMAX_DELAY);
 					}
+					else if (strncmp(subscriber_q_data.topic, MQTT_LOW_POWER_SUB_TOPIC, strlen(subscriber_q_data.topic)) == 0) {
+						uint8_t pwm_state;
+
+						if (strncmp(MQTT_LOW_POWER_ON, subscriber_q_data.data, strlen(subscriber_q_data.data)) == 0){
+							pwm_state = PWM_LOW;
+						} else if (strncmp(MQTT_LOW_POWER_OFF, subscriber_q_data.data, strlen(subscriber_q_data.data)) == 0){
+							pwm_state = PWM_HIGH;
+						}
+
+						xQueueSend(motor_duty_cycle_queue, &pwm_state, portMAX_DELAY);
+					}
 					else
 					{
 						/* Unrecognized topic */
@@ -284,7 +300,8 @@ static void subscribe_to_topic(void)
     /* Array of topics to subscribe to */
     cy_mqtt_subscribe_info_t subscribe_info[SUBSCRIPTION_COUNT] = {
         { .topic = MQTT_LED_CONTROL_SUB_TOPIC, .topic_len = strlen(MQTT_LED_CONTROL_SUB_TOPIC), .qos = MQTT_MESSAGES_QOS },
-        { .topic = MQTT_MOTOR_CONTROL_SUB_TOPIC, .topic_len = strlen(MQTT_MOTOR_CONTROL_SUB_TOPIC), .qos = MQTT_MESSAGES_QOS }
+        { .topic = MQTT_MOTOR_CONTROL_SUB_TOPIC, .topic_len = strlen(MQTT_MOTOR_CONTROL_SUB_TOPIC), .qos = MQTT_MESSAGES_QOS },
+        { .topic = MQTT_LOW_POWER_SUB_TOPIC, .topic_len = strlen(MQTT_LOW_POWER_SUB_TOPIC), .qos = MQTT_MESSAGES_QOS } // New topic
     };
 
     /* Attempt to subscribe to each topic */
@@ -365,11 +382,14 @@ void mqtt_subscription_callback(cy_mqtt_publish_info_t *received_msg_info)
 	subscriber_q_data.data = (char*) received_msg;
 
     subscriber_q_data.data[received_msg_len] = '\0';
+	printf("data in callback: %s\n", subscriber_q_data.data );
+
 
 	print_heap_usage("MQTT subscription callback");
 
     /* Send the command and data to subscriber task queue */
     xQueueSend(subscriber_task_q, &subscriber_q_data, portMAX_DELAY);
+	//xQueueSend(subscriber_task_q, &subscriber_q_data, pdMS_TO_TICKS(100));
 }
 
 /******************************************************************************
