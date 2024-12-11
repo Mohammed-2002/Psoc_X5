@@ -49,8 +49,8 @@
  * CY_WCM_MAX_SSID_LEN and CY_WCM_MAX_PASSPHRASE_LEN as defined in cy_wcm.h file.
  */
 
-#define WIFI_SSID                         "LaurenceLaptop"
-#define WIFI_PASSWORD                     "jeffbewos"
+#define WIFI_SSID                         "Johannes"
+#define WIFI_PASSWORD                     "johanneschopov"
 
 /* Security type of the Wi-Fi access point. See 'cy_wcm_security_t' structure
  * in "cy_wcm.h" for more details.

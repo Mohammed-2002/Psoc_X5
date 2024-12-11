@@ -39,4 +39,6 @@
 		<item value="org.eclipse.rcp:4.28.0.v20230605-0440"/>
 		<item value="org.eclipse.remote:11.2.0.202303140100"/>
 	</list>
+	<section name="NewWizardAction">
+	</section>
 </section>

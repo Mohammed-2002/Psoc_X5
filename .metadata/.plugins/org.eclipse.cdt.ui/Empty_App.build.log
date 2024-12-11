@@ -1,4 +1,4 @@
-11:35:56 **** Incremental Build of configuration Debug for project Empty_App ****
+22:29:58 **** Incremental Build of configuration Debug for project Empty_App ****
 "C:\\Users\\Johannes\\ModusToolbox\\tools_3.2\\modus-shell\\bin\\make" CY_MAKE_IDE=eclipse CY_IDE_TOOLS_DIR=C:/Users/Johannes/ModusToolbox/tools_3.2 CY_IDE_BT_TOOLS_DIR= -j8 --output-sync all 
 Tools Directory: C:/Users/Johannes/ModusToolbox/tools_3.2
 Searching installed tools in progress...
@@ -25,16 +25,6 @@ Generating compilation database file...
 -> ./build/compile_commands.json
 Compilation database file generation complete
 Building 260 file(s)
-Compiling source/main.c -DCOMPONENT_4343W -DCOMPONENT_APP_CY8CPROTO_062_4343W -DCOMPONENT_CAT1 -DCOMPONENT_CAT1A -DCOMPONENT_CM0P_SLEEP -DCOMPONENT_CM4 -DCOMPONENT_CM4_0 -DCOMPONENT_Debug -DCOMPONENT_FREERTOS -DCOMPONENT_GCC_ARM -DCOMPONENT_HCI_UART -DCOMPONENT_MURATA_1DX -DCOMPONENT_MW_ABSTRACTION_RTOS -DCOMPONENT_MW_CAT1CM0P -DCOMPONENT_MW_CLIB_SUPPORT -DCOMPONENT_MW_CMSIS -DCOMPONENT_MW_CORE_LIB -DCOMPONENT_MW_CORE_MAKE -DCOMPONENT_MW_FREERTOS -DCOMPONENT_MW_MTB_HAL_CAT1 -DCOMPONENT_MW_MTB_PDL_CAT1 -DCOMPONENT_MW_RECIPE_MAKE_CAT1A -DCOMPONENT_MW_RETARGET_IO -DCOMPONENT_PSOC6_02 -DCOMPONENT_SOFTFP -DCOMPONENT_WIFI_INTERFACE_SDIO -DCORE_NAME_CM4_0=1 -DCY8C624ABZI_S2D44 -DCY_APPNAME_mtb_example_empty_app -DCY_SUPPORTS_DEVICE_VALIDATION -DCY_TARGET_BOARD=APP_CY8CPROTO_062_4343W -DCY_USING_HAL -DDEBUG -DTARGET_APP_CY8CPROTO_062_4343W  -Ibsps/TARGET_APP_CY8CPROTO-062-4343W -Ibsps -I. -Ibsps/TARGET_APP_CY8CPROTO-062-4343W/bluetooth -Ibsps/TARGET_APP_CY8CPROTO-062-4343W/config/GeneratedSource -Ibsps/TARGET_APP_CY8CPROTO-062-4343W/config -Isource -I../mtb_shared/freertos/release-v10.5.002/Source/include -I../mtb_shared/freertos/release-v10.5.002/Source -I../mtb_shared/freertos/release-v10.5.002 -I../mtb_shared/freertos/release-v10.5.002/Source/portable/COMPONENT_CM4 -I../mtb_shared/freertos/release-v10.5.002/Source/portable -I../mtb_shared/freertos/release-v10.5.002/Source/portable/COMPONENT_CM4/TOOLCHAIN_GCC_ARM -I../mtb_shared/retarget-io/release-v1.6.0/include -I../mtb_shared/retarget-io/release-v1.6.0 -I../mtb_shared/abstraction-rtos/release-v1.8.2/include -I../mtb_shared/abstraction-rtos/release-v1.8.2 -I../mtb_shared/abstraction-rtos/release-v1.8.2/include/COMPONENT_FREERTOS -I../mtb_shared/cat1cm0p/release-v1.7.0/COMPONENT_CAT1A -I../mtb_shared/cat1cm0p/release-v1.7.0 -I../mtb_shared/clib-support/release-v1.5.0 -I../mtb_shared/clib-support/release-v1.5.0/TOOLCHAIN_GCC_ARM -I../mtb_shared/cmsis/release-v5.8.1/Core/Include -I../mtb_shared/cmsis/release-v5.8.1/Core -I../mtb_shared/cmsis/release-v5.8.1 -I../mtb_shared/core-lib/release-v1.4.2/include -I../mtb_shared/core-lib/release-v1.4.2 -I../mtb_shared/mtb-hal-cat1/release-v2.6.1/COMPONENT_CAT1A/include/pin_packages -I../mtb_shared/mtb-hal-cat1/release-v2.6.1/COMPONENT_CAT1A/include -I../mtb_shared/mtb-hal-cat1/release-v2.6.1/COMPONENT_CAT1A -I../mtb_shared/mtb-hal-cat1/release-v2.6.1 -I../mtb_shared/mtb-hal-cat1/release-v2.6.1/COMPONENT_CAT1A/include/triggers -I../mtb_shared/mtb-hal-cat1/release-v2.6.1/include -I../mtb_shared/mtb-hal-cat1/release-v2.6.1/include_pvt -I../mtb_shared/mtb-hal-cat1/release-v2.6.1/source -I../mtb_shared/mtb-pdl-cat1/release-v3.12.0/devices/COMPONENT_CAT1A/include -I../mtb_shared/mtb-pdl-cat1/release-v3.12.0/devices/COMPONENT_CAT1A -I../mtb_shared/mtb-pdl-cat1/release-v3.12.0/devices -I../mtb_shared/mtb-pdl-cat1/release-v3.12.0 -I../mtb_shared/mtb-pdl-cat1/release-v3.12.0/devices/COMPONENT_CAT1A/include/ip -I../mtb_shared/mtb-pdl-cat1/release-v3.12.0/drivers/include -I../mtb_shared/mtb-pdl-cat1/release-v3.12.0/drivers -I../mtb_shared/mtb-pdl-cat1/release-v3.12.0/drivers/third_party/ethernet/include -I../mtb_shared/mtb-pdl-cat1/release-v3.12.0/drivers/third_party/ethernet -I../mtb_shared/mtb-pdl-cat1/release-v3.12.0/drivers/third_party 
-source/main.c: In function 'main':
-source/main.c:180:9: warning: unused variable 'prev_states' [-Wunused-variable]
-  180 |     int prev_states[4] = {0, 0, 0, 0};
-      |         ^~~~~~~~~~~
-source/main.c:179:9: warning: unused variable 'pulse_counts' [-Wunused-variable]
-  179 |     int pulse_counts[4] = {0, 0, 0, 0};
-      |         ^~~~~~~~~~~~
-    Linking output file mtb-example-empty-app.elf
-C:/Users/Johannes/ModusToolbox/tools_3.2/gcc/bin/arm-none-eabi-objcopy -O ihex C:/Users/Johannes/Psoc_X5/Empty_App/build/APP_CY8CPROTO-062-4343W/Debug/mtb-example-empty-app.elf C:/Users/Johannes/Psoc_X5/Empty_App/build/APP_CY8CPROTO-062-4343W/Debug/mtb-example-empty-app.hex
 ==============================================================================
 = Build complete =
 ==============================================================================
@@ -61,5 +51,5 @@ Calculating memory consumption: CY8C624ABZI-S2D44 GCC_ARM
 
 
 
-11:36:01 Build Finished. 0 errors, 2 warnings. (took 5s.315ms)
+22:30:08 Build Finished. 0 errors, 0 warnings. (took 10s.625ms)
 
