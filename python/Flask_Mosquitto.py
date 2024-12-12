@@ -61,6 +61,7 @@ axis_locked = None  # Track if axes 4 or 5 are locked
 button_2_locked = False
 
 autonomous_status = False
+controller_status = False
 
 power_mode_status = False
 power_mode_topic = 'lowpowerstate'
@@ -86,13 +87,19 @@ def listen_to_udp():
     while True:
         data, addr = sock.recvfrom(1024)  # Buffer size
         message = data.decode('utf-8')
-        '''
-        initialize_joystick() 
-        print(joystick_checker)
-        if joystick_checker != 0:
-            handle_joystick()
+        
+        if (controller_status):
+            '''
+            initialize_joystick() 
             #print(joystick_checker)
-        '''
+            if joystick_checker != 0:
+                handle_joystick()
+                #print(joystick_checker)
+            '''
+            bluetooth_thread = threading.Thread(target=bluetooth_setup)
+            bluetooth_thread.start()
+
+
         try:
             parsed_data = json.loads(message)
 
@@ -158,7 +165,7 @@ def is_obstacle(sensor_id, threshold=50):
     return any(val < threshold for val in sensor_buffers[sensor_id])
 
 def selfdriving_mode(valid_sensor_data):
-    global autonomous_status,current_state
+    global autonomous_status, current_state
 
     if autonomous_status:
         # Voeg nieuwe sensorwaarden toe aan de buffers
@@ -329,6 +336,15 @@ def handle_joystick():
         current_state = new_state
         handle_publish(json.dumps({'topic': 'motorstate', 'message': current_state}))
 
+def bluetooth_setup():
+    global joystick_checker, joystick
+
+    initialize_joystick() 
+    #print(joystick_checker)
+    if joystick_checker != 0:
+        handle_joystick()
+        #print(joystick_checker)
+
 @app.route('/api/acceleroData')
 def get_acceleroData():
     return jsonify({'accelero_data': accelero_data})
@@ -353,6 +369,23 @@ def handle_subscribe(json_str):
     mqtt.subscribe(topic)
     print(f"subscribed to {topic}")
 
+@socketio.on('toggle_autonomous')
+def handle_autonomous(state):
+    global autonomous_status
+    autonomous_status = state.get('autonomous')
+
+    if (autonomous_status == False):
+        handle_publish(json.dumps({'topic': 'motorstate', 'message': "TURN OFF"}))
+
+    print(autonomous_status)
+
+@socketio.on('toggle_controller')
+def handle_controller(state):
+    global controller_status
+    controller_status = state.get('controller')
+
+    print(controller_status)
+
 @mqtt.on_message()
 def handle_mqtt_message(client, userdata, message):
     data = {
@@ -370,11 +403,16 @@ def handle_publish(json_str):
     data = json.loads(json_str)
     topic = data.get('topic')
     message = data.get('message')
+    
     if topic == "lowpowerstate":
         mqtt.publish(topic, message)
     else:
         current_state = message
         mqtt.publish(topic, message)
+    
+    
+    #mqtt.publish(topic, message)
+
     print(f"Published '{message}' to {topic}")
 
 udp_thread = threading.Thread(target=listen_to_udp)
